@@ -5,7 +5,7 @@ config 'development', ->
     num_workers 1
     code_cache 'off'
     pid_file 'nginx.pid'
-    log_file 'log/error.log'
+    log_file 'logs/error.log'
     log_level 'notice'
 
 config 'production', ->
