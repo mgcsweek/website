@@ -14,4 +14,4 @@ config 'production', ->
     code_cache 'on'
     pid_file '/var/run/nginx.pid'
     log_file '/var/log/nginx/error.log'
-    log_level 'warning'
+    log_level 'warn'
