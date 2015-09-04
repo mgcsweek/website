@@ -1,0 +1,85 @@
+@font-face {
+    font-family: "Raleway";
+    src: url(/static/typefaces/Raleway-ExtraLight.ttf);
+    font-weight: 300;
+}
+
+body {
+    font-family: "Raleway", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    font-weight: 300;
+    font-size: 140%;
+    padding: 0 14px;
+}
+
+h1.logotype {
+    background: white url(/static/logo.png) no-repeat top center/ 100% 100%;
+    width: 612px;
+    height: 156px;
+    margin: 80px auto 0;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+p {
+    margin-top: 0;
+    font-size: 90%;
+}
+
+h1.logotype + p {
+    margin-top: 64px;
+    font-size: 120%;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+}
+
+#home {
+    p {
+        text-align: center;
+    }
+}
+
+#error { 
+    h1 {
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 230%;
+        font-weight: 300;
+    }
+
+    h1 + p {
+        margin-top: 60px;
+    }
+
+    p {
+        width: 100%;
+        text-align: center;
+        max-width: 960px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    p:nth-child(3), p:nth-child(4) {
+        padding-right: 20px;
+        box-sizing: border-box;
+        text-align: right;
+    }
+
+    p:nth-child(3) {
+        margin-bottom: 0;
+    }
+
+    p:nth-child(4) {
+        margin-top: 7px;
+    }
+
+    p:nth-child(4) {
+    }
+
+    p.debug {
+        margin-top: 40px;
+        font-size: 70%;
+        color: red;
+        font-family: monospace;
+    }
+}
