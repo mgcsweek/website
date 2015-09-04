@@ -8,6 +8,7 @@ config {'development', 'development-perftest'}, ->
     log_file 'logs/error.log'
     log_level 'debug'
     listen_address '127.0.0.1'
+    content_prefix '../content/'
 
 config {'production', 'production-perftest' }, ->
     port 8989
@@ -17,6 +18,8 @@ config {'production', 'production-perftest' }, ->
     log_file '/var/log/nginx/error.log'
     log_level 'warn'
     listen_address '127.0.0.1'
+    content_prefix 'content/'
+
 
 config {'development-perftest', 'production-perftest'}, ->
     measure_performance -> true
