@@ -14,7 +14,15 @@ class CSWeek extends lapis.Application
         @page_id = "error"
         return render: "error", status: 500
         
+    try_render: (template, context) =>
+        context = context or self
+        with context 
+            .nav = assert_error content\get "nav"
+            .footer = assert_error content\get "footer"
+        render: template
+
     @before_filter =>
+
         if #[n for n in *{'production-perftest', 'development-perftest'} when n == config._name] > 0
             after_dispatch ->
                 print to_json(ngx.ctx.performance)
@@ -26,6 +34,6 @@ class CSWeek extends lapis.Application
         =>
             @page_id = "home"
             @m = assert_error content\get "coming_soon" 
-            render: "coming-soon"
+            @app\try_render "home", self
     }
 
