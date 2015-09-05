@@ -1,8 +1,12 @@
-HOSTNAME=csweek
+HOSTNAME ?= csweek
+SCSS_FLAGS ?= --style=expanded --sourcemap=inline
 
 default:
 	find . -name '*.moon' | grep -v '^./spec/' | xargs moonc
-	sass --scss scss/style.scss static/style.css
+	sass --scss $(SCSS_FLAGS) scss/style.scss static/style.css
+
+production:
+	SCSS_FLAGS="--style=compressed --sourcemap=none" make
 
 test:
 	cd spec && busted .
@@ -14,4 +18,4 @@ push:
 	git merge develop
 	git push
 	git checkout develop
-	ssh -t $(HOSTNAME) 'sudo systemctl start git-pull'
+	ssh -t $(HOSTNAME) 'sudo systemctl start git-pull && echo "Pulled successfully."'
