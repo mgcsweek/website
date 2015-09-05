@@ -6,7 +6,7 @@ class DefaultLayout extends html.Widget
             head -> 
                 meta charset: "UTF-8"
                 link href: "/static/style.css", rel: "stylesheet", type: "text/css"
-                title @m.title or "MG CS Week"
+                title @title or "MG CS Week"
 
             body id: @page_id, -> 
                 @content_for "inner"
