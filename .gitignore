@@ -1,9 +1,9 @@
-*~
-./*.lua
-views/*.lua
+*.lua
+!spec/filesystem-mock.lua
 nginx.conf
 nginx.conf.compiled
 *_temp
 logs/
-static/style.css
+static/*.css*
+.sass-cache
 
