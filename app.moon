@@ -33,7 +33,8 @@ class CSWeek extends lapis.Application
 
         =>
             @page_id = "home"
-            @m = assert_error content\get "coming_soon" 
+            @m = assert_error content\get "home" 
+            @lecturers = assert_error content\get "lecturers"
             @app\try_render "home", self
     }
 
