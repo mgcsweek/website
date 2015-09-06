@@ -58,7 +58,7 @@ section#banner {
     height: 500px;
     box-sizing: border-box;
 
-    padding: (500px - 280px) / 2 0px;
+    padding: (500px - 270px) / 2 0px;
     background: transparent url(/static/images/banner-back.jpg);
     color: white;
     text-align: center;
@@ -86,7 +86,6 @@ section#banner {
     h2 {
         margin-top: 4px;
         font-size: 200%;
-        @include display-subtitle-font;
     }
 
     h3 {
