@@ -1,0 +1,32 @@
+@mixin svg-fallback-background($svg, $png) {
+    background-image: url($svg);
+    background-image: url($png), linear-gradient(transparent, transparent);
+}
+
+@mixin retina-background($image) {
+    @media (-webkit-min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi) {
+        background-image: url($image);
+    }
+}
+
+@mixin retina-background-fallback($png) {
+    @media (-webkit-min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi) {
+        background-image: url($png), linear-gradient(transparent, transparent);
+    }
+}
+
+@mixin hide-text {
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.group:after {
+    visibility: hidden;
+    display: block;
+    content: "";
+    clear: both;
+    height: 0;
+}

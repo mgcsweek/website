@@ -5,6 +5,12 @@
 }
 
 @font-face {
+    font-family: "Raleway";
+    src: url(/static/typefaces/Raleway-Medium.ttf);
+    font-weight: normal;
+}
+
+@font-face {
     font-family: "Neo Sans";
     src: url(/static/typefaces/NeoSansCyr-Light.ttf);
     font-weight: 300;
@@ -73,3 +79,7 @@
     font-style: normal;
 }
 
+@mixin nav-font {
+    font-family: "Raleway", "Helvetica Neue", Arial, sans-serif;
+    font-weight: normal;
+}
