@@ -22,10 +22,20 @@ class CSWeek extends lapis.Application
             .m[code] = .m[code] or .m.default or { }
             .page_id = "error"
             .status = code
-            .title = .m[code].title
+            .m.title = .m[code].title
 
         render: "error", status: code
         
+    safe_route: (fn) =>
+        captured_self = self
+        capture_errors {
+            on_error: =>
+                @app\error_handler self
+
+            =>
+                fn captured_self
+        }
+
     try_render: (template, context) =>
         context = context or self
         with context 
@@ -34,21 +44,22 @@ class CSWeek extends lapis.Application
         render: template
 
     @before_filter =>
-
         if #[n for n in *{'production-perftest', 'development-perftest'} when n == config._name] > 0
             after_dispatch ->
                 print to_json(ngx.ctx.performance)
 
-    "/": capture_errors {
-        on_error: =>
-             @app\error_handler self
-
-        =>
+    "/": =>
+        @app.safe_route self, ->
             @page_id = "home"
             @m = assert_error content\get "home" 
+            print @m.title
             @lecturers = assert_error content\get "lecturers"
             @app\try_render "home", self
-    }
+
+    "/midza": =>
+        @app.safe_route self, -> 
+            @html ->
+                p "dobar chkode"
 
     handle_404: =>
         @errors = "Route `#{self.req.parsed_url.path or 'unknown'}` not found"
