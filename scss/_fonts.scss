@@ -1,7 +1,75 @@
 @font-face {
     font-family: "Raleway";
     src: url(/static/typefaces/Raleway-ExtraLight.ttf);
+    font-weight: 200;
+}
+
+@font-face {
+    font-family: "Neo Sans";
+    src: url(/static/typefaces/NeoSansCyr-Light.ttf);
     font-weight: 300;
 }
 
+@font-face {
+    font-family: "Neo Sans";
+    src: url(/static/typefaces/NeoSansCyr-Regular.ttf);
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "FreeSans";
+    src: url(/static/typefaces/FreeSans.ttf);
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "FreeSans";
+    src: url(/static/typefaces/FreeSans-Bold.ttf);
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "Garamond Premier Pro";
+    src: url(/static/typefaces/Garamond-Italic.ttf);
+    font-style: italic;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Garamond Premier Pro SC";
+    src: url(/static/typefaces/Garamond-Regular-SC.ttf);
+    font-weight: normal;
+}
+
+@mixin heading-font {
+    font-family: "Raleway", "Helvetica Neue", Arial, sans-serif;
+    font-weight: 200;
+}
+
+@mixin display-font {
+    font-family: "FreeSans", "Helvetica Neue", Arial, sans-serif;
+    font-weight: bold;
+}
+
+@mixin display-subtitle-font {
+    font-family: "FreeSans", "Helvetica Neue", Arial, sans-serif;
+    font-weight: normal;
+}
+
+@mixin body-font {
+    font-family: "Neo Sans", "Helvetica Neue", Arial, sans-serif;
+    font-weight: normal;
+}
+
+@mixin serif-font {
+    font-family: "Garamond Premier Pro", "Garamond", "Times New Roman", serif;
+    font-weight: normal;
+    font-style: italic;
+}
+
+@mixin serif-font-sc {
+    font-family: "Garamond Premier Pro", "Garamond", "Times New Roman", serif;
+    font-weight: normal;
+    font-style: normal;
+}
 
