@@ -56,11 +56,6 @@ class CSWeek extends lapis.Application
             @lecturers = assert_error content\get "lecturers"
             @app\try_render "home", self
 
-    "/midza": =>
-        @app\safe_route -> 
-            @html ->
-                p "dobar chkode"
-
     handle_404: =>
         @errors = "Route `#{self.req.parsed_url.path or 'unknown'}` not found"
         @app\error_handler self, 404
