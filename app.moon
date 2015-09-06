@@ -27,13 +27,13 @@ class CSWeek extends lapis.Application
         render: "error", status: code
         
     safe_route: (fn) =>
-        captured_self = self
+        app = self\app
         capture_errors {
             on_error: =>
                 @app\error_handler self
 
             =>
-                fn captured_self
+                fn app
         }
 
     try_render: (template, context) =>
@@ -49,7 +49,7 @@ class CSWeek extends lapis.Application
                 print to_json(ngx.ctx.performance)
 
     "/": =>
-        @app.safe_route self, ->
+        @app\safe_route ->
             @page_id = "home"
             @m = assert_error content\get "home" 
             print @m.title
@@ -57,7 +57,7 @@ class CSWeek extends lapis.Application
             @app\try_render "home", self
 
     "/midza": =>
-        @app.safe_route self, -> 
+        @app\safe_route -> 
             @html ->
                 p "dobar chkode"
 
