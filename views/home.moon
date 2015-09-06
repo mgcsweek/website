@@ -1,4 +1,5 @@
 html = require "lapis.html"
+import render_html from html
 
 class Home extends html.Widget
     content: =>
@@ -7,32 +8,27 @@ class Home extends html.Widget
         if @footer
             @content_for "footer", render "views.footer"
 
-        if @m.banner
-            with @m.banner
-                section id: "banner", ->
-                    p class: "duration", .duration 
-                    h1 .title
-                    h2 .subtitle
-                    h3 .tagline
+        @content_for "scripts", ->
+            script src: "https://cdnjs.cloudflare.com/ajax/libs/skrollr/0.6.30/skrollr.min.js", defer: "defer"
+            script src: "/static/main.js", defer: "defer"
 
         if @m.cta
             with @m.cta
                 section id: "cta", ->
                     h1 .title
-                    p raw .text
-                    for b in *.buttons
-                        a class: "button", href: b.href, b.text
+                    raw .text
+                    p ->
+                        for b in *.buttons
+                            a class: "button", href: b.href, b.text
 
-        if @m.testimonials and @m.testimonials.items
-            with @m.testimonials
-                section id: "testimonials", ->
+        if @m.banner
+            with @m.banner
+                section { id: "banner", ["data-0"]: "background-position:0px 0px;", 
+                ["data-top-bottom"]: "background-position:0px -100px;"}, ->
+                    p class: "duration", .duration 
                     h1 .title
-                    ul ->
-                        for t in *.items
-                            with t
-                                li ->
-                                    blockquote raw .quote
-                                    p class: "attribution", .by
+                    h2 .subtitle
+                    h3 .tagline
 
         if @m.lecturers and @lecturers
             with @m.lecturers

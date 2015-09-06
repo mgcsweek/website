@@ -4,7 +4,8 @@ import yield_error from require "lapis.application"
 class Nav extends html.Widget
     content: =>
         header ->
-            h1 @nav.header_text
+            h1 { ["data-0"]: "opacity: 1", ["data-top-bottom"]: "opacity: 0" }, ->
+                @nav.header_text
             if @nav.items
                 nav ->
                     ul ->

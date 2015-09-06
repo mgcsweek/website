@@ -10,11 +10,14 @@ class DefaultLayout extends html.Widget
                 meta name: "viewport", content:"initial-scale=1"
 
                 link href: "/static/style.css", rel: "stylesheet", type: "text/css"
-                title @title or "MG CS Week"
+                title @m.title or "MG CS Week"
 
             body id: @page_id, -> 
                 @content_for "header"
                 section id: "content", ->
                     @content_for "inner"
                 @content_for "footer"
+
+                script src: "https://code.jquery.com/jquery-2.1.4.min.js", defer: "defer"
+                @content_for "scripts"
 
