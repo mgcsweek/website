@@ -22,8 +22,8 @@ class CSWeek extends lapis.Application
             .m[code] = .m[code] or .m.default or { }
             .page_id = "error"
             .status = code
+            .title = .m[code].title
 
-        print to_json(context.m)
         render: "error", status: code
         
     try_render: (template, context) =>
