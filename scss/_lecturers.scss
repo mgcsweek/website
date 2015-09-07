@@ -1,0 +1,72 @@
+#lecturers {
+    div.parallax-heading {
+        background-image: url(/static/images/subjects-back.jpg);
+    }
+
+    .content-body > ul {
+        padding: 0;
+
+        > li {
+            text-align: left;
+            @extend .group;
+
+            list-style-type: none;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+
+            h1 {
+                @include image-heading-font;
+                padding-top: 30px;
+                font-size: 175%;
+                text-transform: uppercase;
+                margin-bottom: 15px;
+            }
+
+            .affiliation {
+                @include body-font;
+                font-size: 100%;
+                margin: 0;
+            }
+
+            img {
+                float: left;
+                width: 195px;
+                margin: 0 20px 0 0;
+            }
+
+            .topics {
+                display: inline-block;
+                background: white;
+                color: $body-text-tonedown;
+                float: right;
+                width: 30%;
+                min-height: 225px;
+                box-sizing: border-box;
+                padding: 0px 25px;
+                text-align: center;
+                margin-left: 30px;
+
+                ul, ul > li {
+                    display: inline-block;
+                }
+
+                h2 {
+                    font-size: 155%;
+                    color: $brand-color;
+                    margin-bottom: 20px;
+                }
+
+                ul {
+                    padding: 0;
+
+                    > li {
+                        background-color: transparent;
+                        font-size: 95%;
+                        margin-bottom: 10px;
+                        line-height: 120%;
+                    }
+                }
+            }
+        }
+    }
+}
