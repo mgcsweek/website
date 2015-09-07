@@ -27,6 +27,37 @@ img {
     height: auto;
 }
 
+.parallax-heading {
+    min-height: 350px;
+    position: relative;
+    text-align: center;
+
+    h1, h2, h3 {
+        @include content-heading;
+        @include image-heading-font;
+        color: white;
+        max-width: 960px;
+        width: 100%;
+        margin: 0 auto;
+        height: 100%;
+        display: inline-block;
+        text-align: left;
+        padding-top: 250px;
+        font-size: 360%;
+        text-shadow: rgba(0, 0, 0, 0.9) 4px 4px 6px;
+    }
+}
+
+.content-body {
+    max-width: 960px;
+    @include body-font;
+    color: $body-text-tonedown;
+    margin: 60px auto;
+    line-height: 150%;
+    text-align: justify;
+    font-size: 120%;
+}
+
 a.button {
     display: inline-block;
     padding: 12px 34px;
