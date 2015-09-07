@@ -1,5 +1,6 @@
 html = require "lapis.html"
 config = (require "lapis.config").get!
+import to_json from require "lapis.util"
 
 class Error extends html.Widget
     content: =>

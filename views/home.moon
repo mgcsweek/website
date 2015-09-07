@@ -15,15 +15,6 @@ class Home extends html.Widget
             script src: "https://cdnjs.cloudflare.com/ajax/libs/skrollr/0.6.30/skrollr.min.js", defer: "defer"
             script src: "/static/main.js", defer: "defer"
 
-        if @m.cta
-            with @m.cta
-                section id: "cta", ->
-                    h1 .title
-                    raw .text
-                    p ->
-                        for b in *.buttons
-                            a class: "button", href: b.href, b.text
-
         if @m.banner
             with @m.banner
                 section { id: "banner", ["data-0"]: "background-position:0px 0px;", 
@@ -32,6 +23,15 @@ class Home extends html.Widget
                     h1 .title
                     h2 .subtitle
                     h3 .tagline
+
+        if @m.cta
+            with @m.cta
+                section id: "cta", ->
+                    h1 .title
+                    raw .text
+                    p ->
+                        for b in *.buttons
+                            a class: "button", href: b.href, b.text
 
         if @m.lecturers and @lecturers
             with @m.lecturers
@@ -50,7 +50,11 @@ class Home extends html.Widget
                                             for t in *.topics
                                                 li t
                                         
-                                        a class: "button", href: l.link, @m.lecturers.more_button_text
+                                        a {
+                                            class: "button", 
+                                            href: (@url_for "lecturer", name: l.id), 
+                                            @m.lecturers.more_button_text
+                                        }
 
                     if .button
                         with .button

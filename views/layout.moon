@@ -10,11 +10,12 @@ class DefaultLayout extends html.Widget
                 meta name: "viewport", content:"initial-scale=1"
 
                 link href: "/static/style.css", rel: "stylesheet", type: "text/css"
-                title @m.title or "MG CS Week"
+                title (@m and @m.title) or "MG CS Week"
 
             body id: @page_id, -> 
                 @content_for "header"
 
+                div id: "skrollr-body"
                 main id: "content", ->
                     @content_for "inner"
 
