@@ -6,6 +6,7 @@ header {
 
         background-color: transparent;
         background-repeat: no-repeat;
+        background-size: 100% 100%;
 
         width: 599px;
         height: 85px;
@@ -31,7 +32,7 @@ header {
                     display: inline-block;
                     font-size: 95%;
                     padding: 17px 30px;
-                    height: 52px;
+                    min-height: 52px;
                     color: white;
                     text-decoration: none;
                     text-transform: uppercase;
