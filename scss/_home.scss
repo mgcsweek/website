@@ -3,7 +3,7 @@ body {
     margin: 0;
 }
 
-section#page-content > h2, section#lecturers > h1 {
+main#content > h2, section#lecturers > h1 {
     color: $body-text-tonedown;
     text-transform: uppercase;
     @include heading-font;
