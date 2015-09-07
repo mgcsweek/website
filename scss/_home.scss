@@ -3,6 +3,15 @@ body {
     margin: 0;
 }
 
+section#page-content > h2, section#lecturers > h1 {
+    color: $body-text-tonedown;
+    text-transform: uppercase;
+    @include heading-font;
+    font-size: 260%;
+    margin: 82px 0 20px;
+    text-align: left;
+}
+
 a.button {
     display: inline-block;
     padding: 12px 34px;
@@ -13,6 +22,7 @@ a.button {
     text-transform: uppercase;
     font-size: 90%;
     box-sizing: border-box;
+    text-align: center;
 
     transition: background-color 0.3s;
 
@@ -149,6 +159,114 @@ section#cta {
         margin-top: 10px;
         margin-bottom: 40px;
         min-width: 250px;
+    }
+
+}
+
+section#lecturers {
+    max-width: 960px;
+    margin: 0 auto;
+    text-align: center;
+
+    $lecturers-spacing-x: 25px;
+    $lecturers-spacing-y: $lecturers-spacing-x;
+    $lecturers-per-row: 3;
+    > ul {
+        margin: 40px 0 0;
+        @extend .group;
+        list-style-type: none;
+        padding: 0;
+
+        > li {
+            float: left;
+            text-align: center;
+            background: white;
+            min-height: 400px;
+            box-sizing: border-box;
+            padding: 27px 25px;
+            margin-right: $lecturers-spacing-x;
+            margin-bottom: $lecturers-spacing-y;
+            width: (960px - ($lecturers-per-row - 1) * $lecturers-spacing-x) / $lecturers-per-row - 1px;
+            position: relative;
+            overflow: hidden;
+
+            h2 {
+                color: $brand-color;
+                font-size: 160%;
+                margin: 25px 0 0;
+                @include title-body-font;
+            }
+
+            p.affiliation {
+                color: $body-text-tonedown;
+                font-size: 110%;
+                margin: 12px 0 30px;
+                @include serif-font;
+            }
+
+            img {
+                border-radius: 50%;
+                width: 195px;
+                height: auto;
+            }
+
+            aside {
+                position: absolute;
+                bottom: -400px;
+                left: 0;
+                right: 0;
+                height: 400px;
+                transition: bottom 0.5s ease;
+                background-color: $body-text-tonedown;
+                color: white;
+                padding: 24px 24px;
+                box-sizing: border-box;
+
+                @include cta-heading-font;
+
+               h3 {
+                   text-transform: uppercase;
+                   font-size: 220%;
+                   margin: 0 0 17px;
+                   @include body-font;
+               }
+
+                ul {
+                    list-style-type: none;
+                    padding: 0;
+
+                    > li {
+                        font-size: 130%;
+                        margin-top: 35px;
+                    }
+                }
+
+                .button {
+                    position: absolute;
+                    bottom: 25px;
+                    left: 12px;
+                    right: 12px;
+                    box-sizing: border-box;
+                }
+            }
+        }
+
+        > li:nth-child(3n) {
+            margin-right: 0;
+        }
+
+        > li:hover {
+            aside {
+                bottom: 0;
+            }
+        }
+
+    }
+
+    > .button {
+        font-size: 120%;
+        min-width: 250px;
+        margin: 45px - $lecturers-spacing-y 0 60px;
     }
 
 }

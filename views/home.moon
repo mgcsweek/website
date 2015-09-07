@@ -40,12 +40,18 @@ class Home extends html.Widget
                                 li ->
                                     img src: .image, title: .name
                                     h2 .name
-                                    p class: "affliation", .affliation
-                                    p class: "topic", .topic
+                                    p class: "affiliation", .affiliation
+                                    aside ->
+                                        h3 #.topics == 1 and @m.lecturers.topic_title.singular or @m.lecturers.topic_title.plural
+                                        ul class: "topics", ->
+                                            for t in *.topics
+                                                li t
+                                        
+                                        a class: "button", href: l.link, @m.lecturers.more_button_text
 
                     if .button
                         with .button
-                            a href: .href, .text
+                            a class: "button", href: .href, .text
                                     
 
 
