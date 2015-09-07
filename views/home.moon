@@ -4,9 +4,12 @@ import render_html from html
 class Home extends html.Widget
     content: =>
         if @nav
-            @content_for "header", render "views.nav"
+            @content_for "header", ->
+                render "views.nav"
+
         if @footer
-            @content_for "footer", render "views.footer"
+            @content_for "footer", ->
+                render "views.footer"
 
         @content_for "scripts", ->
             script src: "https://cdnjs.cloudflare.com/ajax/libs/skrollr/0.6.30/skrollr.min.js", defer: "defer"
