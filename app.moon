@@ -13,7 +13,6 @@ class CSWeek extends lapis.Application
         code = code or 500
         context = context or self
 
-<<<<<<< Updated upstream
         with context
             .m, err = content\get "error"
             if err then
@@ -26,7 +25,7 @@ class CSWeek extends lapis.Application
             .m.title = .m[code].title
 
         render: "error", status: code
-       
+        
     safe_route: (fn) =>
         app = self\app
         capture_errors {
@@ -59,10 +58,6 @@ class CSWeek extends lapis.Application
 
     handle_404: =>
         @errors = "Route `#{self.req.parsed_url.path or 'unknown'}` not found"
-        @app\error_handler self, 404
-
-
-    handle_404: =>
         @app\error_handler self, 404
 
 
