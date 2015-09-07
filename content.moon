@@ -6,7 +6,9 @@ io = require "io"
 
 class Content
     markdown: (obj) =>
-        if type(obj) != "table"
+        if type(obj) == "boolean"
+            obj
+        elseif type(obj) != "table"
             obj = (tostring obj)\gsub "^%s+", ""
             if obj\len() > 0 and obj\sub(1,1) == '$'
                 discount ((obj\sub 2)\gsub "^%s+", "")

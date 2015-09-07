@@ -162,4 +162,18 @@ mdnumber: $ 1234
 ]],
             }, ret
 
+    it "keeps boolean values intact", ->
+        with_mock_fs content, {
+            "content":
+                "dummy.yaml": [[
+---
+abool: yes
+                ]]
+        }, nil, nil, ->
+            ret, err = content\get "dummy"
+            assert.falsy err
+            assert.are.same {
+                abool: true
+            }, ret
+
 
