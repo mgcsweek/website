@@ -1,6 +1,31 @@
-#lecturers {
+#lecturers, #lecturer {
     div.parallax-heading {
         background-image: url(/static/images/subjects-back.jpg);
+    }
+
+    article {
+        @extend .group;
+
+        details {
+            @include heading-font;
+            font-size: 120%;
+            margin-bottom: 35px;
+            display: block;
+        }
+
+        h1 {
+            margin-bottom: 17px;
+        }
+
+        p { 
+        }
+
+        img {
+            width: 195px;
+            height: auto;
+            margin: 0 30px 30px 0;
+            float: left;
+        }
     }
 
     .content-body > ul {

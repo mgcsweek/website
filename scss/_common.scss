@@ -56,6 +56,13 @@ img {
     line-height: 150%;
     text-align: justify;
     font-size: 120%;
+    
+    h1 {
+        @include content-heading;
+        font-size: 220%;
+        margin-bottom: 40px;
+        margin-top: 12px;
+    }
 }
 
 a.button {

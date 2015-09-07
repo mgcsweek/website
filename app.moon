@@ -65,6 +65,18 @@ class CSWeek extends lapis.Application
         @app\try_render "lecturers", self
 
     [lecturer: "/predavaci/:name"]: =>
+        @page_id = "lecturer"
+        @lecturers_page = assert_error content\get "lecturers_page"
+        lecturers = assert_error content\get "lecturers"
+        results = [l for l in *lecturers when l.id == @params.name]
+        if #results > 1
+            yield_error "Multiple lecturer id's found for id `#{@params.name}`"
+        else if #results == 0
+            @errors = "No such lecturer: `#{@params.name}`"
+            @app\error_handler self, 404
+
+        @m = results[1]
+        @app\try_render "lecturer", self
 
     handle_404: =>
         @errors = "Route `#{self.req.parsed_url.path or 'unknown'}` not found"
