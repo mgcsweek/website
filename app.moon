@@ -65,8 +65,8 @@ class CSWeek extends lapis.Application
         @app\try_render "lecturers", self
 
     [lecturer: "/predavaci/:name"]: =>
-        @page_id = "lecturer"
         @lecturers_page = assert_error content\get "lecturers_page"
+        @page_id = "lecturer"
         lecturers = assert_error content\get "lecturers"
         results = [l for l in *lecturers when l.id == @params.name]
         if #results > 1
