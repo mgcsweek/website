@@ -8,7 +8,10 @@ class Lecturers extends html.Widget
             ul ->
                 for l in *@lecturers
                     li ->
-                        a href: (@url_for "lecturer", name: l.id), ->
+                        if l.organizer
+                            a href: (@url_for "lecturer", name: l.id), ->
+                                img src: l.image
+                        else
                             img src: l.image
 
                         aside class: "topics", ->
@@ -17,8 +20,12 @@ class Lecturers extends html.Widget
                                 for t in *l.topics 
                                     li t
 
-                        h1 ->
-                            a href: (@url_for "lecturer", name: l.id), l.name
+                        if l.organizer
+                            h1 ->
+                                a href: (@url_for "lecturer", name: l.id), l.name
+                        else
+                            h1 l.name
+
                         p class: "affiliation", l.affiliation
 
         render_and_pass widget, "views.lecturers-base", { :lecturers_content }
