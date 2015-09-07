@@ -1,0 +1,50 @@
+header {
+    h1 {
+        @include hide-text;
+        @include svg-fallback-background("/static/images/logotype.svg", "/static/images/logotype.png");
+        @include retina-background-fallback("/static/images/logotype@2x.png");
+
+        background-color: transparent;
+        background-repeat: no-repeat;
+
+        width: 599px;
+        height: 85px;
+
+        margin: 22px auto 0px;
+    }
+
+    nav {
+        background-color: $nav-background;
+        
+        ul {
+            padding: 0;
+            margin: 22px 0px 0px;
+            list-style-type: none;
+            text-align: center;
+
+            li {
+                display: inline-block;
+
+                a {
+                    @include nav-font;
+
+                    display: inline-block;
+                    font-size: 95%;
+                    padding: 17px 30px;
+                    height: 52px;
+                    color: white;
+                    text-decoration: none;
+                    text-transform: uppercase;
+                    box-sizing: border-box;
+
+                    transition: color 0.1s, background-color 0.1s;
+                }
+
+                a:hover {
+                    background-color: $site-background;
+                    color: $nav-background;
+                }
+            }
+        }
+    }
+}
