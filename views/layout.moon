@@ -14,8 +14,10 @@ class DefaultLayout extends html.Widget
 
             body id: @page_id, -> 
                 @content_for "header"
-                section id: "content", ->
+
+                main id: "content", ->
                     @content_for "inner"
+
                 @content_for "footer"
 
                 script src: "https://code.jquery.com/jquery-2.1.4.min.js", defer: "defer"
