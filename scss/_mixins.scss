@@ -1,6 +1,6 @@
 @mixin svg-fallback-background($svg, $png) {
-    background-image: url($svg);
-    background-image: url($png), linear-gradient(transparent, transparent);
+    background-image: url($png);
+    background-image: url($svg), linear-gradient(transparent, transparent);
 }
 
 @mixin retina-background($image) {

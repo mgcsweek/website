@@ -1,0 +1,56 @@
+footer {
+    background-color: $footer-background;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: 90px 90px;
+    min-height: 205px;
+
+    @include svg-fallback-background("/static/images/logo-white.svg", "/static/images/logo-white.png");
+    @include retina-background-fallback("/static/images/logo-white@2x.png");
+
+    text-align: center;
+    color: white;
+    @include body-font;
+
+    div {
+        max-width: (960px / 2);
+        vertical-align: middle;
+        width: 50%;
+        box-sizing: border-box;
+        display: inline-block;
+        font-size: 80%;
+        line-height: 130%;
+
+        .email {
+            font-size: 110%;
+        }
+
+        a {
+            color: $footer-link-color;
+            text-decoration: underline;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+    }
+
+    div.left {
+        text-align: left;
+        padding-left: 35px;
+        padding-right: 45px + 90px / 2;
+    }
+
+    div.right {
+        text-align: right;
+        padding-right: 35px;
+        padding-left: 45px + 90px / 2;
+    }
+}
+footer::before {
+    content: '';
+    height: 205px;
+    display: inline-block;
+    vertical-align: middle;
+}
+

@@ -4,9 +4,9 @@ import yield_error from require "lapis.application"
 class Footer extends html.Widget
     content: =>
         footer id: "footer", ->
-            div ->
+            div class: "left", ->
                 raw @footer.text_left
-            div ->
+            div class: "right", ->
                 raw @footer.text_right
 
 
