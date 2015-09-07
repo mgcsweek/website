@@ -1,38 +1,3 @@
-body {
-    background-color: $site-background;
-    margin: 0;
-}
-
-main#content > h2, section#lecturers > h1 {
-    color: $body-text-tonedown;
-    text-transform: uppercase;
-    @include heading-font;
-    font-size: 260%;
-    margin: 82px 0 20px;
-    text-align: left;
-}
-
-a.button {
-    display: inline-block;
-    padding: 12px 34px;
-    background-color: $brand-color;
-    margin: 0px 20px;
-    color: white;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-size: 90%;
-    box-sizing: border-box;
-    text-align: center;
-
-    transition: background-color 0.3s;
-
-    @include button-font;
-}
-
-a.button:hover {
-    background-color: $button-hover-color;
-}
-
 section#banner {
     box-sizing: border-box;
 
@@ -113,6 +78,10 @@ section#cta {
 }
 
 section#lecturers {
+    > h1 {
+        @include content-heading;
+    }
+
     max-width: 960px;
     margin: 0 auto;
     text-align: center;

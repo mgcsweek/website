@@ -103,3 +103,7 @@
     font-family: "Neo Sans", "Helvetica Neue", Arial, sans-serif;
     font-weight: 600;
 }
+
+@mixin image-heading-font {
+    @include nav-font;
+}

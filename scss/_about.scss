@@ -1,0 +1,37 @@
+#about {
+    main {
+        text-align: center;
+
+        h1 {
+            @include content-heading;
+            @include image-heading-font;
+            color: white;
+            max-width: 960px;
+            width: 100%;
+            margin: 0 auto;
+            height: 100%;
+            display: inline-block;
+            text-align: left;
+            padding-top: 250px;
+            font-size: 360%;
+            text-shadow: rgba(0, 0, 0, 0.9) 4px 4px 6px;
+        }
+
+        div.image {
+            background: transparent url(/static/images/about-back.jpg) no-repeat;
+
+            min-height: 350px;
+            position: relative;
+        }
+    }
+
+    section#about-text {
+        max-width: 960px;
+        @include body-font;
+        color: $body-text-tonedown;
+        margin: 60px auto;
+        line-height: 150%;
+        text-align: justify;
+        font-size: 120%;
+    }
+}
