@@ -38,7 +38,7 @@ class Home extends html.Widget
                 section id: "lecturers", ->
                     h1 .title
                     ul ->
-                        for l in *@lecturers
+                        for l in *[l for l in *@lecturers when l.organizer]
                             with l
                                 li ->
                                     img src: .image, title: .name
