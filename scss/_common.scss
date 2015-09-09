@@ -70,6 +70,11 @@ p {
     h1:first-child {
         margin-top: 12px;
     }
+
+    em {
+        font-style: normal;
+        text-decoration: underline;
+    }
 }
 
 a.button {
