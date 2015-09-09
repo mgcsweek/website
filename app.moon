@@ -64,7 +64,7 @@ class CSWeek extends lapis.Application
         @lecturers = assert_error content\get "lecturers"
         @app\try_render "lecturers", self
 
-    [lecturer: "/predavaci/:name"]: =>
+    [lecturer: "/predavaci/:name"]: safe_route =>
         @lecturers_page = assert_error content\get "lecturers_page"
         @page_id = "lecturer"
         lecturers = assert_error content\get "lecturers"
@@ -78,7 +78,7 @@ class CSWeek extends lapis.Application
         @m = results[1]
         @app\try_render "lecturer", self
 
-    [apply: "/prijava"]: =>
+    [apply: "/prijava"]: safe_route =>
         @page_id = "apply"
         @m = assert_error content\get "apply"
 
