@@ -10,6 +10,7 @@ class DefaultLayout extends html.Widget
                 meta name: "viewport", content:"initial-scale=1"
 
                 link href: "/static/style.css", rel: "stylesheet", type: "text/css"
+                link rel: "shortcut icon", href: "/favicon.ico?v=2"
                 title (@m and @m.title) or "MG CS Week"
 
             body id: @page_id, -> 
