@@ -12,8 +12,8 @@ class Lecturer extends html.Widget
                 details class: "email", ->
                     a href: "mailto:#{@m.email}", @m.email
 
-                img src: @m.image
                 raw @m.about
+                img src: @m.image
 
         render_and_pass widget, "views.lecturers-base", { :lecturers_content }
 

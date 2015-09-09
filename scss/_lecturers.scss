@@ -17,14 +17,21 @@
             margin-bottom: 17px;
         }
 
+        details + p {
+            margin-top: 0;
+        }
+
         p { 
+            width: 735px;
+            float: right;
+            margin-top: 10px;
+            margin-bottom: 10px;
         }
 
         img {
             width: 195px;
             height: auto;
-            margin: 0 30px 30px 0;
-            float: left;
+            margin: 0 30px 35px 0;
         }
     }
 
