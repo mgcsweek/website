@@ -16,4 +16,28 @@ class Apply extends html.Widget
 
         section class: "content-body", ->
             raw @m.intro
+            with @m.form
+                h1 .heading
+                form method: "POST", id: "application-form", ->
+                    label for: "applicant-name", .name_label
+                    input required: "required", type: "text", id: "applicant-name", name: "name"
+                    label for: "applicant-email", .email_label
+                    input required: "required", type: "text", id: "applicant-email", name: "email"
+                    label for: "applicant-class", .class_label
+                    element "select", required: "required", name: "class", ->
+                        for c in *.classes
+                            option value: c, c
+
+                    label for: "applicant-tasks", .tasks_label
+                    ol id: "applicant-tasks", ->
+                        for i = 1, #@m.tasks
+                            li ->
+                                label for: "applicant-task-#{i}", @m.tasks[i].name
+                                input id: "applicant-task-#{i}", type: "checkbox", name: "tasks[#{i}]"
+
+                    button type: "submit", id: "applicant-submit-button", .submit_text
+
+
+
+
 

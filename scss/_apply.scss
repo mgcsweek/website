@@ -2,4 +2,32 @@
     .parallax-heading {
         background-image: url('http://galeri12.uludagsozluk.com/505/jennifer-white_740393.jpg');
     }
+
+    form {
+        text-align: left;
+
+        input[type="text"], label, select {
+            padding: 0;
+            display: inline-block;
+            box-sizing: border-box;
+            width: 70%;
+        }
+
+        input[type="text"] {
+
+        }
+
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        label {
+            clear: both;
+            width: 30%;
+        }
+
+        ol#applicant-tasks {
+            list-style-type: none;
+        }
+    }
 }
