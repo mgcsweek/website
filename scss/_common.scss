@@ -27,6 +27,10 @@ img {
     height: auto;
 }
 
+p {
+    margin: 1.3em 0;
+}
+
 .parallax-heading {
     min-height: 350px;
     position: relative;
@@ -60,7 +64,10 @@ img {
     h1 {
         @include content-heading;
         font-size: 220%;
-        margin-bottom: 40px;
+        margin: 60px 0 40px;
+    }
+
+    h1:first-child {
         margin-top: 12px;
     }
 }
