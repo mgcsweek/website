@@ -78,6 +78,12 @@ class CSWeek extends lapis.Application
         @m = results[1]
         @app\try_render "lecturer", self
 
+    [apply: "/prijava"]: =>
+        @page_id = "apply"
+        @m = assert_error content\get "apply"
+
+        @app\try_render "apply", self
+
     handle_404: =>
         @errors = "Route `#{self.req.parsed_url.path or 'unknown'}` not found"
         @app\error_handler self, 404
