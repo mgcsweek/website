@@ -1,5 +1,6 @@
 *.lua
 !spec/filesystem-mock.lua
+static/resources
 nginx.conf
 nginx.conf.compiled
 *_temp
