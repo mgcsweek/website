@@ -8,6 +8,7 @@ class Apply extends html.Widget
             with @m.form
                 h1 .heading
                 form method: "POST", id: "application-form", ->
+                    input type: "hidden", name: "csrf_token", value: @csrf_token
                     label for: "applicant-name", .name_label
                     input class: "text", required: "required", type: "text", id: "applicant-name", name: "name"
                     label for: "applicant-email", .email_label

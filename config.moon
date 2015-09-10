@@ -8,6 +8,7 @@ config {'development', 'development-perftest'}, ->
     log_file 'logs/error.log'
     log_level 'debug'
     listen_address '127.0.0.1'
+    secret 'this is not so secret!'
     content_prefix '../content/'
 
 config {'production', 'production-perftest' }, ->

@@ -2,6 +2,7 @@ lapis = require "lapis"
 config = (require "lapis.config").get!
 content = require "content"
 logger = require "lapis.logging"
+csrf = require "lapis.csrf"
 submit = require "submit_application"
 
 import after_dispatch from require "lapis.nginx.context"
@@ -85,6 +86,7 @@ class CSWeek extends lapis.Application
         GET: =>
             @page_id = "apply"
             @m = assert_error content\get "apply"
+            @csrf_token = csrf.generate_token @
             @app\try_render "apply", self
 
         POST: capture_errors {
@@ -104,7 +106,11 @@ class CSWeek extends lapis.Application
                 model = assert_error content\get "apply"
                 @m = model
 
-                ret, err = submit\submit @res.req.params_post, model
+                this = self
+                succ, ret, err = pcall -> submit\submit this.res.req.params_post, model
+                print ret
+                yield_error ret if not succ
+
                 resp = { }
 
                 status = if ret
@@ -116,21 +122,19 @@ class CSWeek extends lapis.Application
                     else 
                         400
                 
+                print 'hi'
                 resp.response = model.form.responses[status] or model.form.responses.default
                 if status == 400
                     resp.errors = { }
                     for e in *err
-                        table.insert resp.errors, model.form.validation_errors[e] or 'unknown error' if e != 'bad_request'
-
+                        table.insert resp.errors, model.form.validation_errors[e] or 'unknown error' 
                 if @json
                     { :status, json: resp }
                 else 
                     @resp = resp
                     @page_id = 'apply'
                     @app\try_render 'apply_result', self
-                    
         }
-            
     }
 
     handle_404: =>
