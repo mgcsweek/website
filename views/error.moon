@@ -7,4 +7,5 @@ class Error extends html.Widget
         raw @m[@status].error_page or "<p>Dogodila se greška!</p>"
         if config._name == 'development' or config._name == 'development-perftest'
             p class: "debug",
-                @errors
+                @error
+            pre class: "debug", @traceback
