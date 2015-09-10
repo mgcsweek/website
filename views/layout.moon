@@ -29,7 +29,8 @@ class DefaultLayout extends html.Widget
                     with scrpt
                         contents = .contents
                         .contents = nil
-                        script scrpt, contents
+                        script scrpt, ->
+                            raw contents
 
 
 
