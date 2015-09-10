@@ -6,7 +6,7 @@ if(!(/Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i).test(navigator.userAg
 
 $(document).ready(function() {
     if ($(document.body).attr('id') == 'apply') {
-        $('aform#application-form').submit(function(evt) {
+        $('form#application-form').submit(function(evt) {
             var data = $(this).serialize();
 
             $.ajax({

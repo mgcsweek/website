@@ -125,7 +125,10 @@ class CSWeek extends lapis.Application
                 if @json
                     { :status, json: resp }
                 else 
-                    "this is some sick html"
+                    @resp = resp
+                    @page_id = 'apply'
+                    @app\try_render 'apply_result', self
+                    
         }
             
     }

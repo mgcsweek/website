@@ -3,6 +3,12 @@
         background-image: url('http://galeri12.uludagsozluk.com/505/jennifer-white_740393.jpg');
     }
 
+    .content-body {
+        ul, ol {
+            list-style-type: disc;
+        }
+    }
+
     form {
         text-align: center;
 
