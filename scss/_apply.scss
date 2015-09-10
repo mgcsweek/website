@@ -10,11 +10,24 @@
             padding: 0;
             display: inline-block;
             box-sizing: border-box;
-            width: 70%;
+            width: 65%;
         }
 
         input[type="text"] {
+            padding: 9px 13px;
+            border-radius: 6px;
+            border: 1px solid #aaa;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+            font-size: 95%;
+            margin-top: 15px;
+        }
 
+
+        select {
+            margin-top: 15px;
+            padding: 9px 13px;
+            font-size: 95%;
+            border: 1px solid #aaa;
         }
 
         input[type="checkbox"] {
@@ -23,11 +36,17 @@
 
         label {
             clear: both;
-            width: 30%;
+            margin-top: 15px;
+            width: 35%;
         }
 
         ol#applicant-tasks {
             list-style-type: none;
+
+            li {
+                display: inline-block;
+
+            }
         }
     }
 }
