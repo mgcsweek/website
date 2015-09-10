@@ -6,14 +6,14 @@
     form {
         text-align: left;
 
-        input[type="text"], label, select {
+        input.text, label, select {
             padding: 0;
             display: inline-block;
             box-sizing: border-box;
             width: 65%;
         }
 
-        input[type="text"] {
+        input.text {
             padding: 9px 13px;
             border-radius: 6px;
             border: 1px solid #aaa;
@@ -24,11 +24,15 @@
             transition: box-shadow 0.2s;
         }
 
-        input[type="text"]:focus {
+        input.text:focus {
             border-color: $brand-color;
             box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(102, 175, 233, 0.6)
         }
 
+        input.text:focus:invalid {
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(220, 40, 40, 0.6);
+            border-color: #ee0000;
+        }
         select {
             margin-top: 15px;
             padding: 9px 13px;
@@ -111,6 +115,10 @@
             min-width: 30%;
             margin-top: 20px;
             cursor: pointer;
+        }
+
+        .status {
+            height: 0;
         }
     }
 }
