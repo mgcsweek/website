@@ -2,10 +2,12 @@ lapis = require "lapis"
 config = (require "lapis.config").get!
 content = require "content"
 logger = require "lapis.logging"
+submit = require "submit_application"
 
 import after_dispatch from require "lapis.nginx.context"
 import to_json from require "lapis.util"
-import capture_errors, assert_error, yield_error from require "lapis.application"
+import capture_errors, assert_error, yield_error, respond_to from require "lapis.application"
+import json_requested from require "utils"
 
 class CSWeek extends lapis.Application
     layout: require "views.layout"
@@ -79,11 +81,54 @@ class CSWeek extends lapis.Application
         @m = results[1]
         @app\try_render "lecturer", self
 
-    [apply: "/prijava"]: =>
-        @page_id = "apply"
-        @m = assert_error content\get "apply"
+    [apply: "/prijava"]: respond_to {
+        GET: =>
+            @page_id = "apply"
+            @m = assert_error content\get "apply"
+            @app\try_render "apply", self
 
-        @app\try_render "apply", self
+        POST: capture_errors {
+            on_error: (err, trace) =>
+                if @json
+                    resp = if @m and @m.form and @m.form.responses and @m.form.responses.default
+                        @m.form.responses.default
+                    else
+                        '<p>A server error has occurred, and the error text could not be fetched.</p>'
+
+                    { status: 500, json: { response: resp, errors: { } } }
+                else
+                    @app.handle_error self, err, trace, 500
+
+            =>
+                @json = json_requested @
+                model = assert_error content\get "apply"
+                @m = model
+
+                ret, err = submit\submit @res.req.params_post, model
+                resp = { }
+
+                status = if ret
+                        200
+                    elseif err[1] == 'internal_error'
+                        500
+                    elseif err[1] == 'duplicate_application'
+                        409
+                    else 
+                        400
+                
+                resp.response = model.form.responses[status] or model.form.responses.default
+                if status == 400
+                    resp.errors = { }
+                    for e in *err
+                        table.insert resp.errors, model.form.validation_errors[e] or 'unknown error' if e != 'bad_request'
+
+                if @json
+                    { :status, json: resp }
+                else 
+                    "this is some sick html"
+        }
+            
+    }
 
     handle_404: =>
         @app.handle_error self, "Route `#{self.req.parsed_url.path or 'unknown'}` not found", nil, 404
