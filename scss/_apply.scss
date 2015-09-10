@@ -20,8 +20,14 @@
             box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
             font-size: 95%;
             margin-top: 15px;
+
+            transition: box-shadow 0.2s;
         }
 
+        input[type="text"]:focus {
+            border-color: $brand-color;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(102, 175, 233, 0.6)
+        }
 
         select {
             margin-top: 15px;
@@ -40,13 +46,71 @@
             width: 35%;
         }
 
+        label#tasks-label {
+            margin-top: 45px;
+        }
+
         ol#applicant-tasks {
+            @extend .group;
             list-style-type: none;
+            margin-top: 20px;
 
+            $tasks-per-row: 3;
+            $tasks-spacing-x: 20px;
+            $tasks-spacing-y: $tasks-spacing-x;
             li {
-                display: inline-block;
+                float: left;
+                width: (960px - ($tasks-per-row - 1) * $tasks-spacing-x) / $tasks-per-row - 1px;
+                margin-right: $tasks-spacing-x;
+                margin-bottom: $tasks-spacing-y;
+                text-align: center;
+                box-sizing: border-box;
+                min-height: 120px;
 
+                @include display-font;
+                text-transform: uppercase;
+                font-size: 120%;
+
+                label {
+                    display: block;
+                    width: 100%;
+                    min-height: 120px;
+                    padding: 12px 24px;
+                    box-sizing: border-box;
+                    background-color: $footer-background;
+                    transition: background-color 0.2s, color 0.2s;
+                    margin-top: 0;
+                    color: white;
+
+                    span {
+                        display: inline-block;
+                        position: relative;
+                        top: 120px / 2 - 12px;
+                        transform: translateY(-50%);
+                        margin: 0;
+                    }
+                }
+
+                input:checked + label {
+                    background-color: $brand-color;
+                }
             }
+
+            li:nth-child(3n) {
+                margin-right: 0;
+            }
+        }
+
+        button {
+            @extend a.button;
+
+            border-radius: 0;
+            display: block;
+            font-size: 110%;
+            margin: 0 auto;
+            min-width: 30%;
+            margin-top: 20px;
+            cursor: pointer;
         }
     }
 }

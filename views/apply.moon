@@ -28,14 +28,15 @@ class Apply extends html.Widget
                         for c in *.classes
                             option value: c, c
 
-                    label for: "applicant-tasks", .tasks_label
+                    label id: "tasks-label", for: "applicant-tasks", .tasks_label
                     ol id: "applicant-tasks", ->
                         for i = 1, #@m.tasks
                             li ->
-                                label for: "applicant-task-#{i}", @m.tasks[i].name
                                 input id: "applicant-task-#{i}", type: "checkbox", name: "tasks[#{i}]"
+                                label for: "applicant-task-#{i}", ->
+                                    span @m.tasks[i].name
 
-                    button type: "submit", id: "applicant-submit-button", .submit_text
+                    button type: "submit", id: "applicant-submit-button", .next_step_text
 
 
 
