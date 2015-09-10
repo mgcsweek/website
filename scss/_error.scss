@@ -16,13 +16,14 @@ body#error {
         text-transform: uppercase;
         font-size: 230%;
         font-weight: 300;
+        margin: 1em 0;
     }
 
     h1 + p {
         margin-top: 60px;
     }
 
-    p {
+    p, pre {
         width: 100%;
         text-align: center;
         max-width: 960px;
@@ -30,27 +31,11 @@ body#error {
         margin-right: auto;
     }
 
-    p:nth-child(4) {
-        padding-right: 20px;
-        box-sizing: border-box;
-        text-align: right;
-    }
-
-    p:nth-child(3) {
-        margin-bottom: 0;
-    }
-
-    p:nth-child(4) {
-        margin-top: 7px;
-    }
-
-    p:nth-child(4) {
-    }
-
-    p.debug {
+    .debug {
         margin-top: 40px;
         font-size: 70%;
         color: red;
         font-family: monospace;
+        text-align: left;
     }
 }
