@@ -2,6 +2,7 @@ lapis = require "lapis"
 config = (require "lapis.config").get!
 content = require "content"
 logger = require "lapis.logging"
+console = require "lapis.console" if config._name == 'development' or config._name == 'development-perftest'
 
 import after_dispatch from require "lapis.nginx.context"
 import to_json from require "lapis.util"
@@ -84,6 +85,8 @@ class CSWeek extends lapis.Application
         @m = assert_error content\get "apply"
 
         @app\try_render "apply", self
+
+    [console: "/console"]: console.make!
 
     handle_404: =>
         @app.handle_error self, "Route `#{self.req.parsed_url.path or 'unknown'}` not found", nil, 404
