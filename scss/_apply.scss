@@ -4,13 +4,14 @@
     }
 
     form {
-        text-align: left;
+        text-align: center;
 
         input.text, label, select {
             padding: 0;
             display: inline-block;
             box-sizing: border-box;
             width: 65%;
+            text-align: left;
         }
 
         input.text {
@@ -51,6 +52,8 @@
         }
 
         label#tasks-label {
+            text-align: left;
+            width: 100%;
             margin-top: 45px;
         }
 
@@ -67,7 +70,6 @@
                 width: (960px - ($tasks-per-row - 1) * $tasks-spacing-x) / $tasks-per-row - 1px;
                 margin-right: $tasks-spacing-x;
                 margin-bottom: $tasks-spacing-y;
-                text-align: center;
                 box-sizing: border-box;
                 min-height: 120px;
 
@@ -85,6 +87,7 @@
                     transition: background-color 0.2s, color 0.2s;
                     margin-top: 0;
                     color: white;
+                    text-align: center;
 
                     span {
                         display: inline-block;
@@ -105,20 +108,47 @@
             }
         }
 
+        p {
+            text-align: left;
+        }
+
         button {
             @extend a.button;
 
             border-radius: 0;
-            display: block;
+            display: inline-block;
             font-size: 110%;
-            margin: 0 auto;
+            margin-top: 50px;
             min-width: 30%;
-            margin-top: 20px;
             cursor: pointer;
         }
 
         .status {
-            height: 0;
+            display: none;
+            padding: 20px 50px;
+            background-color: $success-background;
+            color: white;
+
+            p {
+                text-align: center;
+            }
+
+            a {
+                color: $success-link-color;
+            }
+
+            ul {
+                list-style-type: disc;
+                margin-bottom: 25px;
+            }
+        }
+
+        .status.error {
+            background-color: $error-background;
+            
+            a {
+                color: $error-link-color;
+            }
         }
     }
 }
