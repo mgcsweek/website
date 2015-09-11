@@ -29,7 +29,8 @@ CREATE TABLE `applications` (
   `last_name` varchar(255) NOT NULL,
   `class` int(11) NOT NULL,
   `submitted` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `ApplicationsByEmail` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -103,4 +104,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-09-11  6:58:29
+-- Dump completed on 2015-09-11  7:00:33
