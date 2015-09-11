@@ -29,19 +29,11 @@ CREATE TABLE `applications` (
   `last_name` varchar(255) NOT NULL,
   `class` int(11) NOT NULL,
   `submitted` int(11) DEFAULT NULL,
+  `email_sent` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `ApplicationsByEmail` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `applications`
---
-
-LOCK TABLES `applications` WRITE;
-/*!40000 ALTER TABLE `applications` DISABLE KEYS */;
-/*!40000 ALTER TABLE `applications` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `chosen_tasks`
@@ -57,17 +49,8 @@ CREATE TABLE `chosen_tasks` (
   PRIMARY KEY (`id`),
   KEY `application_id` (`application_id`),
   CONSTRAINT `chosen_tasks_ibfk_1` FOREIGN KEY (`application_id`) REFERENCES `applications` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `chosen_tasks`
---
-
-LOCK TABLES `chosen_tasks` WRITE;
-/*!40000 ALTER TABLE `chosen_tasks` DISABLE KEYS */;
-/*!40000 ALTER TABLE `chosen_tasks` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `uploads`
@@ -85,15 +68,6 @@ CREATE TABLE `uploads` (
   CONSTRAINT `uploads_ibfk_1` FOREIGN KEY (`application_id`) REFERENCES `applications` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `uploads`
---
-
-LOCK TABLES `uploads` WRITE;
-/*!40000 ALTER TABLE `uploads` DISABLE KEYS */;
-/*!40000 ALTER TABLE `uploads` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -104,4 +78,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-09-11  7:00:33
+-- Dump completed on 2015-09-11  7:46:51
