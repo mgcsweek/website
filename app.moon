@@ -88,6 +88,11 @@ class CSWeek extends lapis.Application
 
     [console: "/console"]: console.make!
 
+    [materials: "/materijali"]: =>
+        @page_id = "materials"
+        @m = assert_error content\get "materials"
+        @app\try_render "materials", self
+
     handle_404: =>
         @app.handle_error self, "Route `#{self.req.parsed_url.path or 'unknown'}` not found", nil, 404
 
