@@ -31,6 +31,14 @@
             transition: box-shadow 0.2s;
         }
 
+        #applicant-first-name, #applicant-last-name {
+            width: 305px;
+        }
+
+        #applicant-first-name {
+            margin-right: 12px;
+        }
+
         input.text:focus {
             border-color: $brand-color;
             box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(102, 175, 233, 0.6)
@@ -40,6 +48,7 @@
             box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(220, 40, 40, 0.6);
             border-color: #ee0000;
         }
+
         select {
             margin-top: 15px;
             padding: 9px 13px;
@@ -100,6 +109,7 @@
                         position: relative;
                         top: 120px / 2 - 12px;
                         transform: translateY(-50%);
+                        -webkit-transform: translateY(-50%);
                         margin: 0;
                     }
                 }

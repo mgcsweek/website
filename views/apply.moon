@@ -10,9 +10,10 @@ class Apply extends html.Widget
                 form method: "POST", id: "application-form", ->
                     input type: "hidden", name: "csrf_token", value: @csrf_token
                     label for: "applicant-name", .name_label
-                    input class: "text", required: "required", type: "text", id: "applicant-name", name: "name"
+                    input class: "text", required: "required", type: "text", placeholder: .first_name_placeholder, id: "applicant-first-name", name: "firstname"
+                    input class: "text", required: "required", type: "text", placeholder: .last_name_placeholder, id: "applicant-last-name", name: "lastname"
                     label for: "applicant-email", .email_label
-                    input class: "text", required: "required", type: "email", id: "applicant-email", name: "email"
+                    input class: "text", required: "required", type: "email", placeholder: .email_placeholder, id: "applicant-email", name: "email"
                     label for: "applicant-class", .class_label
                     element "select", required: "required", name: "class", ->
                         for c in *.classes

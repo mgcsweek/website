@@ -91,6 +91,7 @@ class CSWeek extends lapis.Application
 
         POST: capture_errors {
             on_error: (err, trace) =>
+                err or= @errors
                 if @json
                     resp = if @m and @m.form and @m.form.responses and @m.form.responses.default
                         @m.form.responses.default
@@ -107,7 +108,10 @@ class CSWeek extends lapis.Application
                 @m = model
 
                 this = self
-                succ, ret, err = pcall -> submit\submit this.res.req.params_post, model
+                succ, ret, err = pcall -> 
+                    submit\submit this.res.req.params_post, model, (...) ->
+                        this\build_url ...
+
                 print ret
                 yield_error ret if not succ
 
@@ -119,10 +123,11 @@ class CSWeek extends lapis.Application
                         500
                     elseif err[1] == 'duplicate_application'
                         409
+                    elseif err[1] == 'too_frequent'
+                        403
                     else 
                         400
                 
-                print 'hi'
                 resp.response = model.form.responses[status] or model.form.responses.default
                 if status == 400
                     resp.errors = { }
@@ -133,8 +138,21 @@ class CSWeek extends lapis.Application
                 else 
                     @resp = resp
                     @page_id = 'apply'
-                    @app\try_render 'apply_result', self
+                    ret = @app\try_render 'apply-result', self
+                    ret.status = status
+                    ret
         }
+    }
+
+    [apply_upload: "/prijava/upload/:token"]: respond_to {
+        GET: =>
+            @page_id = "apply"
+            @m = assert_error content\get "apply"
+            @csrf_token = csrf.generate_token @
+            @app\try_render "apply-upload", self
+
+
+        POST: =>
     }
 
     handle_404: =>

@@ -1,6 +1,19 @@
 config = require 'lapis.config'
+secrets = require 'secrets'
 
 config {'development', 'development-perftest'}, ->
+    mysql ->
+        host '127.0.0.1'
+        user 'csweek'
+        password 'csweek'
+        database 'csweek'
+
+    smtp_server 'mail.csnedelja.mg.edu.rs'
+    smtp_port 587
+    smtp_username secrets.mail_user
+    smtp_password secrets.mail_password
+    smtp_from 'MG Nedelja informatike - prijave <prijave@csnedelja.mg.edu.rs>'
+
     port 8080
     num_workers 1
     code_cache 'off'
@@ -11,7 +24,14 @@ config {'development', 'development-perftest'}, ->
     secret 'this is not so secret!'
     content_prefix '../content/'
 
+    email_cooldown 20
+
 config {'production', 'production-perftest' }, ->
+    smtp_server 'mail.csnedelja.mg.edu.rs'
+    smtp_port 587
+    smtp_username secrets.mail_user
+    smtp_password secrets.mail_password
+
     port 8989
     num_workers 1
     code_cache 'on'
@@ -20,6 +40,8 @@ config {'production', 'production-perftest' }, ->
     log_level 'warn'
     listen_address '127.0.0.1'
     content_prefix 'content/'
+
+    email_cooldown 30 * 60
 
 
 config {'development-perftest', 'production-perftest'}, ->
