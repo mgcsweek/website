@@ -8,6 +8,15 @@ import after_dispatch from require "lapis.nginx.context"
 import to_json from require "lapis.util"
 import capture_errors, assert_error, yield_error from require "lapis.application"
 
+safe_route = (fn) ->
+    capture_errors {
+        on_error: =>
+            @app.handle_error self, @errors
+
+        =>
+            fn self
+    }
+
 class CSWeek extends lapis.Application
     layout: require "views.layout"
     error_page: require "views.error"
@@ -49,24 +58,24 @@ class CSWeek extends lapis.Application
             after_dispatch ->
                 print to_json(ngx.ctx.performance)
 
-    [home: "/"]: =>
+    [home: "/"]: safe_route =>
         @page_id = "home"
         @m = assert_error content\get "home" 
         @lecturers = assert_error content\get "lecturers"
         @app\try_render "home", self
 
-    [about: "/o-nedelji"]: =>
+    [about: "/o-nedelji"]: safe_route =>
         @page_id = "about"
         @m = assert_error content\get "about"
         @app\try_render "about", self
 
-    [lecturers: "/predavaci"]: =>
+    [lecturers: "/predavaci"]: safe_route =>
         @page_id = "lecturers"
         @m = assert_error content\get "lecturers_page"
         @lecturers = assert_error content\get "lecturers"
         @app\try_render "lecturers", self
 
-    [lecturer: "/predavaci/:name"]: =>
+    [lecturer: "/predavaci/:name"]: safe_route =>
         @lecturers_page = assert_error content\get "lecturers_page"
         @page_id = "lecturer"
         lecturers = assert_error content\get "lecturers"
@@ -80,7 +89,7 @@ class CSWeek extends lapis.Application
         @m = results[1]
         @app\try_render "lecturer", self
 
-    [apply: "/prijava"]: =>
+    [apply: "/prijava"]: safe_route =>
         @page_id = "apply"
         @m = assert_error content\get "apply"
 
@@ -88,7 +97,7 @@ class CSWeek extends lapis.Application
 
     [console: "/console"]: console.make!
 
-    [materials: "/materijali"]: =>
+    [materials: "/materijali"]: safe_route =>
         @page_id = "materials"
         @m = assert_error content\get "materials"
         @app\try_render "materials", self
