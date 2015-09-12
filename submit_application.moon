@@ -4,26 +4,10 @@ csrf = require 'lapis.csrf'
 smtp = require 'resty.smtp'
 mime = require 'resty.smtp.mime'
 ltn12 = require 'resty.smtp.ltn12'
-
-import Model from require 'lapis.db.model'
 import to_json from require 'lapis.util'
-import encode_with_secret from require 'lapis.util.encoding'
+import decode_with_secret, encode_with_secret from require 'lapis.util.encoding'
 
-class Applications extends Model
-    @relations: {
-        { "chosen_tasks", has_many: "ChosenTasks" }
-        { "uploads", has_many: "Uploads" }
-    }
-
-class ChosenTasks extends Model
-    @relations: {
-        { "application", belongs_to: "Application" }
-    }
-
-class Uploads extends Model
-    @relations: {
-        { "application", belongs_to: "Application" }
-    }
+import Applications, ChosenTasks, Uploads from require 'models'
 
 class SubmitApplication
     submit: (params, model, url_builder) =>
@@ -136,4 +120,12 @@ class SubmitApplication
 
         true
 
+    upload_form: (token) =>
+        data = decode_with_secret token
+        return nil if not data or not data.id
+
+        appl = Applications\find data.id
+        return nil if not appl or appl.is_submitted == 1
+        
+        appl
 
