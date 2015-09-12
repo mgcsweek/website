@@ -211,10 +211,16 @@
             top: 7px;
         }
 
+        p .filename {
+            vertical-align: middle;
+            color: $brand-color;
+        }
+
         .upload {
             @extend a.button;
             background-color: $footer-background;
             overflow: hidden;
+            vertical-align: middle;
             position: relative;
             text-align: left;
             margin-left: 0;

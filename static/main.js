@@ -56,5 +56,17 @@ $(document).ready(function() {
 
             evt.preventDefault();
         });
+
+        function updateFilename(elem) {
+            $(elem).parent().parent().children('.filename').html($(elem).val());
+        }
+
+        $('a.upload input').change(function() {
+            updateFilename(this);
+        });
+
+        $('a.upload input').each(function() {
+            updateFilename($(this));
+        });
     }
 });
