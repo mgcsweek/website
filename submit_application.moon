@@ -6,6 +6,11 @@ mime = require 'resty.smtp.mime'
 ltn12 = require 'resty.smtp.ltn12'
 import to_json from require 'lapis.util'
 import decode_with_secret, encode_with_secret from require 'lapis.util.encoding'
+import validate_functions, validate from require 'lapis.validate'
+
+validate_functions.is_email = (input, tru) ->
+        r = input\match "[A-Za-z0-9%.%%%+%-]+@[A-Za-z0-9%.%%%+%-]+%.%w%w%w?%w?"
+        r, "not a valid email: %s"
 
 import Applications, ChosenTasks, Uploads from require 'models'
 
@@ -24,34 +29,16 @@ class SubmitApplication
                 else 
                     errors.bad_request = true
         
-        local class_id
-        if not errors.bad_request
-            errors.bad_request = true
-            i = 0
-            for c in *model.form.classes
-                i += 1
-                if c == params.class
-                    errors.bad_request = nil
-                    class_id = i
-                    break
-
-        with errors
-            if not params.firstname or (type params.firstname) != 'string'
-                .missing_name = true 
-            elseif params.firstname\len! >= 255
-                .invalid_name = true 
-
-            if not params.lastname or (type params.lastname) != 'string'
-                .missing_name = true
-            elseif params.lastname\len! >= 255
-                .invalid_name = true
-                
-            if not params.email or (type params.email) != 'string'
-                .missing_email = true 
-            elseif params.email\len! >= 255 or not params.email\match "[A-Za-z0-9%.%%%+%-]+@[A-Za-z0-9%.%%%+%-]+%.%w%w%w?%w?"
-                .invalid_email = true 
+        ret = validate params, {
+                { 'firstname', exists: true, max_length: 255, 'invalid_name' },
+                { 'lastname', exists: true, max_length: 255, 'invalid_name' },
+                { 'email', exists: true, max_length: 255, is_email: true, 'invalid_email' },
+                { 'class', one_of: model.form.classes, 'bad_request' }
+            }
             
-            .task_number_mismatch = true if #tasks < 2
+        errors.task_number_mismatch = true if #tasks < 2
+        if ret
+            errors[e] = true for e in *ret
 
         err_array = { }
         for k, _ in pairs errors
@@ -128,4 +115,5 @@ class SubmitApplication
         return nil if not appl or appl.is_submitted == 1
         
         appl
+
 
