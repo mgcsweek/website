@@ -1,7 +1,7 @@
 import Model from require 'lapis.db.model'
 class Applications extends Model
     @relations: {
-        { "chosen_tasks", has_many: "ChosenTasks" }
+        { "chosen_tasks", has_many: "ChosenTasks", order: "task" }
         { "uploads", has_many: "Uploads" }
     }
 
