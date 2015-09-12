@@ -24,8 +24,10 @@ config {'development', 'development-perftest'}, ->
     secret 'this is not so secret!'
     content_prefix '../content/'
     filesize_limit 6 * 15 * 1024 * 1024 + 1024
+    single_file_limit 15 * 1024 * 1024
 
     email_cooldown 20
+    uploads_dir 'uploads'
 
 config {'production', 'production-perftest' }, ->
     smtp_server 'mail.csnedelja.mg.edu.rs'
@@ -42,8 +44,10 @@ config {'production', 'production-perftest' }, ->
     listen_address '127.0.0.1'
     content_prefix 'content/'
     filesize_limit 6 * 15 * 1024 * 1024 + 1024
+    single_file_limit 15 * 1024 * 1024
 
     email_cooldown 30 * 60
+    uploads_dir 'uploads'
 
 
 config {'development-perftest', 'production-perftest'}, ->
