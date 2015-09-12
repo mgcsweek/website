@@ -30,6 +30,7 @@ class Apply extends html.Widget
                     div class: "status" 
                     
                     button type: "submit", id: "applicant-submit-button", .next_step_text
+                    div class: "spinner", style: "display: none", .please_wait
 
         render_and_pass widget, "views.apply-base", { :apply_content }
 

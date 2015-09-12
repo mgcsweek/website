@@ -112,7 +112,6 @@ class CSWeek extends lapis.Application
                     submit\submit this.res.req.params_post, model, (...) ->
                         this\build_url ...
 
-                print ret
                 yield_error ret if not succ
 
                 resp = { }
@@ -144,15 +143,33 @@ class CSWeek extends lapis.Application
         }
     }
 
-    [apply_upload: "/prijava/upload/:token"]: respond_to {
+    [apply_upload: "/prijava/upload/*"]: respond_to {
         GET: =>
             @page_id = "apply"
-            @m = assert_error content\get "apply"
+            @m = assert_error content\get "apply-upload"
+            @a = assert_error content\get "apply"
             @csrf_token = csrf.generate_token @
-            @app\try_render "apply-upload", self
+            if @application = submit\upload_form @params.splat
+                @app\try_render "apply-upload", self
+            else
+                redirect_to: '/prijava'
 
 
         POST: =>
+            json = json_requested @
+            model = assert_error content\get 'apply-upload'
+            @m = model
+            
+            this = self
+            succ, ret, err = pcall -> 
+                submit\upload this.res.req.params_post, model, (...) ->
+                    this\build_url ...
+
+            yield_error ret if not succ
+
+            resp = { }
+
+
     }
 
     handle_404: =>

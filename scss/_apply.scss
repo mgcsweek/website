@@ -7,20 +7,53 @@
         ul, ol {
             list-style-type: disc;
         }
+
+        details {
+            background: white;
+            margin-bottom: 50px;
+        }
+
+        h2 {
+            font-size: 150%;
+            text-align: left;
+            font-weight: bold;
+            margin: 1.7em 0 0.6em;
+        }
+
+        .left, .right {
+            vertical-align: top;
+            display: inline-block;
+            box-sizing: border-box;
+            padding: 20px;
+        }
+
+        .left {
+            width: 30%;
+        }
+
+        .right {
+            width: 70%;
+            text-align: right;
+
+            ul {
+                list-style-type: none;
+            }
+        }
     }
 
     form {
         text-align: center;
 
-        input.text, label, select {
+        input.text, label, select, textarea {
             padding: 0;
             display: inline-block;
             box-sizing: border-box;
             width: 65%;
             text-align: left;
+            vertical-align: top;
         }
 
-        input.text {
+        input.text, textarea {
             padding: 9px 13px;
             border-radius: 6px;
             border: 1px solid #aaa;
@@ -31,6 +64,11 @@
             transition: box-shadow 0.2s;
         }
 
+        textarea {
+            @include body-font;
+            min-height: 15em;
+        }
+
         #applicant-first-name, #applicant-last-name {
             width: 305px;
         }
@@ -39,12 +77,12 @@
             margin-right: 12px;
         }
 
-        input.text:focus {
+        input.text:focus, textarea:focus {
             border-color: $brand-color;
             box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(102, 175, 233, 0.6)
         }
 
-        input.text:focus:invalid {
+        input.text:focus:invalid, textarea:focus:invalid {
             box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(220, 40, 40, 0.6);
             border-color: #ee0000;
         }
@@ -167,5 +205,32 @@
                 color: $error-link-color;
             }
         }
+
+        .spinner {
+            position: relative;
+            top: 7px;
+        }
+
+        .upload {
+            @extend a.button;
+            background-color: $footer-background;
+            overflow: hidden;
+            position: relative;
+            text-align: left;
+            margin-left: 0;
+            padding: 8px 24px;
+
+            input {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                cursor: pointer;
+                opacity: 0;
+            }
+        }
+
+
     }
 }

@@ -8,6 +8,7 @@ $(document).ready(function() {
     if ($(document.body).attr('id') == 'apply') {
         $('form#application-form').submit(function(evt) {
             var data = $(this).serialize();
+            $('.spinner').show(100);
 
             $.ajax({
                 type: 'POST',
@@ -19,6 +20,7 @@ $(document).ready(function() {
                     json: 'application/json'
                 }
             }).done(function(resp) {
+                $('.spinner').hide(100);
                 $('.status').hide(700, function() {
                                 $(this).removeClass('error')
                                        .html(resp.response)
@@ -27,6 +29,7 @@ $(document).ready(function() {
 
                 $('#applicant-submit-button').hide(700);
             }).fail(function(obj) {
+                $('.spinner').hide(100);
                 resp = obj.responseJSON;
                 if (typeof resp == 'undefined') {
                     resp = {
