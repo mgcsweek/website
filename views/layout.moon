@@ -9,7 +9,7 @@ class DefaultLayout extends html.Widget
                 meta charset: "UTF-8"
 
                 -- This enables web-scale mode, right?
-                -- meta name: "viewport", content:"initial-scale=1"
+                meta name: "viewport", content:"initial-scale=1"
 
                 link href: "/static/style.css", rel: "stylesheet", type: "text/css"
                 link rel: "shortcut icon", href: "/favicon.ico?v=2"
