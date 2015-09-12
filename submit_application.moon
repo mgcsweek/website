@@ -12,6 +12,21 @@ validate_functions.is_email = (input, tru) ->
         r = input\match "[A-Za-z0-9%.%%%+%-]+@[A-Za-z0-9%.%%%+%-]+%.%w%w%w?%w?"
         r, "not a valid email: %s"
 
+validate_functions.has_filetype = (input, ...) ->
+    ftypes = {...}
+
+    return nil, "doesn't look like a file" if not input or not input.filename
+
+    for t in *ftypes
+        ft = t\gsub '%.', '%%.'
+        return t if input.filename\match "%.#{ft}$"
+
+    nil, "#{input.filename} must be one of types #{table.concat ftypes, ', '}"
+
+validate_functions.smaller_than = (input, size) ->
+    size = config.single_file_limit if type size != 'number'
+    input and input.content and #input.content <= size, "file must be less than #{size} bytes"
+
 import Applications, ChosenTasks, Uploads from require 'models'
 
 class SubmitApplication
@@ -40,6 +55,10 @@ class SubmitApplication
         if ret
             errors[e] = true for e in *ret
 
+        local class_id
+        for i, v in pairs model.form.classes
+            class_id = i if v == params.class
+
         err_array = { }
         for k, _ in pairs errors
             table.insert err_array, k
@@ -47,8 +66,7 @@ class SubmitApplication
 
         prev_app = Applications\find email: params.email
         if prev_app
-            return nil, { 'duplicate_application' } if prev_app.submitted == 1
-            print "is #{prev_app.email_sent}"
+            return nil, { 'duplicate_application' } if prev_app.submitted != 0
             return nil, { 'too_frequent' } if prev_app.email_sent and os.time! - (tonumber prev_app.email_sent) < config.email_cooldown
             prev_app\delete!
 
@@ -68,7 +86,6 @@ class SubmitApplication
 
         appid = application.id
         for t in *tasks
-            print to_json(application)
             ChosenTasks\create {
                 application_id: appid
                 task: t
@@ -78,16 +95,19 @@ class SubmitApplication
 
         local msg
         with model.email
+            txt = .text\gsub '%%1', url
+            txt = mime.b64 txt
+            txt = mime.wrp 0, txt
             msg = 
                 headers: 
                     to: params.email
                     from: config.smtp_from
-                    ['message-id']: 'prijava.' .. appid .. '@csnedelja.mg.edu.rs'
+                    ['message-id']: 'MID-application.' .. appid .. '@csnedelja.mg.edu.rs'
                     subject: mime.ew .subject, nil, { charset: 'utf-8' }
                     ['content-transfer-encoding']: 'BASE64'
                     ['content-type']: 'text/plain; charset=utf-8'
 
-                body: mime.b64 .text\gsub '%%1', url
+                body: txt
 
         ret, err = smtp.send
             from: config.smtp_username
@@ -107,13 +127,63 @@ class SubmitApplication
 
         true
 
-    upload_form: (token) =>
+    get_application: (token) =>
         data = decode_with_secret token
         return nil if not data or not data.id
 
         appl = Applications\find data.id
-        return nil if not appl or appl.is_submitted == 1
+        return nil if not appl or appl.submitted != 0
         
         appl
 
+    store_file: (extension, buf, application_id, context) =>
+        upl = Uploads\create { :application_id, :context }
+        return nil, 'could not create upload in database' if not upl
 
+        fname = "#{config.uploads_dir}/#{upl.id}.#{extension}"
+        f = io.open fname, 'wb'
+        return nil, "could not open file `#{fname}`" if not f
+
+        ret = f\write buf
+        upl
+
+
+    upload: (post_params, token, model, tasklist) =>
+        appl, err = SubmitApplication.get_application self, token
+        return nil, { 'no_such_application' } if not appl
+
+        validation = {
+            { 'pitch', exists: true, 'missing_pitch' }
+        }
+
+        import insert from table
+        tasks = { }
+        for t in *appl\get_chosen_tasks!
+            mtask = tasklist[t.task]
+            insert tasks, t.task
+            insert validation, { "tasks[#{t.task}]", is_file: true, 'invalid_file' }
+            insert validation, { "tasks[#{t.task}]", has_filetype: mtask.filetypes, 'invalid_filetype' }
+            insert validation, { "tasks[#{t.task}]", smaller_than: config.single_file_limit, 'file_too_big' }
+
+        errs = validate post_params, validation
+        if errs
+            err_tbl = { }
+            err_tbl[e] = true for e in *errs
+            if err_tbl.invalid_file
+                err_tbl.invalid_filetype = nil
+                err_tbl.file_too_big = nil
+
+            return nil, [k for k, _ in pairs err_tbl]
+
+        appl\update { submitted: os.time! }
+        for i in *tasks
+            f = post_params["tasks[#{i}]"]
+            ret = SubmitApplication.store_file self, (validate_functions.has_filetype f, unpack tasklist[i].filetypes), f.content, appl.id, "task #{i}"
+            return nil, { 'internal_error' } if not ret
+
+            f.content = nil
+
+        ret = SubmitApplication.store_file self, 'txt', post_params['pitch'], appl.id, "pitch"
+        return nil, { 'internal_error' } if not ret
+
+        true
