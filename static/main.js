@@ -6,7 +6,7 @@ if(!(/Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i).test(navigator.userAg
 
 $(document).ready(function() {
     if ($(document.body).attr('id') == 'apply') {
-        $('form#application-form').submit(function(evt) {
+        $('form').submit(function(evt) {
             var data = $(this).serialize();
             $('.spinner').show(100);
 
@@ -31,6 +31,11 @@ $(document).ready(function() {
             }).fail(function(obj) {
                 $('.spinner').hide(100);
                 resp = obj.responseJSON;
+                if (typeof resp == 'undefined' && obj.status == 419) {
+                    resp = {
+                        response: '<p>Фајлови су превелики. Максимална величина једног фајла је 15MiB.</p>'
+                    }
+                }
                 if (typeof resp == 'undefined') {
                     resp = {
                         response: '<p>Неочекивана грешка. Молимо вас контактирајте нас на kontakt@csnedelja.mg.edu.rs</p>',
