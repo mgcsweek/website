@@ -14,19 +14,21 @@ class Lecturers extends html.Widget
                         else
                             img src: l.image
 
+                        div class: "info", ->
+                            if l.organizer
+                                h1 ->
+                                    a href: (@url_for "lecturer", name: l.id), l.name
+                            else
+                                h1 l.name
+                            p class: "affiliation", l.affiliation
+
+
                         aside class: "topics", ->
                             h2 (#l.topics == 1 and @m.topics.singular or @m.topics.plural)
                             ul ->
                                 for t in *l.topics 
                                     li t
 
-                        if l.organizer
-                            h1 ->
-                                a href: (@url_for "lecturer", name: l.id), l.name
-                        else
-                            h1 l.name
-
-                        p class: "affiliation", l.affiliation
 
         render_and_pass widget, "views.lecturers-base", { :lecturers_content }
        

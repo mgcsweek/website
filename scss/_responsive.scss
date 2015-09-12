@@ -1,0 +1,282 @@
+@media screen and (max-width: $responsive-breakpoint) {
+    nav, header h1 {
+        box-sizing: border-box;
+    }
+    header h1 {
+        max-width: 100%;
+        padding: 0 $gutter; 
+        background-origin: content-box;
+        background-size: contain;
+        background-position: 50% 50%;
+    }
+
+    nav {
+        padding: 0px $gutter;
+    }
+
+    section#banner {
+        background-size: cover;
+        background-position: 50% 50%;
+
+       padding: 85px $gutter 65px;
+
+        p.duration {
+            font-size: 110%;
+        }
+
+        h1 {
+            font-size: 250%;
+        }
+
+        h2 {
+            font-size: 140%;
+        }
+
+        h3 {
+            font-size: 120%;
+        }
+    }
+
+    section#cta {
+        padding: 45px $gutter 45px;
+
+        h1 + p {
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 250%;
+        }
+        
+        .button {
+            width: 80%;
+            margin: 0 0 13px 0;
+            padding: 20px 20px;
+        }
+    }
+
+    section#lecturers {
+        padding: 0 $gutter;
+
+        > ul > li {
+            width: 100%;
+            min-height: 0;
+            
+            aside {
+                background: white;
+                color: $body-text-tonedown;
+                padding-bottom: 0;
+
+                position: static;
+                height: auto;
+
+                .button {
+                    position: static;
+                    margin-top: 20px;
+                    width: 100%;
+                    margin: 45px 0 0 0;
+                    padding: 20px 34px;
+                    font-size: 100%;
+                    background-color: $footer-background;
+                }
+
+                .button:hover {
+                    background-color: $button-hover-color;
+                }
+
+                > ul > li {
+                    margin-top: 17px;
+                }
+            }
+        }
+
+        > .button {
+            width: 85%;
+            padding: 25px 34px;
+        }
+    }
+
+    .parallax-heading {
+        position: relative;
+        background-size: cover;
+        background-position: 50% 50%;
+
+        h1, h2, h3 {
+            font-size: 270%;
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            right: 0;
+            height: auto;
+            width: auto;
+
+            padding: 0 $gutter;
+            line-height: 140%;
+            text-align: center;
+        }
+    }
+
+    .content-body {
+        text-align: left;
+        line-height: 160%;
+        font-size: 130%;
+        padding: 0px $gutter;
+
+        h1 {
+            font-size: 150%;
+            line-height: 160%;
+            margin-bottom: 0;
+        }
+        
+        h2 {
+            font-size: 110%;
+        }
+
+        p {
+            font-size: 80%;
+            line-height: 160%;
+        }
+    }
+
+    #lecturer {
+        article {
+            img {
+                float: left;
+                margin-bottom: 30px;
+            }
+
+            p {
+                float: none;
+                width: auto;
+            }
+        }
+    }
+
+    #lecturers {
+        .content-body {
+            text-align: center;
+
+            > ul > li {
+                font-size: 90%;
+                text-align: center;
+                margin-bottom: 30px;
+                
+                h1, .affliation {
+                    text-align: center;
+                }
+
+                img {
+                    margin: 0;
+                }
+
+                .info {
+                    width: auto;
+
+                    h1 {
+                        padding-top: 5px;
+                    }
+                }
+
+                .topics {
+                    h2 {
+                        text-align: center;
+                    }
+                    width: 100%;
+                    margin: 20px 0;
+                    min-height: 0;
+                }
+            }
+        }
+
+    }
+
+    #apply {
+        .content-body {
+            details {
+                font-size: 75%;
+            }
+        }
+
+        form {
+            font-size: 85%;
+
+            #applicant-first-name, #applicant-last-name {
+                width: calc(50% - 12px);
+            }
+
+            label {
+                display: block;
+                float: none;
+                width: auto;
+            }
+
+            input.text, textarea, select {
+                width: 100%;
+            }
+
+            ol#applicant-tasks {
+                li {
+                    min-height: 0;
+
+                    width: 100%;
+                    margin: 10px 0;
+
+                    label {
+                        padding: 30px;
+                        min-height: 0;
+
+                        span {
+                            position: static;
+                            transform: none;
+                        }
+                    }
+                }
+
+                li:nth-child(3n) {
+                    margin-right: 0;
+                }
+            }
+
+            .status {
+                ul {
+                    font-size: 85%;
+                }
+            }
+        }
+    }
+
+    footer {
+        padding: 20px $gutter;
+        min-height: 0;
+        background: $footer-background;
+
+        div.left, div.right {
+            font-size: 85%;
+            display: block;
+            width: 100%;
+            max-width: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        div.left {
+            margin-bottom: 10px;
+            padding-bottom: 110px;
+            @include svg-fallback-background("/static/images/logo-white.svg", "/static/images/logo-white.png");
+            @include retina-background-fallback("/static/images/logo-white@2x.png");
+            background-position: 50% 100%;
+            background-repeat: no-repeat;
+            background-size: 90px 90px;
+        }
+
+        div.right {
+            padding-top: 10px;
+        }
+
+
+    }
+
+    footer::before {
+        height: 0;
+    }
+}

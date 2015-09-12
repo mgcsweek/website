@@ -60,21 +60,28 @@
                 margin: 0;
             }
 
+            .info {
+                display: inline-block;
+                width: 427px;
+            }
+
             img {
-                float: left;
                 width: 195px;
                 margin: 0 20px 0 0;
+            }
+
+            a, .info, .topics {
+                vertical-align: top;
             }
 
             .topics {
                 display: inline-block;
                 background: white;
                 color: $body-text-tonedown;
-                float: right;
                 width: 30%;
                 min-height: 225px;
                 box-sizing: border-box;
-                padding: 0px 25px;
+                padding: 0px 25px 20px;
                 text-align: center;
                 margin-left: 30px;
 

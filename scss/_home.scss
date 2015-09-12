@@ -78,11 +78,13 @@ section#cta {
 }
 
 section#lecturers {
+    font-size: 90%;
+
     > h1 {
         @include content-heading;
     }
 
-   max-width: 960px;
+    max-width: 960px;
     margin: 0 auto;
     text-align: center;
 

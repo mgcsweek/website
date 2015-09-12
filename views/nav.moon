@@ -5,7 +5,9 @@ class Nav extends html.Widget
     content: =>
         header ->
             h1 { ["data-0"]: "opacity: 1", ["data-top-bottom"]: "opacity: 0" }, ->
-                @nav.header_text
+                a href: @url_for 'home', ->
+                    @nav.header_text
+
             if @nav.items
                 nav ->
                     ul ->

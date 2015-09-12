@@ -12,6 +12,15 @@ header {
         height: 85px;
 
         margin: 22px auto 0px;
+        position: relative;
+
+        a {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+        }
     }
 
     nav {
