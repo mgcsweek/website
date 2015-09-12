@@ -23,7 +23,7 @@ class ApplyResult extends html.Widget
                             t = @a.tasks[t.task]
                             li t.name
 
-            form method: "POST", ->
+            form enctype: "multipart/form-data", method: "POST", ->
                 with @m.form
                     input type: "hidden", name: "csrf-token", value: @csrf_token
                     label for: "pitch", id: "pitch-label", .pitch_label
@@ -35,7 +35,9 @@ class ApplyResult extends html.Widget
                         p ->
                             a class: "upload", ->
                                 span .select_files
-                                input required: "required", type: "file", name: "tasks[#{tid}]"
+                                input 
+                                    required: "required", type: "file", name: "tasks[#{task.task}]",
+                                    accept: table.concat [".#{x}" for x in *t.filetypes], ','
                             span class: "filename"
 
                     div class: "status"
