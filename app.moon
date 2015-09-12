@@ -10,6 +10,24 @@ import to_json from require "lapis.util"
 import capture_errors, assert_error, yield_error, respond_to from require "lapis.application"
 import json_requested from require "utils"
 
+capture_form_errors = (fn) ->
+    capture_errors {
+        on_error: (err, trace) =>
+            err or= @errors
+            if @json
+                resp = if @m and @m.form and @m.form.responses and @m.form.responses.default
+                    @m.form.responses.default
+                else
+                    '<p>A server error has occurred, and the error text could not be fetched.</p>'
+
+                print to_json err
+                { status: 500, json: { response: resp, errors: { } } }
+            else
+                @app.handle_error self, err, trace, 500
+
+        fn
+    }
+
 class CSWeek extends lapis.Application
     layout: require "views.layout"
     error_page: require "views.error"
@@ -89,20 +107,7 @@ class CSWeek extends lapis.Application
             @csrf_token = csrf.generate_token @
             @app\try_render "apply", self
 
-        POST: capture_errors {
-            on_error: (err, trace) =>
-                err or= @errors
-                if @json
-                    resp = if @m and @m.form and @m.form.responses and @m.form.responses.default
-                        @m.form.responses.default
-                    else
-                        '<p>A server error has occurred, and the error text could not be fetched.</p>'
-
-                    { status: 500, json: { response: resp, errors: { } } }
-                else
-                    @app.handle_error self, err, trace, 500
-
-            =>
+        POST: capture_form_errors =>
                 @json = json_requested @
                 model = assert_error content\get "apply"
                 @m = model
@@ -140,7 +145,6 @@ class CSWeek extends lapis.Application
                     ret = @app\try_render 'apply-result', self
                     ret.status = status
                     ret
-        }
     }
 
     [apply_upload: "/prijava/upload/*"]: respond_to {
@@ -155,7 +159,7 @@ class CSWeek extends lapis.Application
                 redirect_to: '/prijava'
 
 
-        POST: =>
+        POST: capture_form_errors =>
             json = json_requested @
             model = assert_error content\get 'apply-upload'
             @m = model
