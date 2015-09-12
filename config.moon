@@ -23,7 +23,7 @@ config {'development', 'development-perftest'}, ->
     listen_address '127.0.0.1'
     secret 'this is not so secret!'
     content_prefix '../content/'
-    filesize_limit 15 * 1024 * 1024
+    filesize_limit 6 * 15 * 1024 * 1024 + 1024
 
     email_cooldown 20
 
@@ -41,7 +41,7 @@ config {'production', 'production-perftest' }, ->
     log_level 'warn'
     listen_address '127.0.0.1'
     content_prefix 'content/'
-    filesize_limit 15 * 1024 * 1024
+    filesize_limit 6 * 15 * 1024 * 1024 + 1024
 
     email_cooldown 30 * 60
 
