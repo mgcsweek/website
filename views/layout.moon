@@ -4,7 +4,6 @@ import to_json from require "lapis.util"
 class DefaultLayout extends html.Widget
     content: =>
         js = (require 'views.javascript')!.js
-        print to_json(js)
         html_5 ->
             head -> 
                 meta charset: "UTF-8"
@@ -24,7 +23,6 @@ class DefaultLayout extends html.Widget
                     @content_for "inner"
 
                 @content_for "footer"
-                print to_json(js)
                 for scrpt in *js
                     with scrpt
                         contents = .contents
