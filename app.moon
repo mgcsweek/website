@@ -3,10 +3,31 @@ config = (require "lapis.config").get!
 content = require "content"
 logger = require "lapis.logging"
 console = require "lapis.console" if config._name == 'development' or config._name == 'development-perftest'
+csrf = require "lapis.csrf"
+submit = require "submit_application"
 
 import after_dispatch from require "lapis.nginx.context"
 import to_json from require "lapis.util"
-import capture_errors, assert_error, yield_error from require "lapis.application"
+import capture_errors, assert_error, yield_error, respond_to from require "lapis.application"
+import json_requested from require "utils"
+
+capture_form_errors = (fn) ->
+    capture_errors {
+        on_error: (err, trace) =>
+            err or= @errors
+            if @json
+                resp = if @m and @m.form and @m.form.responses and @m.form.responses.default
+                    @m.form.responses.default
+                else
+                    '<p>A server error has occurred, and the error text could not be fetched.</p>'
+
+                print to_json err
+                { status: 500, json: { response: resp, errors: { } } }
+            else
+                @app.handle_error self, err, trace, 500
+
+        fn
+    }
 
 safe_route = (fn) ->
     capture_errors {
@@ -53,6 +74,37 @@ class CSWeek extends lapis.Application
             .footer = assert_error content\get "footer"
         render: template
 
+    respond_to_form: (err, model, page_id, template) =>
+        resp = { }
+
+        status = if not err
+                200
+            elseif err[1] == 'internal_error'
+                500
+            elseif err[1] == 'duplicate_application'
+                409
+            elseif err[1] == 'too_frequent'
+                403
+            elseif err[1] == 'file_too_big'
+                419
+            else 
+                400
+        
+        resp.response = model.form.responses[status] or model.form.responses.default if model.form.responses
+
+        if status == 400
+            resp.errors = { }
+            for e in *err
+                table.insert resp.errors, model.form.validation_errors[e] or 'unknown error' 
+        if @json
+            { :status, json: resp }
+        else 
+            @resp = resp
+            @page_id = page_id
+            ret = @app\try_render template, self
+            ret.status = status
+            ret
+
     @before_filter =>
         if #[n for n in *{'production-perftest', 'development-perftest'} when n == config._name] > 0
             after_dispatch ->
@@ -89,11 +141,53 @@ class CSWeek extends lapis.Application
         @m = results[1]
         @app\try_render "lecturer", self
 
-    [apply: "/prijava"]: safe_route =>
-        @page_id = "apply"
-        @m = assert_error content\get "apply"
+    [apply: "/prijava"]: respond_to {
+        GET: safe_route =>
+            @page_id = "apply"
+            @m = assert_error content\get "apply"
+            @csrf_token = csrf.generate_token @
+            @app\try_render "apply", self
 
-        @app\try_render "apply", self
+        POST: capture_form_errors =>
+                @json = json_requested @
+                model = assert_error content\get "apply"
+                @m = model
+
+                this = self
+                succ, ret, err = pcall -> 
+                    submit\submit this.res.req.params_post, model, (...) ->
+                        this\build_url ...
+
+                yield_error ret if not succ
+                @app.respond_to_form self, err, model, 'apply', 'apply-result'
+    }
+
+    [apply_upload: "/prijava/upload/*"]: respond_to {
+        GET: safe_route =>
+            @page_id = "apply"
+            @m = assert_error content\get "apply-upload"
+            @a = assert_error content\get "apply"
+            @csrf_token = csrf.generate_token @
+            if @application = submit\get_application @params.splat
+                @app\try_render "apply-upload", self
+            else
+                redirect_to: '/prijava'
+
+
+        POST: capture_form_errors =>
+            @json = json_requested @
+            model = assert_error content\get 'apply-upload'
+            apply_model = assert_error content\get 'apply'
+            @m = model
+            
+            this = self
+            succ, ret, err = pcall -> 
+                submit\upload this.res.req.params_post, @params.splat, model, apply_model.tasks
+
+            yield_error ret if not succ
+
+            @app.respond_to_form self, err, model, 'apply', 'apply-result'
+    }
 
     [console: "/console"]: console.make!
 

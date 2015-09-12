@@ -7,4 +7,5 @@ nginx.conf.compiled
 logs/
 static/*.css*
 .sass-cache
+secrets.moon
 

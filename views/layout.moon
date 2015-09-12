@@ -4,13 +4,12 @@ import to_json from require "lapis.util"
 class DefaultLayout extends html.Widget
     content: =>
         js = (require 'views.javascript')!.js
-        print to_json(js)
         html_5 ->
             head -> 
                 meta charset: "UTF-8"
 
                 -- This enables web-scale mode, right?
-                meta name: "viewport", content:"initial-scale=1"
+                -- meta name: "viewport", content:"initial-scale=1"
 
                 link href: "/static/style.css", rel: "stylesheet", type: "text/css"
                 link rel: "shortcut icon", href: "/favicon.ico?v=2"
@@ -24,12 +23,15 @@ class DefaultLayout extends html.Widget
                     @content_for "inner"
 
                 @content_for "footer"
-                print to_json(js)
                 for scrpt in *js
                     with scrpt
                         contents = .contents
                         .contents = nil
-                        script scrpt, contents
+                        script scrpt, ->
+                            raw contents
+
+    upload: =>
+
 
 
 

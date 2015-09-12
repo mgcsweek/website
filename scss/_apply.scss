@@ -2,4 +2,235 @@
     .parallax-heading {
         background-image: url('http://galeri12.uludagsozluk.com/505/jennifer-white_740393.jpg');
     }
+
+    .content-body {
+        ul, ol {
+            list-style-type: disc;
+        }
+
+        details {
+            background: white;
+            margin-bottom: 50px;
+        }
+
+        h2 {
+            font-size: 150%;
+            text-align: left;
+            font-weight: bold;
+            margin: 1.7em 0 0.6em;
+        }
+
+        .left, .right {
+            vertical-align: top;
+            display: inline-block;
+            box-sizing: border-box;
+            padding: 20px;
+        }
+
+        .left {
+            width: 30%;
+        }
+
+        .right {
+            width: 70%;
+            text-align: right;
+
+            ul {
+                list-style-type: none;
+            }
+        }
+    }
+
+    form {
+        text-align: center;
+
+        input.text, label, select, textarea {
+            padding: 0;
+            display: inline-block;
+            box-sizing: border-box;
+            width: 65%;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        input.text, textarea {
+            padding: 9px 13px;
+            border-radius: 6px;
+            border: 1px solid #aaa;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+            font-size: 95%;
+            margin-top: 15px;
+
+            transition: box-shadow 0.2s;
+        }
+
+        textarea {
+            @include body-font;
+            min-height: 15em;
+        }
+
+        #applicant-first-name, #applicant-last-name {
+            width: 305px;
+        }
+
+        #applicant-first-name {
+            margin-right: 12px;
+        }
+
+        input.text:focus, textarea:focus {
+            border-color: $brand-color;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(102, 175, 233, 0.6)
+        }
+
+        input.text:focus:invalid, textarea:focus:invalid {
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(220, 40, 40, 0.6);
+            border-color: #ee0000;
+        }
+
+        select {
+            margin-top: 15px;
+            padding: 9px 13px;
+            font-size: 95%;
+            border: 1px solid #aaa;
+        }
+
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        label {
+            clear: both;
+            margin-top: 15px;
+            width: 35%;
+        }
+
+        label#tasks-label {
+            text-align: left;
+            width: 100%;
+            margin-top: 45px;
+        }
+
+        ol#applicant-tasks {
+            @extend .group;
+            list-style-type: none;
+            margin-top: 20px;
+
+            $tasks-per-row: 3;
+            $tasks-spacing-x: 20px;
+            $tasks-spacing-y: $tasks-spacing-x;
+            li {
+                float: left;
+                width: (960px - ($tasks-per-row - 1) * $tasks-spacing-x) / $tasks-per-row - 1px;
+                margin-right: $tasks-spacing-x;
+                margin-bottom: $tasks-spacing-y;
+                box-sizing: border-box;
+                min-height: 120px;
+
+                @include display-font;
+                text-transform: uppercase;
+                font-size: 120%;
+
+                label {
+                    display: block;
+                    width: 100%;
+                    min-height: 120px;
+                    padding: 12px 24px;
+                    box-sizing: border-box;
+                    background-color: $footer-background;
+                    transition: background-color 0.2s, color 0.2s;
+                    margin-top: 0;
+                    color: white;
+                    text-align: center;
+
+                    span {
+                        display: inline-block;
+                        position: relative;
+                        top: 120px / 2 - 12px;
+                        transform: translateY(-50%);
+                        -webkit-transform: translateY(-50%);
+                        margin: 0;
+                    }
+                }
+
+                input:checked + label {
+                    background-color: $brand-color;
+                }
+            }
+
+            li:nth-child(3n) {
+                margin-right: 0;
+            }
+        }
+
+        p {
+            text-align: left;
+        }
+
+        button {
+            @extend a.button;
+
+            border-radius: 0;
+            border: 0 none;
+            display: inline-block;
+            font-size: 110%;
+            margin-top: 50px;
+            min-width: 30%;
+            cursor: pointer;
+        }
+
+        .status {
+            display: none;
+            padding: 20px 50px;
+            background-color: $success-background;
+            color: white;
+
+            p {
+                text-align: center;
+            }
+
+            a {
+                color: $success-link-color;
+            }
+
+            ul {
+                list-style-type: disc;
+                margin-bottom: 25px;
+            }
+        }
+
+        .status.error {
+            background-color: $error-background;
+            
+            a {
+                color: $error-link-color;
+            }
+        }
+
+        .spinner {
+            position: relative;
+            top: 7px;
+        }
+
+        .upload {
+            @extend a.button;
+            background-color: $footer-background;
+            overflow: hidden;
+            position: relative;
+            text-align: left;
+            margin-left: 0;
+            padding: 8px 24px;
+
+            input {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                cursor: pointer;
+                opacity: 0;
+            }
+        }
+
+
+    }
 }
