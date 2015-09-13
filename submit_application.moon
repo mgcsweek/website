@@ -145,6 +145,7 @@ class SubmitApplication
         return nil, "could not open file `#{fname}`" if not f
 
         ret = f\write buf
+        f\close!
         upl
 
 
