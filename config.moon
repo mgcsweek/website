@@ -48,6 +48,7 @@ config {'production', 'production-perftest' }, ->
     log_file '/var/log/nginx/error.log'
     log_level 'warn'
     listen_address '127.0.0.1'
+    secret secrets.app_secret
     content_prefix 'content/'
     filesize_limit 6 * 15 * 1024 * 1024 + 1024
     single_file_limit 15 * 1024 * 1024
