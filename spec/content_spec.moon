@@ -1,5 +1,5 @@
 fsmock = require "filesystem-mock"
-package.path = "../?.lua;#{package.path}"
+package.path = "../?.lua;" .. package.path
 
 inject_fsmock = (fsmock, obj) ->
     fsmock\inject obj
