@@ -189,7 +189,7 @@ class CSWeek extends lapis.Application
             @app.respond_to_form self, err, model, 'apply', 'apply-result'
     }
 
-    [console: "/console"]: console.make!
+    [console: "/console"]: console and console.make! or nil
 
     [materials: "/materijali"]: safe_route =>
         @page_id = "materials"
