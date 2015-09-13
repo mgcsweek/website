@@ -10,7 +10,7 @@ class ApplyBase extends html.Widget
             @content_for "footer", ->
                 render "views.footer"
 
-        div { class: "parallax-heading", ["data-0"]: "background-position: 0px -440px",
+        div { class: "parallax-heading", ["data-0"]: "background-position: 0px -30px", 
             ["data-top-bottom"]: "background-position: 0px -150px" }, ->
             h1 @m.heading
 
