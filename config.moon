@@ -30,6 +30,12 @@ config {'development', 'development-perftest'}, ->
     uploads_dir 'uploads'
 
 config {'production', 'production-perftest' }, ->
+    mysql ->
+        host '127.0.0.1'
+        user secrets.mysql_user
+        password secrets.mysql_password
+        database secrets.mysql_db
+
     smtp_server 'mail.csnedelja.mg.edu.rs'
     smtp_port 587
     smtp_username secrets.mail_user
