@@ -4,7 +4,8 @@ import render_and_pass from require "utils"
 class Apply extends html.Widget
     content: =>
         apply_content = capture ->
-            raw @m.intro
+            intro = @m.intro\gsub '%%1', @last_updated
+            raw intro
             with @m.form
                 h1 .heading
                 form method: "POST", id: "application-form", ->

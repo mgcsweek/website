@@ -5,6 +5,7 @@ logger = require "lapis.logging"
 console = require "lapis.console" if config._name == 'development' or config._name == 'development-perftest'
 csrf = require "lapis.csrf"
 submit = require "submit_application"
+lfs = require "lfs"
 
 import after_dispatch from require "lapis.nginx.context"
 import to_json from require "lapis.util"
@@ -145,6 +146,9 @@ class CSWeek extends lapis.Application
         GET: safe_route =>
             @page_id = "apply"
             @m = assert_error content\get "apply"
+            mtime = lfs.attributes 'static/resources/test.pdf', 'modification'
+            if mtime
+                @last_updated = os.date '%d.%m.%y. %H:%M', mtime
             @csrf_token = csrf.generate_token @
             @app\try_render "apply", self
 
