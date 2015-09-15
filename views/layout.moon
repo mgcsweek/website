@@ -7,7 +7,8 @@ class DefaultLayout extends html.Widget
         html_5 ->
             head -> 
                 meta charset: "UTF-8"
-		meta property:"og:image", content:"/static/images/logotype.png"
+                meta property:"og:image", content:"/static/images/logotype.png"
+
                 -- This enables web-scale mode, right?
                 meta name: "viewport", content:"initial-scale=1"
 
