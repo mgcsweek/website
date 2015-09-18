@@ -1,12 +1,6 @@
 fsmock = require "filesystem-mock"
 package.path = "../?.lua;#{package.path}"
 
-inject_fsmock = (fsmock, obj) ->
-    fsmock\inject obj
-
-restore_fsmock = (fsmock, obj) ->
-    fsmock\restore obj
-
 describe "content module", ->
     with_mock_fs = (obj, vfs, openerr, readerr, fn) ->
         fs = fsmock.new vfs
@@ -21,9 +15,9 @@ describe "content module", ->
             for f in *openerr
                 fs.err_on_open[f] = true 
 
-        inject_fsmock fs, obj
+        fs\inject obj
         fn fs
-        restore_fsmock fs, obj
+        fs\restore obj
 
     setup ->
         export _real_io = require "io"
