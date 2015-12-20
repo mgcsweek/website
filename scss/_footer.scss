@@ -1,6 +1,6 @@
 footer {
     background-color: $footer-background;
-    background-position: 50% 50%;
+    background-position: 50% 60px;
     background-repeat: no-repeat;
     background-size: 90px 90px;
     min-height: 205px;
@@ -12,7 +12,7 @@ footer {
     color: white;
     @include body-font;
 
-    div {
+    div.left, div.right {
         max-width: (960px / 2);
         vertical-align: middle;
         width: 50%;
@@ -46,6 +46,72 @@ footer {
         padding-right: 35px;
         padding-left: 45px + 90px / 2;
     }
+
+    div.social-icons {
+        font-size: 80%;
+        padding: 0px 20px 20px;
+
+        li {
+            margin: 4px auto 0;
+            text-align: center;
+            background-repeat: no-repeat;
+            height: 25px;
+
+            .icon {
+                background-repeat: no-repeat;
+                display: inline-block;
+                margin-right: 12px;
+                vertical-align: middle;
+            }
+
+            span {
+                vertical-align: middle;
+                display: inline-block;
+            }
+        }
+
+
+        li.facebook {
+            .icon {
+                @include svg-fallback-background("/static/images/facebook-icon.svg", "/static/images/logo-white.png");
+                width: 8px;
+                height: 20px;
+                background-size: 8px auto;
+            }
+        }
+
+        li.youtube {
+            .icon {
+                @include svg-fallback-background("/static/images/youtube-icon.svg", "/static/images/logo-white.png");
+                width: 20px;
+                height: 15px;
+                background-size: 20px auto;
+            }
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.2s;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        a:after {
+            content: '';
+            width: 0;
+            height: 30px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        a:hover {
+            color: #f5f5f5;
+            text-decoration: underline;
+        }
+
+    }
+
 }
 footer::before {
     content: '';

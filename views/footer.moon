@@ -9,6 +9,15 @@ class Footer extends html.Widget
             div class: "right", ->
                 raw @footer.text_right
 
+            div class: "social-icons", ->
+                ul ->
+                    li class: "facebook", ->
+                        a href: @footer.icons.facebook.url, ->
+                            span class: "icon"
+                            span class: "url", @footer.icons.facebook.text
 
+                    li class: "youtube", ->
+                        a href: @footer.icons.youtube.url, ->
+                            span class: "icon"
+                            span class: "url", @footer.icons.youtube.text
 
- 
