@@ -7,7 +7,6 @@ csrf = require "lapis.csrf"
 submit = require "submit_application"
 submit_newsletter = require "submit_newsletter"
 lfs = require "lfs"
-moon = require "moon"
 
 import after_dispatch from require "lapis.nginx.context"
 import to_json from require "lapis.util"
