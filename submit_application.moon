@@ -93,7 +93,7 @@ class SubmitApplication
                 body: txt
 
         ret, err = smtp.send
-            from: config.smtp_username
+            from: config.smtp_from
             rcpt: params.email
             user: config.smtp_username
             password: config.smtp_password
