@@ -11,7 +11,7 @@ class Nav extends html.Widget
                 nav ->
                     ul ->
                         for v in *@nav.items
-                            li id: v.id, -> 
+                            li id: v.id, ->
                                 a href: v.href, v.text
-        
+
 

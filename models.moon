@@ -15,5 +15,7 @@ class Uploads extends Model
         { "application", belongs_to: "Application" }
     }
 
-{ :Applications, :ChosenTasks, :Uploads }
+class NewsletterApplications extends Model
+
+{ :Applications, :ChosenTasks, :Uploads, :NewsletterApplications }
 

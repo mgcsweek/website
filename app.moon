@@ -5,7 +5,9 @@ logger = require "lapis.logging"
 console = require "lapis.console" if config._name == 'development' or config._name == 'development-perftest'
 csrf = require "lapis.csrf"
 submit = require "submit_application"
+submit_newsletter = require "submit_newsletter"
 lfs = require "lfs"
+moon = require "moon"
 
 import after_dispatch from require "lapis.nginx.context"
 import to_json from require "lapis.util"
@@ -88,9 +90,9 @@ class CSWeek extends lapis.Application
                 403
             elseif err[1] == 'file_too_big'
                 419
-            else 
+            else
                 400
-        
+
         resp.response = model.form.responses[status] or model.form.responses.default if model.form.responses
 
         if status == 400
@@ -99,7 +101,7 @@ class CSWeek extends lapis.Application
                 table.insert resp.errors, model.form.validation_errors[e] or 'unknown error' 
         if @json
             { :status, json: resp }
-        else 
+        else
             @resp = resp
             @page_id = page_id
             ret = @app\try_render template, self
@@ -144,53 +146,79 @@ class CSWeek extends lapis.Application
 
     [apply: "/prijava"]: respond_to {
         GET: safe_route =>
+            print 'hey'
             @page_id = "apply"
-            @m = assert_error content\get "apply"
-            mtime = lfs.attributes 'static/resources/test.pdf', 'modification'
-            if mtime
-                @last_updated = os.date '%d.%m.%y. %H:%M', mtime
             @csrf_token = csrf.generate_token @
-            @app\try_render "apply", self
+            if config.applications_enabled
+                @m = assert_error content\get "apply"
+                mtime = lfs.attributes 'static/resources/test.pdf', 'modification'
+                if mtime
+                    @last_updated = os.date '%d.%m.%y. %H:%M', mtime
+                @app\try_render "apply", self
+            else
+                @m = assert_error content\get "apply-newsletter"
+                @app\try_render "apply-newsletter", self
 
         POST: capture_form_errors =>
-                @json = json_requested @
-                model = assert_error content\get "apply"
-                @m = model
+            @json = json_requested @
+            model_name = if config.applications_enabled
+                'apply'
+            else
+                'apply-newsletter'
 
+            model = assert_error content\get model_name
+            local succ, ret, err
+
+            @m = model
+            if not csrf.validate_token @
+                @app.respond_to_form self, { 'bad_token' }, model, model_name, 'apply-result'
+            else
                 this = self
-                succ, ret, err = pcall -> 
-                    submit\submit this.res.req.params_post, model, (...) ->
-                        this\build_url ...
+
+                if config.applications_enabled
+                    succ, ret, err = pcall ->
+                        submit\submit this.res.req.params_post, model, (...) ->
+                            this\build_url ...
+                else
+                    succ, ret, err = pcall ->
+                        moon.p submit_newsletter
+                        submit_newsletter\submit this.res.req.params_post, model, (...) ->
+                            this\build_url ...
 
                 yield_error ret if not succ
-                @app.respond_to_form self, err, model, 'apply', 'apply-result'
+                @app.respond_to_form self, err, model, model_name, 'apply-result'
     }
 
     [apply_upload: "/prijava/upload/*"]: respond_to {
         GET: safe_route =>
-            @page_id = "apply"
-            @m = assert_error content\get "apply-upload"
-            @a = assert_error content\get "apply"
-            @csrf_token = csrf.generate_token @
-            if @application = submit\get_application @params.splat
-                @app\try_render "apply-upload", self
+            if config.applications_enabled
+                @page_id = "apply"
+                @m = assert_error content\get "apply-upload"
+                @a = assert_error content\get "apply"
+                @csrf_token = csrf.generate_token @
+                if @application = submit\get_application @params.splat
+                    @app\try_render "apply-upload", self
+                else
+                    redirect_to: '/prijava'
             else
                 redirect_to: '/prijava'
 
-
         POST: capture_form_errors =>
-            @json = json_requested @
-            model = assert_error content\get 'apply-upload'
-            apply_model = assert_error content\get 'apply'
-            @m = model
-            
-            this = self
-            succ, ret, err = pcall -> 
-                submit\upload this.res.req.params_post, @params.splat, model, apply_model.tasks
+            if config.applications_enabled
+                @json = json_requested @
+                model = assert_error content\get 'apply-upload'
+                apply_model = assert_error content\get 'apply'
+                @m = model
 
-            yield_error ret if not succ
+                this = self
+                succ, ret, err = pcall ->
+                    submit\upload this.res.req.params_post, @params.splat, model, apply_model.tasks
 
-            @app.respond_to_form self, err, model, 'apply', 'apply-result'
+                yield_error ret if not succ
+
+                @app.respond_to_form self, err, model, 'apply', 'apply-result'
+            else
+                redirect_to: '/prijava'
     }
 
     [console: "/console"]: console and console.make! or nil
