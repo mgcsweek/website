@@ -127,12 +127,9 @@ class SubmitApplication
         f = io.open fname, 'wb'
         return nil, "could not open file `#{fname}`" if not f
 
-<<<<<<< HEAD
-        ret = f\write buf
-        f\close!
-=======
         f\write buf
->>>>>>> develop
+        f\close!
+        f\write buf
         upl
 
 
