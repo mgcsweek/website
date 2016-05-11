@@ -180,7 +180,6 @@ class CSWeek extends lapis.Application
                             this\build_url ...
                 else
                     succ, ret, err = pcall ->
-                        moon.p submit_newsletter
                         submit_newsletter\submit this.res.req.params_post, model, (...) ->
                             this\build_url ...
 
