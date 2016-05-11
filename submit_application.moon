@@ -1,38 +1,21 @@
-content = require 'content'
 config = (require 'lapis.config').get!
 csrf = require 'lapis.csrf'
 smtp = require 'resty.smtp'
 mime = require 'resty.smtp.mime'
-ltn12 = require 'resty.smtp.ltn12'
+validation = require 'validation'
 import to_json from require 'lapis.util'
 import decode_with_secret, encode_with_secret from require 'lapis.util.encoding'
 import validate_functions, validate from require 'lapis.validate'
 
-validate_functions.is_email = (input, tru) ->
-        r = input\match "[A-Za-z0-9%.%%%+%-]+@[A-Za-z0-9%.%%%+%-]+%.%w%w%w?%w?"
-        r, "not a valid email: %s"
-
-validate_functions.has_filetype = (input, ...) ->
-    ftypes = {...}
-
-    return nil, "doesn't look like a file" if not input or not input.filename
-
-    for t in *ftypes
-        ft = t\gsub '%.', '%%.'
-        return t if input.filename\match "%.#{ft}$"
-
-    nil, "#{input.filename} must be one of types #{table.concat ftypes, ', '}"
-
-validate_functions.smaller_than = (input, size) ->
-    size = config.single_file_limit if type size != 'number'
-    input and input.content and #input.content <= size, "file must be less than #{size} bytes"
+for i in *{ 'is_email', 'has_filetype', 'smaller_than' }
+    validate_functions[i] = validation[i]
 
 import Applications, ChosenTasks, Uploads from require 'models'
 
 class SubmitApplication
     submit: (params, model, url_builder) =>
         errors = { }
-    
+
         tasks = { }
         tasklen = #model.tasks
         local tid
@@ -40,17 +23,17 @@ class SubmitApplication
             if tid = k\match "^tasks%[(%d+)%]$"
                 tid = tonumber tid
                 if tid >= 1 and tid <= tasklen
-                    table.insert tasks, tid 
-                else 
+                    table.insert tasks, tid
+                else
                     errors.bad_request = true
-        
+
         ret = validate params, {
                 { 'firstname', exists: true, max_length: 255, 'invalid_name' },
                 { 'lastname', exists: true, max_length: 255, 'invalid_name' },
                 { 'email', exists: true, max_length: 255, is_email: true, 'invalid_email' },
                 { 'class', one_of: model.form.classes, 'bad_request' }
             }
-            
+
         errors.task_number_mismatch = true if #tasks < 2
         if ret
             errors[e] = true for e in *ret
@@ -79,10 +62,10 @@ class SubmitApplication
                 class: class_id
                 submitted: 0
             }
-            
+
         if not application
             print err
-            return nil, { 'internal_error' } 
+            return nil, { 'internal_error' }
 
         appid = application.id
         for t in *tasks
@@ -98,8 +81,8 @@ class SubmitApplication
             txt = .text\gsub '%%1', url
             txt = mime.b64 txt
             txt = mime.wrp 0, txt
-            msg = 
-                headers: 
+            msg =
+                headers:
                     to: params.email
                     from: config.smtp_from
                     ['message-id']: 'MID-application.' .. appid .. '@csnedelja.mg.edu.rs'
@@ -117,10 +100,10 @@ class SubmitApplication
             server: config.smtp_server
             port: config.smtp_port
             source: smtp.message(msg)
-        
+
         if not ret
             print err
-            return nil, { 'internal_error' } 
+            return nil, { 'internal_error' }
 
         application\update
             email_sent: os.time!
@@ -133,7 +116,7 @@ class SubmitApplication
 
         appl = Applications\find data.id
         return nil if not appl or appl.submitted != 0
-        
+
         appl
 
     store_file: (extension, buf, application_id, context) =>
@@ -144,12 +127,12 @@ class SubmitApplication
         f = io.open fname, 'wb'
         return nil, "could not open file `#{fname}`" if not f
 
-        ret = f\write buf
+        f\write buf
         upl
 
 
     upload: (post_params, token, model, tasklist) =>
-        appl, err = SubmitApplication.get_application self, token
+        appl, _ = SubmitApplication.get_application self, token
         return nil, { 'no_such_application' } if not appl
 
         validation = {

@@ -15,7 +15,6 @@ class Home extends html.Widget
             with @m.banner
                 section { id: "banner", ["data-0"]: "background-position:0px 0px;", 
                 ["data-top-bottom"]: "background-position:0px -100px;"}, ->
-                    p class: "duration", .duration 
                     h1 .title
                     h2 .subtitle
                     h3 .tagline
@@ -45,7 +44,7 @@ class Home extends html.Widget
                                         ul class: "topics", ->
                                             for t in *.topics
                                                 li t
-                                        
+
                                         a {
                                             class: "button", 
                                             href: (@url_for "lecturer", name: l.id), 
@@ -55,9 +54,9 @@ class Home extends html.Widget
                     if .button
                         with .button
                             a class: "button", href: .href, .text
-                                    
 
 
 
-        
+
+
 

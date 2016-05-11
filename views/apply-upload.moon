@@ -15,7 +15,7 @@ class ApplyResult extends html.Widget
                     a href: "mailto:#{@application.email}", 
                          @application.email
                     raw ")"
-                
+
                 div class: "left", @m.chosen_tasks_label
                 div class: "right", ->
                     ul ->

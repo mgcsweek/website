@@ -13,6 +13,7 @@ config {'development', 'development-perftest'}, ->
     smtp_username secrets.mail_user
     smtp_password secrets.mail_password
     smtp_from 'MG Nedelja informatike - prijave <prijave@csnedelja.mg.edu.rs>'
+    smtp_from_newsletter 'MG Nedelja informatike - newsletter <newsletter@csnedelja.mg.edu.rs>'
 
     port 8080
     num_workers 1
@@ -28,6 +29,7 @@ config {'development', 'development-perftest'}, ->
 
     email_cooldown 20
     uploads_dir 'uploads'
+    applications_enabled true
 
 config {'production', 'production-perftest' }, ->
     mysql ->
@@ -40,6 +42,8 @@ config {'production', 'production-perftest' }, ->
     smtp_port 587
     smtp_username secrets.mail_user
     smtp_password secrets.mail_password
+    smtp_from 'MG Nedelja informatike - prijave <prijave@csnedelja.mg.edu.rs>'
+    smtp_from_newsletter 'MG Nedelja informatike - newsletter <newsletter@csnedelja.mg.edu.rs>'
 
     port 8989
     num_workers 1
@@ -55,6 +59,7 @@ config {'production', 'production-perftest' }, ->
 
     email_cooldown 30 * 60
     uploads_dir 'uploads'
+    applications_enabled false
 
 
 config {'development-perftest', 'production-perftest'}, ->
