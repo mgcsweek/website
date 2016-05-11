@@ -54,7 +54,7 @@ class SubmitApplication
             msg =
                 headers:
                     to: params.email
-                    from: config.smtp_from
+                    from: config.smtp_from_newsletter
                     ['message-id']: 'MID-newsletter-confirmation.' .. os.time! .. '@csnedelja.mg.edu.rs'
                     subject: mime.ew .subject, nil, { charset: 'utf-8' }
                     ['content-transfer-encoding']: 'BASE64'
@@ -63,7 +63,7 @@ class SubmitApplication
                 body: txt
 
         ret, err = smtp.send
-            from: config.smtp_username
+            from: config.smtp_from_newsletter
             rcpt: params.email
             user: config.smtp_username
             password: config.smtp_password
