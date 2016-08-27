@@ -203,6 +203,23 @@
             }
         }
 
+        .upload-link {
+            a {
+                display: block;
+                background: #003300;
+                padding: 20px;
+                color: white;
+
+                transition: color 0.5s, background-color 0.5s;
+            }
+
+            a:hover {
+                background: white;
+                color: #003300;
+                text-decoration: none;
+            }
+        }
+
         .spinner {
             position: relative;
             top: 7px;

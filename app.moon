@@ -76,35 +76,49 @@ class CSWeek extends lapis.Application
             .footer = assert_error content\get "footer"
         render: template
 
-    respond_to_form: (err, model, page_id, template) =>
+    respond_to_form: (err, model, page_id, template, response_filter) =>
         resp = { }
 
-        status = if not err
-                200
+        status, status_code = if not err
+                if config.disable_email_confirmation
+                    "200_no_email", 200
+                else
+                    200, 200
             elseif err[1] == 'internal_error'
-                500
+                500, 500
             elseif err[1] == 'duplicate_application'
-                409
+                if config.disable_email_confirmation
+                    "409_no_email", 409
+                else
+                    409, 409
             elseif err[1] == 'too_frequent'
-                403
+                "403_too_frequent", 403
+            elseif err[1] == 'bad_token'
+                "403_validation_error", 403
             elseif err[1] == 'file_too_big'
-                419
+                419, 419
             else
-                400
+                400, 400
 
-        resp.response = model.form.responses[status] or model.form.responses.default if model.form.responses
+        response_text = model.form.responses[status] or model.form.responses[status_code] or model.form.responses.default if model.form.responses
+        resp.response = if response_filter
+            response_filter response_text
+        else
+            response_text
 
         if status == 400
+            -- validation error, fetch texts from the model
             resp.errors = { }
             for e in *err
-                table.insert resp.errors, model.form.validation_errors[e] or 'unknown error' 
+                table.insert resp.errors, model.form.validation_errors[e] or 'unknown error'
         if @json
-            { :status, json: resp }
+            { status: status_code, json: resp }
         else
             @resp = resp
             @page_id = page_id
             ret = @app\try_render template, self
-            ret.status = status
+            print status_code
+            ret.status = status_code
             ret
 
     @before_filter =>
@@ -145,7 +159,6 @@ class CSWeek extends lapis.Application
 
     [apply: "/prijava"]: respond_to {
         GET: safe_route =>
-            print 'hey'
             @page_id = "apply"
             @csrf_token = csrf.generate_token @
             if config.applications_enabled
@@ -184,7 +197,13 @@ class CSWeek extends lapis.Application
                             this\build_url ...
 
                 yield_error ret if not succ
-                @app.respond_to_form self, err, model, model_name, 'apply-result'
+                @app.respond_to_form self, err, model, model_name, 'apply-result', (text) ->
+                    if config.disable_email_confirmation and ret
+                        -- ret is an URL if the email confirmation is disabled
+                        -- see submit_application.moon
+                        text\gsub '%%1', ret
+                    else
+                        text
     }
 
     [apply_upload: "/prijava/upload/*"]: respond_to {

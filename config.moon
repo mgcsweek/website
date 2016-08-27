@@ -27,9 +27,10 @@ config {'development', 'development-perftest'}, ->
     filesize_limit 6 * 15 * 1024 * 1024 + 1024
     single_file_limit 15 * 1024 * 1024
 
+    disable_email_confirmation true
     email_cooldown 20
     uploads_dir 'uploads'
-    applications_enabled false
+    applications_enabled true
 
 config {'production', 'production-perftest' }, ->
     mysql ->
@@ -57,6 +58,7 @@ config {'production', 'production-perftest' }, ->
     filesize_limit 6 * 15 * 1024 * 1024 + 1024
     single_file_limit 15 * 1024 * 1024
 
+    disable_email_confirmation true
     email_cooldown 30 * 60
     uploads_dir 'uploads'
     applications_enabled false
