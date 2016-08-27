@@ -136,7 +136,6 @@ class SubmitApplication
 
         f\write buf
         f\close!
-        f\write buf
         upl
 
 
