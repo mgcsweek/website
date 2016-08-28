@@ -15,6 +15,11 @@ class Apply extends html.Widget
                     input class: "text", required: "required", type: "text", placeholder: .last_name_placeholder, id: "applicant-last-name", name: "lastname"
                     label for: "applicant-email", .email_label
                     input class: "text", required: "required", type: "email", placeholder: .email_placeholder, id: "applicant-email", name: "email"
+                    label for: "applicant-school", .school_label
+                    element "select", required: "required", name: "school", ->
+                        for c in *.schools
+                            option value: c, c
+
                     label for: "applicant-class", .class_label
                     element "select", required: "required", name: "class", ->
                         for c in *.classes

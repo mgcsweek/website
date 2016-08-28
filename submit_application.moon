@@ -32,6 +32,7 @@ class SubmitApplication
                 { 'lastname', exists: true, max_length: 255, 'invalid_name' },
                 { 'email', exists: true, max_length: 255, is_email: true, 'invalid_email' },
                 { 'class', one_of: model.form.classes, 'bad_request' }
+                { 'school', one_of: model.form.schools, 'bad_request' }
             }
 
         errors.task_number_mismatch = true if #tasks < 2
@@ -41,6 +42,10 @@ class SubmitApplication
         local class_id
         for i, v in pairs model.form.classes
             class_id = i if v == params.class
+
+        local school_id
+        for i, v in pairs model.form.schools
+            school_id = i if v == params.school
 
         err_array = { }
         for k, _ in pairs errors
@@ -63,6 +68,7 @@ class SubmitApplication
                 last_name: .lastname
                 email: .email
                 class: class_id
+                school: school_id
                 submitted: 0
             }
 
