@@ -69,4 +69,15 @@ $(document).ready(function() {
             updateFilename($(this));
         });
     }
+
+    $('#hamburger-icon').click(function() {
+        if ($('header nav ul.active').length > 0) {
+            $('header nav ul').removeClass('active')
+                              .slideUp();
+        } else {
+            $('header nav ul').addClass('active')
+                              .slideDown();
+        }
+
+    })
 });
