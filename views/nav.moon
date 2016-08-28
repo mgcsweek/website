@@ -9,6 +9,7 @@ class Nav extends html.Widget
 
             if @nav.items
                 nav ->
+                    div id: "hamburger-icon"
                     ul ->
                         for v in *@nav.items
                             li id: v.id, ->
