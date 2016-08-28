@@ -10,8 +10,8 @@ class LecturersBase extends html.Widget
             @content_for "footer", ->
                 render "views.footer"
 
-        div { class: "parallax-heading", ["data-0"]: "background-position: 0px 0px",
-              ["data-top-bottom"]: "background-position: 0px -150px" }, ->
+        div { class: "parallax-heading", ["data-0"]: "background-position: 50% 0px",
+              ["data-top-bottom"]: "background-position: 50% -150px" }, ->
             h1 @m.heading
 
         section id: "lecturers-content", class: "content-body", ->
