@@ -42,7 +42,7 @@ section#banner {
 
 section#cta {
     background-color: $cta-background;
-    color: $body-text-tonedown;
+    color: $cta-text;
     @include cta-heading-font;
     text-align: center;
     padding-top: 45px;
