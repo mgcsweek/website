@@ -8,4 +8,5 @@ logs/
 static/*.css*
 .sass-cache
 secrets.moon
+uploads/
 
