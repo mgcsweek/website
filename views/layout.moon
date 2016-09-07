@@ -5,15 +5,22 @@ class DefaultLayout extends html.Widget
     content: =>
         js = (require 'views.javascript')!.js
         html_5 ->
-            head -> 
+            head ->
                 meta charset: "UTF-8"
-                meta property:"og:image", content:"http://csnedelja.mg.edu.rs/static/images/ni.png"
+                meta property:"og:image", content:"/static/images/ni.png"
 
                 -- This enables web-scale mode, right?
                 meta name: "viewport", content:"initial-scale=1"
 
                 link href: "/static/style.css", rel: "stylesheet", type: "text/css"
-                link rel: "shortcut icon", href: "/favicon.ico?v=2"
+                link rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png?v=3"
+                link rel: "icon", type: "image/png", href: "/favicon-32x32.png?v=3", sizes: "32x32"
+                link rel: "icon", type: "image/png", href: "/favicon-16x16.png?v=3", sizes: "16x16"
+                link rel: "manifest", href: "/manifest.json?v=3"
+                link rel: "mask-icon", color: "c90a3a", href: "/safari-pinned-tab.svg?v=3"
+                link rel: "shortcut icon", href: "/favicon.ico?v=3"
+                meta name: "theme-color", content: "#c90a3a"
+
                 title (@m and @m.title) or "MG CS Week"
 
             body id: @page_id, -> 

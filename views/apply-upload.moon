@@ -11,7 +11,7 @@ class ApplyResult extends html.Widget
                 div class: "left", @m.info_label
                 div class: "right", ->
                     strong "#{@application.first_name} #{@application.last_name}"
-                    raw ", #{@a.form.classes[@application.class]} ("
+                    raw ", #{@a.form.schools[@application.school]}, #{@a.form.classes[@application.class]} #{@a.form.class_suffix} ("
                     a href: "mailto:#{@application.email}", 
                          @application.email
                     raw ")"

@@ -35,13 +35,14 @@ section#banner {
         margin-top: 105px;
         max-width: 680px;
         font-size: 160%;
+        line-height: 1.3;
         @include serif-font;
     }
 }
 
 section#cta {
     background-color: $cta-background;
-    color: $body-text-tonedown;
+    color: $cta-text;
     @include cta-heading-font;
     text-align: center;
     padding-top: 45px;
@@ -57,7 +58,7 @@ section#cta {
         font-size: 330%;
     }
 
-    p { 
+    p {
         @include body-font;
 
         font-size: 110%;
@@ -89,7 +90,9 @@ section#lecturers {
 
     $lecturers-spacing-x: 25px;
     $lecturers-spacing-y: $lecturers-spacing-x;
-    $lecturers-per-row: 3;
+    $lecturers-per-row: 4;
+    $lecturer-item-height: 430px;
+
     > ul {
         margin: 40px 0 0;
         @extend .group;
@@ -100,7 +103,7 @@ section#lecturers {
             float: left;
             text-align: center;
             background: white;
-            min-height: 400px;
+            min-height: $lecturer-item-height;
             box-sizing: border-box;
             padding: 27px 25px;
             margin-right: $lecturers-spacing-x;
@@ -120,21 +123,22 @@ section#lecturers {
                 color: $body-text-tonedown;
                 font-size: 110%;
                 margin: 12px 0 30px;
+                line-height: 1.3;
                 @include serif-font;
             }
 
             img {
                 border-radius: 50%;
-                width: 195px;
+                width: 155px;
                 height: auto;
             }
 
             aside {
                 position: absolute;
-                bottom: -400px;
+                bottom: -$lecturer-item-height;
                 left: 0;
                 right: 0;
-                height: 400px;
+                height: $lecturer-item-height;
                 transition: bottom 0.5s ease;
                 background-color: $body-text-tonedown;
                 color: white;
@@ -155,8 +159,9 @@ section#lecturers {
                     padding: 0;
 
                     > li {
-                        font-size: 130%;
-                        margin-top: 35px;
+                        font-size: 110%;
+                        line-height: 1.2;
+                        margin-top: 25px;
                     }
                 }
 
@@ -166,11 +171,12 @@ section#lecturers {
                     left: 12px;
                     right: 12px;
                     box-sizing: border-box;
+                    font-size: 80%;
                 }
             }
         }
 
-        > li:nth-child(3n) {
+        > li:nth-child(4n) {
             margin-right: 0;
         }
 

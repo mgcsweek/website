@@ -17,5 +17,11 @@ class Uploads extends Model
 
 class NewsletterApplications extends Model
 
-{ :Applications, :ChosenTasks, :Uploads, :NewsletterApplications }
+class SecurityCredentials extends Model
+    @primary_key: "application_id"
+    @relations: {
+        { "application", belongs_to: "Application" }
+    }
+
+{ :Applications, :ChosenTasks, :Uploads, :NewsletterApplications, :SecurityCredentials }
 

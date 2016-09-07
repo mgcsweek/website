@@ -1,7 +1,31 @@
 @media screen and (max-width: $responsive-breakpoint) {
+    header nav {
+        padding: 20px 10px;
+        margin-top: 25px;
+
+        #hamburger-icon {
+            display: block;
+        }
+
+        ul li {
+            float: none;
+            width: 100%;
+
+            a {
+                display: block;
+                width: 100%;
+            }
+        }
+    }
+
+    header nav ul {
+        display: none;
+    }
+
     nav, header h1 {
         box-sizing: border-box;
     }
+
     header h1 {
         max-width: 100%;
         padding: 0 $gutter; 

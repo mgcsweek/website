@@ -32,6 +32,7 @@ class SubmitApplication
                 { 'lastname', exists: true, max_length: 255, 'invalid_name' },
                 { 'email', exists: true, max_length: 255, is_email: true, 'invalid_email' },
                 { 'class', one_of: model.form.classes, 'bad_request' }
+                { 'school', one_of: model.form.schools, 'bad_request' }
             }
 
         errors.task_number_mismatch = true if #tasks < 2
@@ -42,6 +43,10 @@ class SubmitApplication
         for i, v in pairs model.form.classes
             class_id = i if v == params.class
 
+        local school_id
+        for i, v in pairs model.form.schools
+            school_id = i if v == params.school
+
         err_array = { }
         for k, _ in pairs errors
             table.insert err_array, k
@@ -49,9 +54,12 @@ class SubmitApplication
 
         prev_app = Applications\find email: params.email
         if prev_app
-            return nil, { 'duplicate_application' } if prev_app.submitted != 0
-            return nil, { 'too_frequent' } if prev_app.email_sent and os.time! - (tonumber prev_app.email_sent) < config.email_cooldown
-            prev_app\delete!
+            if config.disable_email_confirmation
+                return nil, { 'duplicate_application' }
+            else
+                return nil, { 'duplicate_application' } if prev_app.submitted != 0
+                return nil, { 'too_frequent' } if prev_app.email_sent and os.time! - (tonumber prev_app.email_sent) < config.email_cooldown
+                prev_app\delete!
 
         local application, err
         with params
@@ -60,6 +68,7 @@ class SubmitApplication
                 last_name: .lastname
                 email: .email
                 class: class_id
+                school: school_id
                 submitted: 0
             }
 
@@ -76,39 +85,43 @@ class SubmitApplication
 
         url = (url_builder '/prijava/upload/') .. encode_with_secret { id: appid }
 
-        local msg
-        with model.email
-            txt = .text\gsub '%%1', url
-            txt = mime.b64 txt
-            txt = mime.wrp 0, txt
-            msg =
-                headers:
-                    to: params.email
-                    from: config.smtp_from
-                    ['message-id']: 'MID-application.' .. appid .. '@csnedelja.mg.edu.rs'
-                    subject: mime.ew .subject, nil, { charset: 'utf-8' }
-                    ['content-transfer-encoding']: 'BASE64'
-                    ['content-type']: 'text/plain; charset=utf-8'
+        fn_ret = true
+        if not config.disable_email_confirmation
+            local msg
+            with model.email
+                txt = .text\gsub '%%1', url
+                txt = mime.b64 txt
+                txt = mime.wrp 0, txt
+                msg =
+                    headers:
+                        to: params.email
+                        from: config.smtp_from
+                        ['message-id']: 'MID-application.' .. appid .. '@csnedelja.mg.edu.rs'
+                        subject: mime.ew .subject, nil, { charset: 'utf-8' }
+                        ['content-transfer-encoding']: 'BASE64'
+                        ['content-type']: 'text/plain; charset=utf-8'
 
-                body: txt
+                    body: txt
 
-        ret, err = smtp.send
-            from: config.smtp_username
-            rcpt: params.email
-            user: config.smtp_username
-            password: config.smtp_password
-            server: config.smtp_server
-            port: config.smtp_port
-            source: smtp.message(msg)
+            ret, err = smtp.send
+                from: config.smtp_username
+                rcpt: params.email
+                user: config.smtp_username
+                password: config.smtp_password
+                server: config.smtp_server
+                port: config.smtp_port
+                source: smtp.message(msg)
 
-        if not ret
-            print err
-            return nil, { 'internal_error' }
+            if not ret
+                print err
+                return nil, { 'internal_error' }
+        else
+            fn_ret = url
 
         application\update
             email_sent: os.time!
 
-        true
+        fn_ret
 
     get_application: (token) =>
         data = decode_with_secret token
@@ -129,7 +142,6 @@ class SubmitApplication
 
         f\write buf
         f\close!
-        f\write buf
         upl
 
 
