@@ -1,4 +1,5 @@
 lapis = require "lapis"
+http = require "lapis.nginx.http"
 config = (require "lapis.config").get!
 content = require "content"
 logger = require "lapis.logging"
@@ -9,9 +10,11 @@ submit_newsletter = require "submit_newsletter"
 lfs = require "lfs"
 
 import after_dispatch from require "lapis.nginx.context"
-import to_json from require "lapis.util"
+import from_json, to_json from require "lapis.util"
 import capture_errors, assert_error, yield_error, respond_to from require "lapis.application"
 import json_requested from require "utils"
+import encode_with_secret from require 'lapis.util.encoding'
+import SecurityCredentials from require 'models'
 
 capture_form_errors = (fn) ->
     capture_errors {
@@ -206,6 +209,69 @@ class CSWeek extends lapis.Application
                         text
     }
 
+    new_security_credentials: (application_id) =>
+        url = config.security_new_user_url
+        data = encode_with_secret application_id
+        res = http.simple {
+            :url
+            method: "POST"
+            body: {
+                id: data
+            }
+        }
+
+        print res
+        return nil unless res
+
+        if res and not res.error
+            ok, res = pcall ->
+                from_json res
+
+            if ok and res.employee_id and res.password
+                res
+            else
+                nil
+        else
+            nil
+
+    get_security_credentials: (application_id) =>
+        credentials = SecurityCredentials\find application_id
+        unless credentials
+            credentials = @new_security_credentials application_id
+            return nil unless credentials
+
+            SecurityCredentials\create {
+                :application_id
+                employee_id: credentials.employee_id
+                password: credentials.password
+            }
+
+        credentials
+
+    [security: "/security"]: safe_route =>
+        model = assert_error content\get "security"
+        @m = model
+        unless @session.application_id
+            @error = model.errors.no_app_id
+            return {
+                layout: false
+                render: "security"
+            }
+
+        cred = @app\get_security_credentials @session.application_id
+        if cred
+            @employee_id = cred.employee_id
+            @password = cred.password
+            @user = @session.name
+        else
+            @error = model.errors.internal
+
+        {
+            layout: false
+            render: "security"
+        }
+
+
     [apply_upload: "/prijava/upload/*"]: respond_to {
         GET: safe_route =>
             if config.applications_enabled
@@ -214,6 +280,8 @@ class CSWeek extends lapis.Application
                 @a = assert_error content\get "apply"
                 @csrf_token = csrf.generate_token @
                 if @application = submit\get_application @params.splat
+                    @session.application_id = @application.id
+                    @session.name = @application.first_name
                     @app\try_render "apply-upload", self
                 else
                     redirect_to: '/prijava'

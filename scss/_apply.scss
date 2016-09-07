@@ -254,3 +254,13 @@
 
     }
 }
+
+a.button.jdrustvo {
+    background-color: #008800;
+    color: white;
+    font-size: 90%;
+
+    &:hover {
+        background-color: #00aa00;
+    }
+}
