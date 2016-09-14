@@ -6,7 +6,9 @@ logger = require "lapis.logging"
 console = require "lapis.console" if config._name == 'development' or config._name == 'development-perftest'
 csrf = require "lapis.csrf"
 submit = require "submit_application"
+dashboard = require "dashboard"
 submit_newsletter = require "submit_newsletter"
+bridge = require "zbt-bridge"
 lfs = require "lfs"
 
 import after_dispatch from require "lapis.nginx.context"
@@ -209,45 +211,7 @@ class CSWeek extends lapis.Application
                         text
     }
 
-    new_security_credentials: (application_id) =>
-        url = config.security_new_user_url
-        data = encode_with_secret application_id
-        res = http.simple {
-            :url
-            method: "POST"
-            body: {
-                id: data
-            }
-        }
-
-        print res
-        return nil unless res
-
-        if res and not res.error
-            ok, res = pcall ->
-                from_json res
-
-            if ok and res.employee_id and res.password
-                res
-            else
-                nil
-        else
-            nil
-
-    get_security_credentials: (application_id) =>
-        credentials = SecurityCredentials\find application_id
-        unless credentials
-            credentials = @new_security_credentials application_id
-            return nil unless credentials
-
-            SecurityCredentials\create {
-                :application_id
-                employee_id: credentials.employee_id
-                password: credentials.password
-            }
-
-        credentials
-
+    
     [security: "/security"]: safe_route =>
         model = assert_error content\get "security"
         @m = model
@@ -258,7 +222,7 @@ class CSWeek extends lapis.Application
                 render: "security"
             }
 
-        cred = @app\get_security_credentials @session.application_id
+        cred = bridge\get_security_credentials @session.application_id
         if cred
             @employee_id = cred.employee_id
             @password = cred.password
@@ -305,6 +269,15 @@ class CSWeek extends lapis.Application
             else
                 redirect_to: '/prijava'
     }
+
+    [dashboard: "/dashboard"]: safe_route =>
+        model = assert_error content\get "apply"
+        @page_id = "dashboard"
+        @m = { title: "mgcsweek dashb0ard" }
+        @dashboard = dashboard\fetch_data model
+
+        render: "dashboard"
+
 
     [console: "/console"]: console and console.make! or nil
 
