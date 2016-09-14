@@ -1,0 +1,110 @@
+#dashboard {
+    font-family: "Raleway", "Helvetica Neue", "Helvetica", Arial, sans-serif;
+    line-height: 1.4;
+
+    * {
+        box-sizing: border-box;
+    }
+
+    h1 {
+        font-family: monospace;
+        margin: 10px auto;
+        text-align: center;
+        font-size: 180%;
+        font-weight: bold;
+    }
+
+    table {
+        width: 100%;
+        border-bottom: 1px solid $brand-color;
+
+        th, td {
+            padding: 12px 24px;
+            text-align: left;
+            border-right: 1px solid $brand-color;
+            vertical-align: middle;
+        }
+
+        th {
+            font-weight: bold;
+            border-right: 1px solid #330000;
+            border-bottom: 1px solid #330000;
+            font-size: 120%;
+        }
+
+        tr:first-child {
+            background-color: $brand-color;
+            color: white;
+        }
+    }
+
+    table#applications {
+        tr:nth-child(2n) {
+            background-color: #dfdfdf;
+        }
+
+        tr:nth-child(1) {
+            td:nth-child(1), th:nth-child(1) {
+                width: 25%;
+            }
+        }
+
+        tr:nth-child(2) {
+            background-color: #e70f3f;
+            color: white;
+
+            th {
+                font-size: 90%;
+                font-weight: normal;
+            }
+        }
+
+        td.security {
+            border-right: 0px solid;
+
+            &:nth-child(7) {
+                border-right: 1px solid $brand-color;
+            }
+        }
+
+
+        tr:nth-child(3) {
+            th {
+                background-color: #cc9999;
+                font-size: 80%;
+                font-weight: normal;
+            }
+        }
+
+        td p {
+            margin: 0;
+
+            &.name {
+                font-weight: bold;
+            }
+
+            &.email {
+                margin-top: 2px;
+                font-size: 90%;
+                color: #666;
+            }
+        }
+
+        td.task {
+            text-align: center;
+
+            &.check::before {
+                display: inline-block;
+                text-align: center;
+                content: 'X';
+                color: $brand-color;
+                font-size: 120%;
+                font-weight: bold;
+            }
+        }
+
+        .task-col {
+            width: 7%;
+        }
+    }
+}
