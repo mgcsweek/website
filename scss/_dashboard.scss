@@ -81,6 +81,14 @@
 
             &.name {
                 font-weight: bold;
+
+                span {
+                    font-weight: normal;
+                    margin-left: 5px;
+                    font-size: 90%;
+                    font-family: monospace;
+                }
+
             }
 
             &.email {
