@@ -76,7 +76,7 @@ class CSWeek extends lapis.Application
 
     try_render: (template, context) =>
         context = context or self
-        with context 
+        with context
             .nav = assert_error content\get "nav"
             .footer = assert_error content\get "footer"
         render: template
@@ -85,25 +85,25 @@ class CSWeek extends lapis.Application
         resp = { }
 
         status, status_code = if not err
-                if config.disable_email_confirmation
-                    "200_no_email", 200
-                else
-                    200, 200
-            elseif err[1] == 'internal_error'
-                500, 500
-            elseif err[1] == 'duplicate_application'
-                if config.disable_email_confirmation
-                    "409_no_email", 409
-                else
-                    409, 409
-            elseif err[1] == 'too_frequent'
-                "403_too_frequent", 403
-            elseif err[1] == 'bad_token'
-                "403_validation_error", 403
-            elseif err[1] == 'file_too_big'
-                419, 419
+            if config.disable_email_confirmation
+                "200_no_email", 200
             else
-                400, 400
+                200, 200
+        elseif err[1] == 'internal_error'
+            500, 500
+        elseif err[1] == 'duplicate_application'
+            if config.disable_email_confirmation
+                "409_no_email", 409
+            else
+                409, 409
+        elseif err[1] == 'too_frequent'
+            "403_too_frequent", 403
+        elseif err[1] == 'bad_token'
+            "403_validation_error", 403
+        elseif err[1] == 'file_too_big'
+            419, 419
+        else
+            400, 400
 
         response_text = model.form.responses[status] or model.form.responses[status_code] or model.form.responses.default if model.form.responses
         resp.response = if response_filter
