@@ -1,5 +1,4 @@
 lapis = require "lapis"
-http = require "lapis.nginx.http"
 config = (require "lapis.config").get!
 content = require "content"
 logger = require "lapis.logging"
@@ -17,6 +16,7 @@ import capture_errors, assert_error, yield_error, respond_to from require "lapis
 import json_requested from require "utils"
 import encode_with_secret from require 'lapis.util.encoding'
 import SecurityCredentials from require 'models'
+import p from require 'moon'
 
 capture_form_errors = (fn) ->
     capture_errors {
@@ -202,16 +202,15 @@ class CSWeek extends lapis.Application
                             this\build_url ...
 
                 yield_error ret if not succ
-                @app.respond_to_form self, err, model, model_name, 'apply-result', (text) ->
-                    if config.disable_email_confirmation and ret
-                        -- ret is an URL if the email confirmation is disabled
-                        -- see submit_application.moon
-                        text\gsub '%%1', ret
-                    else
-                        text
+                filter = unless config.applications_enabled and config.disable_email_confirmation and ret
+                    nil
+                else
+                    (text) -> text\gsub '%%1', ret
+
+                @app.respond_to_form self, err, model, model_name, 'apply-result', filter
     }
 
-    
+
     [security: "/security"]: safe_route =>
         model = assert_error content\get "security"
         @m = model
