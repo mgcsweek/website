@@ -7,25 +7,15 @@ class Dashboard extends html.Widget
 
         element "table", id: "applications", ->
             tr ->
-                th rowspan: 3, "Info"
-                th rowspan: 3, "School/Class"
-                th colspan: #@dashboard.tasks + 3, "Tasks"
-                th rowspan: 3, "Applied"
-                th rowspan: 3, "Uploaded"
+                th rowspan: 2, "Info"
+                th rowspan: 2, "School/Class"
+                th colspan: #@dashboard.tasks, "Tasks"
+                th rowspan: 2, "Applied"
+                th rowspan: 2, "Uploaded"
 
             tr ->
                 for i, t in ipairs @dashboard.tasks
-                    if i == 2
-                        -- security task
-                        th colspan: 4, class: "task-col", t.name
-                    else
-                        th rowspan: "2", class: "task-col", t.name
-
-            tr ->
-                th "Chosen"
-                th "SQLi"
-                th "Admin"
-                th "Doc"
+                    th class: "task-col", t.name
 
             for app in *@dashboard.apps
                 tr ->
@@ -39,29 +29,11 @@ class Dashboard extends html.Widget
 
                     td "#{app.school} / #{app.class}"
 
-                    actions = {
-                        'sqli'
-                        'admin'
-                        'doc'
-                    }
                     for i, t in ipairs app.tasks
                         if t
-                            if i == 2
-                                -- security task
-                                td class: "task-col task check security"
-                                for action in *actions
-                                    classname = "task-col task security"
-                                    if app.security_data and app.security_data.actions[action]
-                                        classname ..= " check"
-                                    td class: classname
-                            else
-                                td class: "task-col task check", ""
+                            td class: "task-col task check", ""
                         else
-                            if i == 2
-                                for i=1,4
-                                    td class: "task-col task security"
-                            else
-                                td class: "task-col task", ""
+                            td class: "task-col task", ""
 
                     td app.applied_timestamp
                     td app.uploaded_timestamp

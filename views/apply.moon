@@ -1,10 +1,11 @@
 html = require "lapis.html"
+moon = require 'moon'
 import render_and_pass from require "utils"
 
 class Apply extends html.Widget
     content: =>
         apply_content = capture ->
-            intro = @m.intro\gsub '%%1', @last_updated
+            intro = @m.intro\gsub '%%1', @last_updated or 'непознато'
             raw intro
             with @m.form
                 h1 .heading

@@ -11,7 +11,7 @@ class Content
         elseif type(obj) != "table"
             obj = (tostring obj)\gsub "^%s+", ""
             if obj\len() > 0 and obj\sub(1,1) == '$'
-                discount ((obj\sub 2)\gsub "^%s+", "")
+                (discount.compile ((obj\sub 2)\gsub "^%s+", "")).body
             else
                 obj\gsub "^\\\\$", "$"
         else
@@ -19,7 +19,7 @@ class Content
 
     get: (name) =>
         ret, match = pcall -> rex.match name, "^[-0-9a-zA-Z_]+$"
-        if not ret 
+        if not ret
             nil, "PCRE regex matching failed: #{err}"
         else if not match
             nil, "Invalid name: `#{name}`"
