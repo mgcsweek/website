@@ -67,7 +67,7 @@ config {'production', 'production-perftest' }, ->
 
     email_cooldown 30 * 60
     uploads_dir 'uploads'
-    applications_enabled false
+    applications_enabled true
 
 config {'development-perftest', 'production-perftest'}, ->
     code_cache 'on'
