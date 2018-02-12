@@ -50,29 +50,25 @@ class CSWeek extends lapis.Application
     error_page: require "views.error"
 
     handle_error: (err, trace, code = 500) =>
-        r = @app.Request @app, @req, @res
+        @m, errpg = content\get "error"
+        if errpg then
+            @m = { }
+            @m[code] = "Could not load the error page (code #{code}): #{errpg}<br/>When handling #{err}<br/>#{trace}"
 
-        with r
-            .m, errpg = content\get "error"
-            if errpg then
-                .m = { }
-                .m[code] = "Could not load the error page (code #{code}): #{errpg}<br/>When handling #{err}<br/>#{trace}"
+        @m[code] = @m[code] or @m.default or { }
+        @page_id = "error"
+        @status = code
+        @error = err
+        @traceback = trace
+        @m.title = @m[code].title
 
-            .m[code] = .m[code] or .m.default or { }
-            .page_id = "error"
-            .status = code
-            .error = err
-            .traceback = trace
-            .m.title = .m[code].title
+        @write {
+            status: code
+            content_type: "text/html"
+            render: "error"
+        }
 
-            \write {
-                status: code
-                content_type: "text/html"
-                render: "error"
-            }
-            \render!
-            logger.request r
-        r
+        @
 
     try_render: (template, context) =>
         context = context or self

@@ -36,12 +36,6 @@ class Dashboard
             else
                 {}
 
-            if model_app.tasks[2]
-                -- security task
-                security_participant = bridge\map_application_id a.id
-                if security_participant
-                    model_app.security_data = security_participant
-
             insert model, model_app
 
         {
