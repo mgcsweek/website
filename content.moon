@@ -11,7 +11,7 @@ class Content
         elseif type(obj) != "table"
             obj = (tostring obj)\gsub "^%s+", ""
             if obj\len() > 0 and obj\sub(1,1) == '$'
-                (discount.compile ((obj\sub 2)\gsub "^%s+", "")).body
+                discount ((obj\sub 2)\gsub "^%s+", "")
             else
                 obj\gsub "^\\\\$", "$"
         else
