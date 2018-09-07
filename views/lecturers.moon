@@ -18,7 +18,7 @@ class Lecturers extends html.Widget
                             img src: l.image
 
                         div class: "info", ->
-                            if l.organizer
+                            if l.about
                                 h1 ->
                                     a href: (@url_for "lecturer", name: l.id), l.name
                             else

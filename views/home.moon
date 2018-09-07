@@ -41,10 +41,14 @@ class Home extends html.Widget
                                     h2 .name
                                     p class: "affiliation", .affiliation
                                     aside ->
-                                        h3 #.topics == 1 and @m.lecturers.topic_title.singular or @m.lecturers.topic_title.plural
-                                        ul class: "topics", ->
-                                            for t in *.topics
-                                                li t
+                                        if .topics
+                                            h3 #.topics == 1 and @m.lecturers.topic_title.singular or @m.lecturers.topic_title.plural
+                                            ul class: "topics", ->
+                                                for t in *.topics
+                                                    li t
+
+                                        if .special_title
+                                            h3 .special_title
 
                                         a {
                                             class: "button", 
