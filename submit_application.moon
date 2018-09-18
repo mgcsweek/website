@@ -35,7 +35,7 @@ class SubmitApplication
                 { 'school', one_of: model.form.schools, 'bad_request' }
             }
 
-        errors.task_number_mismatch = true if #tasks < 2
+        errors.task_number_mismatch = true if #tasks < 1
         if ret
             errors[e] = true for e in *ret
 
