@@ -11,7 +11,7 @@ class Lecturers extends html.Widget
                         continue
                         
                     li ->
-                        if l.organizer
+                        if l.about
                             a href: (@url_for "lecturer", name: l.id), ->
                                 img src: l.image
                         else
