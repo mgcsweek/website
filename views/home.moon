@@ -17,6 +17,7 @@ class Home extends html.Widget
                 ["data-top-bottom"]: "background-position:0px -100px;"}, ->
                     h1 .title
                     h2 .subtitle
+                    -- p class: "duration", .duration
                     h3 .tagline
 
         if @m.cta
@@ -40,16 +41,14 @@ class Home extends html.Widget
                                     h2 .name
                                     p class: "affiliation", .affiliation
                                     aside ->
-                                        h3 #.topics == 1 and @m.lecturers.topic_title.singular or @m.lecturers.topic_title.plural
-                                        ul class: "topics", ->
-                                            for t in *.topics
-                                                li t
+                                        if .topics
+                                            h3 #.topics == 1 and @m.lecturers.topic_title.singular or @m.lecturers.topic_title.plural
+                                            ul class: "topics", ->
+                                                for t in *.topics
+                                                    li t
 
-                                        a {
-                                            class: "button", 
-                                            href: (@url_for "lecturer", name: l.id), 
-                                            @m.lecturers.more_button_text
-                                        }
+                                        if .special_title
+                                            h3 .special_title
 
                     if .button
                         with .button

@@ -7,15 +7,18 @@ class Lecturers extends html.Widget
         lecturers_content = capture ->
             ul ->
                 for l in *@lecturers
+                    if l.hide_on_lecturers_page
+                        continue
+                        
                     li ->
-                        if l.organizer
+                        if l.about
                             a href: (@url_for "lecturer", name: l.id), ->
                                 img src: l.image
                         else
                             img src: l.image
 
                         div class: "info", ->
-                            if l.organizer
+                            if l.about
                                 h1 ->
                                     a href: (@url_for "lecturer", name: l.id), l.name
                             else

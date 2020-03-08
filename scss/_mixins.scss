@@ -23,6 +23,10 @@
     overflow: hidden;
 }
 
+@mixin tint-image {
+    background-color: $tint-color;
+    background-blend-mode: overlay;
+}
 .group:after {
     visibility: hidden;
     display: block;
