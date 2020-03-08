@@ -111,7 +111,7 @@ section#lecturers {
         > li {
             float: left;
             text-align: center;
-            background: white;
+            background-color: $lecturers-home-bg;
             min-height: $lecturer-item-height;
             box-sizing: border-box;
             padding: 27px 25px;
@@ -149,8 +149,7 @@ section#lecturers {
                 right: 0;
                 height: $lecturer-item-height;
                 transition: bottom 0.5s ease;
-                background-color: $body-text-tonedown;
-                color: white;
+                color: #333;
                 padding: 24px 24px;
                 box-sizing: border-box;
 
