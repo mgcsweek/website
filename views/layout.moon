@@ -13,12 +13,12 @@ class DefaultLayout extends html.Widget
                 meta name: "viewport", content:"initial-scale=1"
 
                 link href: "/static/style.css", rel: "stylesheet", type: "text/css"
-                link rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png?v=4"
-                link rel: "icon", type: "image/png", href: "/favicon-32x32.png?v=4", sizes: "32x32"
-                link rel: "icon", type: "image/png", href: "/favicon-16x16.png?v=4", sizes: "16x16"
+                link rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png?v=6"
+                link rel: "icon", type: "image/png", href: "/favicon-32x32.png?v=6", sizes: "32x32"
+                link rel: "icon", type: "image/png", href: "/favicon-16x16.png?v=6", sizes: "16x16"
                 link rel: "manifest", href: "/manifest.json?v=3"
-                link rel: "mask-icon", color: "890ca0", href: "/safari-pinned-tab.svg?v=4"
-                link rel: "shortcut icon", href: "/favicon.ico?v=4"
+                link rel: "mask-icon", color: "890ca0", href: "/safari-pinned-tab.svg?v=6"
+                link rel: "shortcut icon", href: "/favicon.ico?v=6"
                 meta name: "theme-color", content: "#890ca0"
 
                 title (@m and @m.title) or "MG CS Week"
