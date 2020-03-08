@@ -50,12 +50,6 @@ class Home extends html.Widget
                                         if .special_title
                                             h3 .special_title
 
-                                        a {
-                                            class: "button", 
-                                            href: (@url_for "lecturer", name: l.id), 
-                                            @m.lecturers.more_button_text
-                                        }
-
                     if .button
                         with .button
                             a class: "button", href: .href, .text
