@@ -14,7 +14,10 @@
    height="88.71875pt"
    width="602.20563pt"
    inkscape:version="0.92.4 5da689c313, 2019-01-14"
-   sodipodi:docname="logotype.svg">
+   sodipodi:docname="logotype.svg"
+   inkscape:export-filename="/home/geomaster/Projects/ni/website/static/images/logotype@2x.png"
+   inkscape:export-xdpi="143.47"
+   inkscape:export-ydpi="143.47">
   <sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -32,9 +35,9 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:zoom="0.50083472"
-     inkscape:cx="-187.2443"
-     inkscape:cy="598.24149"
+     inkscape:zoom="1.4165745"
+     inkscape:cx="457.91875"
+     inkscape:cy="243.59531"
      inkscape:window-x="0"
      inkscape:window-y="27"
      inkscape:window-maximized="1"
@@ -134,25 +137,15 @@
      id="path7-6"
      inkscape:connector-curvature="0"
      style="fill:#e37100;fill-opacity:1" />
-  <g
-     transform="matrix(0.68427405,0,0,0.68427405,72.414232,1.6619917)"
-     style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#e37100;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     id="flowRoot4878">
-    <path
-       d="m 713.41422,49.861328 7.44,-21.6 -5.92,0 -4.36,15.8 -4.68,-15.8 -5.92,0 7.56,21.6 5.88,0 z"
-       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-family:FreeSans;-inkscape-font-specification:'FreeSans Semi-Bold';fill:#e37100;fill-opacity:1"
-       id="path4156" />
-    <path
-       d="m 740.85297,21.501328 -15.16,0 -2.52,15.8 5.04,0 c 0.6,-1.4 1.88,-2.16 3.6,-2.16 2.84,0 4.56,2.04 4.56,5.48 0,3.32 -1.76,5.36 -4.56,5.36 -2.44,0 -3.8,-1.24 -3.92,-3.52 l -5.52,0 c 0.08,4.96 3.84,8.32 9.36,8.32 6.08,0 10.24,-4.16 10.24,-10.28 0,-5.8 -3.6,-9.8 -8.84,-9.8 -1.88,0 -3.28,0.48 -4.92,1.72 l 0.92,-5.92 11.72,0 0,-5 z"
-       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-family:FreeSans;-inkscape-font-specification:'FreeSans Semi-Bold';fill:#e37100;fill-opacity:1"
-       id="path4158" />
-    <path
-       d="m 751.55859,44.021328 -6,0 0,5.84 6,0 0,-5.84 z"
-       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-family:FreeSans;-inkscape-font-specification:'FreeSans Semi-Bold';fill:#e37100;fill-opacity:1"
-       id="path4160" />
-    <path
-       d="m 764.47859,50.781328 c 7.88,0 9.76,-6.8 9.76,-14.76 0,-9 -2.12,-15.12 -9.76,-15.12 -7.56,0 -9.76,6 -9.76,14.96 0,8.24 1.96,14.92 9.76,14.92 z m 4.16,-14.88 c 0,8.44 -1.64,10.08 -4.16,10.08 -2.6,0 -4.16,-1.72 -4.16,-10.16 0,-8.04 1.28,-10.4 4.16,-10.4 2.56,0 4.16,2.36 4.16,10.48 z"
-       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-family:FreeSans;-inkscape-font-specification:'FreeSans Semi-Bold';fill:#e37100;fill-opacity:1"
-       id="path4162" />
-  </g>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:24.18190956px;line-height:15.11369324px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#e37100;fill-opacity:1;stroke:none;stroke-width:0.60454774"
+     x="550.83929"
+     y="34.355583"
+     id="text837"><tspan
+       sodipodi:role="line"
+       id="tspan835"
+       x="550.83929"
+       y="34.355583"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Helvetica Neue LT Pro';-inkscape-font-specification:'Helvetica Neue LT Pro';fill:#e37100;fill-opacity:1;stroke-width:0.60454774">v6.0</tspan></text>
 </svg>
