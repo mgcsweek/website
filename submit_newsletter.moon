@@ -1,6 +1,5 @@
 config = (require 'lapis.config').get!
-smtp = require 'resty.smtp'
-mime = require 'resty.smtp.mime'
+mail = require 'resty.mail'
 validation = require 'validation'
 http = require "lapis.nginx.http"
 secrets = require 'secrets'
@@ -75,31 +74,30 @@ class SubmitApplication
         if not application
             return nil, { 'internal_error' }
 
+        mailer, err = mail.new
+            host: config.smtp_server,
+            port: config.smtp_port,
+            starttls: true,
+            username: config.smtp_username,
+            password: config.smtp_password
+
+        if not mailer
+            print err
+            return nil, { 'internal_error' }
+
         local msg
         with model.email
-            txt = mime.wrp 0, mime.b64 .text
             msg =
-                headers:
-                    to: params.email
-                    from: config.smtp_from_newsletter
-                    ['message-id']: 'MID-newsletter-confirmation.' .. os.time! .. '@csnedelja.mg.edu.rs'
-                    subject: mime.ew .subject, nil, { charset: 'utf-8' }
-                    ['content-transfer-encoding']: 'BASE64'
-                    ['content-type']: 'text/plain; charset=utf-8'
+                to: { params.email }
+                from: config.smtp_from_newsletter
+                subject: .subject
+                text: .text
 
-                body: txt
-
-        ret, err = smtp.send
-            from: config.smtp_username
-            rcpt: params.email
-            user: config.smtp_username
-            password: config.smtp_password
-            server: config.smtp_server
-            port: config.smtp_port
-            source: smtp.message(msg)
+        ret, err = mailer\send msg
 
         if not ret
             print err
+            application\delete!
             return nil, { 'internal_error' }
         else true
 

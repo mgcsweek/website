@@ -1,7 +1,6 @@
 config = (require 'lapis.config').get!
 csrf = require 'lapis.csrf'
-smtp = require 'resty.smtp'
-mime = require 'resty.smtp.mime'
+mail = require 'resty.mail'
 validation = require 'validation'
 import to_json from require 'lapis.util'
 import decode_with_secret, encode_with_secret from require 'lapis.util.encoding'
@@ -90,27 +89,24 @@ class SubmitApplication
             local msg
             with model.email
                 txt = .text\gsub '%%1', url
-                txt = mime.b64 txt
-                txt = mime.wrp 0, txt
                 msg =
-                    headers:
-                        to: params.email
-                        from: config.smtp_from
-                        ['message-id']: 'MID-application.' .. appid .. '@csnedelja.mg.edu.rs'
-                        subject: mime.ew .subject, nil, { charset: 'utf-8' }
-                        ['content-transfer-encoding']: 'BASE64'
-                        ['content-type']: 'text/plain; charset=utf-8'
+                    from: config.smtp_from
+                    to: { params.email }
+                    subject: .subject,
+                    text: txt
 
-                    body: txt
-
-            ret, err = smtp.send
-                from: config.smtp_username
-                rcpt: params.email
-                user: config.smtp_username
+            mailer, err = mail.new
+                host: config.smtp_server,
+                port: config.smtp_port,
+                starttls: true,
+                username: config.smtp_username,
                 password: config.smtp_password
-                server: config.smtp_server
-                port: config.smtp_port
-                source: smtp.message(msg)
+
+            if not mailer
+                print err
+                return nil, { 'internal_error' }
+
+            ret, err = mailer\send msg
 
             if not ret
                 print err

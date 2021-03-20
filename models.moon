@@ -16,6 +16,7 @@ class Uploads extends Model
     }
 
 class NewsletterApplications extends Model
+    @primary_key: "email"
 
 class SecurityCredentials extends Model
     @primary_key: "application_id"
