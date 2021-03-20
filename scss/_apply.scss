@@ -166,7 +166,7 @@
             border: 0 none;
             display: inline-block;
             font-size: 110%;
-            margin-top: 50px;
+            margin-top: 10px;
             min-width: 30%;
             cursor: pointer;
         }
@@ -197,7 +197,7 @@
 
         .status.error {
             background-color: $error-background;
-            
+
             a {
                 color: $error-link-color;
             }
@@ -263,4 +263,13 @@ a.button.jdrustvo {
     &:hover {
         background-color: #00aa00;
     }
+}
+
+.recaptcha-container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.g-recaptcha {
+    display: inline-block;
 }

@@ -2,6 +2,9 @@ config = (require 'lapis.config').get!
 smtp = require 'resty.smtp'
 mime = require 'resty.smtp.mime'
 validation = require 'validation'
+http = require "lapis.nginx.http"
+secrets = require 'secrets'
+import from_json from require "lapis.util"
 import to_json from require 'lapis.util'
 import decode_with_secret, encode_with_secret from require 'lapis.util.encoding'
 import validate_functions, validate from require 'lapis.validate'
@@ -13,7 +16,6 @@ import NewsletterApplications from require 'models'
 
 class SubmitApplication
     submit: (params, model, url_builder) =>
-        print 'shitters gonna shit'
         errors = { }
 
         ret = validate params, {
@@ -21,6 +23,31 @@ class SubmitApplication
             { 'lastname', exists: true, max_length: 255, 'invalid_name' },
             { 'email', exists: true, max_length: 255, is_email: true, 'invalid_email' }
         }
+
+        -- check recaptcha
+        res = http.simple {
+            url: "https://www.google.com/recaptcha/api/siteverify"
+            method: 'POST'
+            body: {
+                secret: secrets.recaptcha_secret
+                response: params['g-recaptcha-response']
+            }
+        }
+
+        if res and not res.error
+            ok, res = pcall ->
+                from_json res
+
+            if not ok
+                print "Failed to parse reCAPTCHA reply as JSON: " .. res
+                return nil, { 'internal_error' }
+
+            if not res.success
+                print "reCAPTCHA failed: " .. table.concat(res['error-codes'], ', ')
+                return nil, { 'bad_captcha' }
+        else
+            print "Failed to send reCAPTCHA verify request: " .. res.error
+            return nil, { 'internal_error' }
 
         if ret
             errors[e] = true for e in *ret
