@@ -17,7 +17,7 @@ config {'development', 'development-perftest'}, ->
 
     port 8080
     num_workers 1
-    code_cache 'off'
+    code_cache 'on'
     pid_file 'nginx.pid'
     log_file 'logs/error.log'
     log_level 'debug'
