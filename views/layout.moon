@@ -23,7 +23,7 @@ class DefaultLayout extends html.Widget
 
                 title (@m and @m.title) or "MG CS Week"
 
-            body id: @page_id, -> 
+            body id: @page_id, ->
                 @content_for "header"
 
                 div id: "skrollr-body"

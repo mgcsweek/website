@@ -26,15 +26,26 @@ class SubmitApplication
                 else
                     errors.bad_request = true
 
-        ret = validate params, {
+        validations = {
                 { 'firstname', exists: true, max_length: 255, 'invalid_name' },
                 { 'lastname', exists: true, max_length: 255, 'invalid_name' },
                 { 'email', exists: true, max_length: 255, is_email: true, 'invalid_email' },
                 { 'class', one_of: model.form.classes, 'bad_request' }
-                { 'school', one_of: model.form.schools, 'bad_request' }
             }
 
-        errors.task_number_mismatch = true if #tasks < 2
+        if model.form.all_schools
+            table.insert(validations, { 'school', exists: true, 'bad_request' })
+        else
+            table.insert(validations, { 'school', one_of: model.form.schools, 'bad_request' })
+
+        ret = validate params, validations
+        if #model.tasks == 0
+            print('0 tasks')
+            print('aktuell: ' .. #tasks)
+            errors.task_number_mismatch = true if #tasks > 0
+        else
+            errors.task_number_mismatch = true if #tasks < 2
+
         if ret
             errors[e] = true for e in *ret
 
@@ -43,8 +54,11 @@ class SubmitApplication
             class_id = i if v == params.class
 
         local school_id
-        for i, v in pairs model.form.schools
-            school_id = i if v == params.school
+        if model.form.all_schools
+            school_id = params.school
+        else
+            for i, v in pairs model.form.schools
+                school_id = i if v == params.school
 
         err_array = { }
         for k, _ in pairs errors

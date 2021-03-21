@@ -20,7 +20,7 @@ class ApplyNewsletter extends html.Widget
 
                     div class: "status newsletter-application-status"
                     div class: "recaptcha-container", ->
-                        div class: "g-recaptcha", ["data-sitekey"]: "6LdosIcaAAAAAJXsEpjz21-CmYGYnSPZJErZz187"
+                        div class: "g-recaptcha", id: "recaptcha", ["data-sitekey"]: "6LdosIcaAAAAAJXsEpjz21-CmYGYnSPZJErZz187"
                     button type: "submit", id: "applicant-submit-button", .submit_text
                     div class: "spinner", style: "display: none", .please_wait
 
