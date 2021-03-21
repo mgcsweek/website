@@ -92,6 +92,8 @@ class CSWeek extends lapis.Application
                 "409_no_email", 409
             else
                 409, 409
+        elseif err[1] == 'bad_captcha'
+            400, 400
         elseif err[1] == 'too_frequent'
             "403_too_frequent", 403
         elseif err[1] == 'bad_token'

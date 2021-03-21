@@ -28,6 +28,7 @@ $(document).ready(function() {
                             });
 
                 $('#applicant-submit-button').hide(700);
+                $('.g-recaptcha').hide(700);
             }).fail(function(obj) {
                 $('.spinner').hide(100);
                 resp = obj.responseJSON;
@@ -40,6 +41,9 @@ $(document).ready(function() {
                     resp = {
                         response: '<p>Неочекивана грешка. Молимо вас контактирајте нас на kontakt@csnedelja.mg.edu.rs</p>',
                     };
+                }
+                if (window['grecaptcha']) {
+                    grecaptcha.reset();
                 }
                 if (typeof resp.errors == 'undefined' || typeof resp.errors[0] == 'undefined')
                     resp.errors = [];

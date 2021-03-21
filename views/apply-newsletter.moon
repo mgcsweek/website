@@ -16,8 +16,11 @@ class ApplyNewsletter extends html.Widget
                     label for: "applicant-email", .email_label
                     input class: "text", required: "required", type: "email", placeholder: .email_placeholder, id: "applicant-email", name: "email"
 
-                    div class: "status newsletter-application-status"
+                    script src: "https://www.google.com/recaptcha/api.js"
 
+                    div class: "status newsletter-application-status"
+                    div class: "recaptcha-container", ->
+                        div class: "g-recaptcha", id: "recaptcha", ["data-sitekey"]: "6LdosIcaAAAAAJXsEpjz21-CmYGYnSPZJErZz187"
                     button type: "submit", id: "applicant-submit-button", .submit_text
                     div class: "spinner", style: "display: none", .please_wait
 

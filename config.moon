@@ -8,16 +8,16 @@ config {'development', 'development-perftest'}, ->
         password 'csweek'
         database 'csweek'
 
-    smtp_server 'mail.csnedelja.mg.edu.rs'
+    smtp_server 'smtp.zoho.eu'
     smtp_port 587
     smtp_username secrets.mail_user
     smtp_password secrets.mail_password
-    smtp_from 'MG Nedelja informatike - prijave <prijave@csnedelja.mg.edu.rs>'
-    smtp_from_newsletter 'MG Nedelja informatike - newsletter <newsletter@csnedelja.mg.edu.rs>'
+    smtp_from 'Nedelja informatike <ni@ni.mg.edu.rs>'
+    smtp_from_newsletter 'Nedelja informatike <ni@ni.mg.edu.rs>'
 
     port 8080
     num_workers 1
-    code_cache 'off'
+    code_cache 'on'
     pid_file 'nginx.pid'
     log_file 'logs/error.log'
     log_level 'debug'
@@ -42,12 +42,12 @@ config {'production', 'production-perftest' }, ->
         password secrets.mysql_password
         database secrets.mysql_db
 
-    smtp_server 'mail.csnedelja.mg.edu.rs'
+    smtp_server 'smtp.zoho.eu'
     smtp_port 587
     smtp_username secrets.mail_user
     smtp_password secrets.mail_password
-    smtp_from 'MG Nedelja informatike - prijave <prijave@csnedelja.mg.edu.rs>'
-    smtp_from_newsletter 'MG Nedelja informatike - newsletter <newsletter@csnedelja.mg.edu.rs>'
+    smtp_from 'Nedelja informatike <ni@ni.mg.edu.rs>'
+    smtp_from_newsletter 'Nedelja informatike <ni@ni.mg.edu.rs>'
 
     port 8989
     num_workers 1
