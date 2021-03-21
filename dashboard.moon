@@ -6,20 +6,24 @@ class Dashboard
     fetch_data: (apply_model) =>
         return nil, "Invalid model." unless apply_model and
                                             apply_model.form and
-                                            apply_model.form.classes and
-                                            apply_model.form.schools and
-                                            apply_model.tasks
+                                            apply_model.form.classes
 
         applications = Applications\select "order by email_sent desc"
         return nil, "Could not fetch the applications." unless applications
 
         model = {}
         for a in *applications
+            local school
+            if apply_model.form.all_schools
+                school = a.school
+            else
+                school = apply_model.form.schools[a.school]
+
             model_app =
                 name: "#{a.last_name} #{a.first_name}"
                 email: a.email
                 class: apply_model.form.classes[a.class]
-                school: apply_model.form.schools[a.school]
+                :school,
                 applied_timestamp: os.date "%d.%m.%Y %H:%M", a.email_sent
                 uploaded_timestamp: a.submitted > 0 and (os.date "%d.%m.%Y %H:%M", a.submitted) or "No"
 

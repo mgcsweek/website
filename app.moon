@@ -271,7 +271,10 @@ class CSWeek extends lapis.Application
         model = assert_error content\get "apply"
         @page_id = "dashboard"
         @m = { title: "mgcsweek dashb0ard" }
-        @dashboard = dashboard\fetch_data model
+        @dashboard, err = dashboard\fetch_data model
+        if @dashboard == nil
+            print err
+            yield_error "Failed to render dashboard: #{err}"
 
         render: "dashboard"
 
