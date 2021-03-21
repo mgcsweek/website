@@ -40,8 +40,6 @@ class SubmitApplication
 
         ret = validate params, validations
         if #model.tasks == 0
-            print('0 tasks')
-            print('aktuell: ' .. #tasks)
             errors.task_number_mismatch = true if #tasks > 0
         else
             errors.task_number_mismatch = true if #tasks < 2

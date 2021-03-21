@@ -17,7 +17,7 @@ class Home extends html.Widget
                 ["data-top-bottom"]: "background-position:0px -100px;"}, ->
                     h1 .title
                     h2 .subtitle
-                    -- p class: "duration", .duration
+                    p class: "duration", .duration
                     h3 .tagline
 
         if @m.cta
