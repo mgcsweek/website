@@ -6,4 +6,19 @@
             background-image: url(/static/images/materials-back.jpg)
         }
     }
+
+    .tag {
+        display: inline-block;
+        padding: 0px 8px;
+        border-radius: 5px;
+        font-size: 70%;
+        color: #333;
+        margin-right: 6px;
+        background-color: #C86F3F;
+    }
+
+    .tags {
+        margin-top: 0px;
+        margin-bottom: 10px;
+    }
 }

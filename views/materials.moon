@@ -15,6 +15,31 @@ class Materials extends html.Widget
             h1 @m.heading
 
         section id: "about-text", class: "content-body", ->
-            raw @m.content
+            for section in *@m.content
+                h1 section.edition
+                for day in *section.days
+                    h2 day.timestamp
+                    ul ->
+                        for lecture in *day.lectures
+                            li ->
+                                if lecture.url
+                                    a href: lecture.url, lecture.title
+                                else
+                                    span lecture.title
+
+                                if lecture.resources ~= nil
+                                    for resource in *lecture.resources
+                                        span " | "
+                                        a href: resource.url, resource.name
+
+                                --if lecture.tags ~= nil
+                                --    div class: "tags", ->
+                                --        for tag in *lecture.tags
+                                --            if @m.tags[tag] == nil
+                                --                print "Invalid tag: #{tag}"
+                                --                continue
+                                --            span class: "tag", @m.tags[tag]
+
+
 
 
