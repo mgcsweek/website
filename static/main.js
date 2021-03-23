@@ -1,3 +1,5 @@
+var ALLOW_RESOURCE_FILTER_MULTISELECT = false;
+
 if(!(/Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i).test(navigator.userAgent || navigator.vendor || window.opera)){
     skrollr.init({
         forceHeight: false
@@ -88,21 +90,27 @@ $(document).ready(function() {
     }
 
     function manipulateFilter(tag, toggle, elem) {
-        if (resourceFilterState == 'all') {
-            $('.resource-filter-tag').removeClass('active');
-        }
-        resourceFilterState = 'some';
-
         if (!elem) {
             elem = $(`.resource-filter-tag[data-tag="${tag}"]`);
         } else {
             elem = $(elem);
         }
 
-        if (toggle) {
-            elem.toggleClass('active');
+        if (ALLOW_RESOURCE_FILTER_MULTISELECT) {
+            if (resourceFilterState == 'all') {
+                $('.resource-filter-tag').removeClass('active');
+            }
+            resourceFilterState = 'some';
+
+            if (toggle) {
+                elem.toggleClass('active');
+            } else {
+                elem.addClass('active');
+            }
         } else {
+            $('.resource-filter-tag').removeClass('active');
             elem.addClass('active');
+            resourceFilterState = 'some';
         }
 
         applyResourceFilters();
