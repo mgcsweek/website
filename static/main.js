@@ -1,3 +1,5 @@
+var ALLOW_RESOURCE_FILTER_MULTISELECT = false;
+
 if(!(/Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i).test(navigator.userAgent || navigator.vendor || window.opera)){
     skrollr.init({
         forceHeight: false
@@ -28,6 +30,7 @@ $(document).ready(function() {
                             });
 
                 $('#applicant-submit-button').hide(700);
+                $('.g-recaptcha').hide(700);
             }).fail(function(obj) {
                 $('.spinner').hide(100);
                 resp = obj.responseJSON;
@@ -38,8 +41,11 @@ $(document).ready(function() {
                 }
                 if (typeof resp == 'undefined') {
                     resp = {
-                        response: '<p>Неочекивана грешка. Молимо вас контактирајте нас на kontakt@csnedelja.mg.edu.rs</p>',
+                        response: '<p>Неочекивана грешка. Молимо вас контактирајте нас на ni@ni.mg.edu.rs</p>',
                     };
+                }
+                if (window['grecaptcha']) {
+                    grecaptcha.reset();
                 }
                 if (typeof resp.errors == 'undefined' || typeof resp.errors[0] == 'undefined')
                     resp.errors = [];
@@ -69,6 +75,95 @@ $(document).ready(function() {
             updateFilename($(this));
         });
     }
+
+    var resourceFilterState = 'all';
+    var allTags = undefined;
+
+    function loadAllTags() {
+        if (allTags === undefined) {
+            allTags = new Set();
+            allTags.add('none');
+            $('.resource-filter-tag').each(function() {
+                allTags.add($(this).data('tag'))
+            });
+        }
+    }
+
+    function manipulateFilter(tag, toggle, elem) {
+        if (!elem) {
+            elem = $(`.resource-filter-tag[data-tag="${tag}"]`);
+        } else {
+            elem = $(elem);
+        }
+
+        if (ALLOW_RESOURCE_FILTER_MULTISELECT) {
+            if (resourceFilterState == 'all') {
+                $('.resource-filter-tag').removeClass('active');
+            }
+            resourceFilterState = 'some';
+
+            if (toggle) {
+                elem.toggleClass('active');
+            } else {
+                elem.addClass('active');
+            }
+        } else {
+            $('.resource-filter-tag').removeClass('active');
+            elem.addClass('active');
+            resourceFilterState = 'some';
+        }
+
+        applyResourceFilters();
+    }
+
+    function applyResourceFilters() {
+        if (resourceFilterState == 'all') {
+            $('.resources li, .resources h2, .resources h1').show();
+            return;
+        } else {
+            $('.resources h2').hide();
+        }
+
+        loadAllTags();
+
+        var selected = [];
+        var notSelected = new Set(allTags);
+        $('.resource-filter-tag.active').each(function() {
+            var tag = $(this).data('tag');
+            selected.push(tag);
+            notSelected.delete(tag);
+        });
+
+        var notSelectedArr = Array.from(notSelected);
+        var selector = selected.map(x => `.resources .tagged-${x}`).join(', ');
+        var antiSelector = notSelectedArr.map(x => `.resources .tagged-${x}`).join(', ');
+        $(antiSelector).hide();
+        $(selector).show();
+    }
+
+    function resetResourceFilters() {
+        if (resourceFilterState != 'all') {
+            resourceFilterState = 'all';
+            $('.resource-filter-tag').addClass('active');
+            applyResourceFilters();
+        }
+    }
+
+    $('.resource-filter-tag').click(function() {
+        manipulateFilter($(this).data('tag'), /* toggle */ true, /* elem */ this);
+        return false;
+    });
+
+    $('#resource-filter-reset').click(function() {
+        resetResourceFilters();
+        return false;
+    });
+
+    $('.resource-tag').click(function() {
+        $('html, body').animate({scrollTop: $("#resource-filters").offset().top}, 500);
+        manipulateFilter($(this).data('tag'), /* toggle */ false);
+        return false;
+    });
 
     $('#hamburger-icon').click(function() {
         if ($('header nav ul.active').length > 0) {

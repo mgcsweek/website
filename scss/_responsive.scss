@@ -79,6 +79,23 @@
         }
     }
 
+    section#video {
+        font-size: 90%;
+        padding: 0 $gutter;
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .button {
+            margin-top: 20px;
+            width: 100%;
+            margin: 15px 0 0 0;
+            padding: 20px 34px;
+            font-size: 100%;
+        }
+    }
+
     section#lecturers {
         font-size: 90%;
         padding: 0 $gutter;
@@ -89,9 +106,6 @@
             
             aside {
                 background: white;
-                color: $body-text-tonedown;
-                padding-bottom: 0;
-
                 position: static;
                 height: auto;
 
@@ -180,12 +194,15 @@
     #lecturers {
         .content-body {
             text-align: center;
-
             > ul > li {
+                .info {
+                    display: block;
+                }
+
                 font-size: 90%;
                 text-align: center;
                 margin-bottom: 30px;
-                
+
                 h1, .affliation {
                     text-align: center;
                 }
@@ -217,9 +234,13 @@
 
     #apply {
         .content-body {
-            details {
+            .details {
                 font-size: 75%;
             }
+        }
+
+        .upload-link {
+            overflow-wrap: break-word;
         }
 
         form {
@@ -303,5 +324,29 @@
 
     footer::before {
         height: 0;
+    }
+
+    #materials {
+        font-size: 90%;
+
+        #resource-filters-content {
+            padding-left: $gutter;
+            padding-right: $gutter;
+            font-size: 120%;
+        }
+
+        .resources ul {
+            list-style-type: none;
+        }
+
+        h1 {
+            font-size: 180%;
+            margin-bottom: 10px;
+        }
+
+        .edition-info-container {
+            margin-top: 0;
+            font-size: 50%;
+        }
     }
 }

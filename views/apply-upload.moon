@@ -7,16 +7,21 @@ class ApplyResult extends html.Widget
         apply_content = capture ->
             h1 @m.subheading
             raw @m.text
-            details ->
+            div class: "details", ->
                 div class: "left", @m.info_label
                 div class: "right", ->
                     strong "#{@application.first_name} #{@application.last_name}"
-                    raw ", #{@a.form.schools[@application.school]}, #{@a.form.classes[@application.class]} #{@a.form.class_suffix} ("
+                    if type(@application.school) == 'number'
+                        raw ", #{@a.form.schools[@application.school]}, #{@a.form.classes[@application.class]} #{@a.form.class_suffix} ("
+                    else
+                        raw ", #{html.escape @application.school}, #{@a.form.classes[@application.class]} #{@a.form.class_suffix} ("
+
                     a href: "mailto:#{@application.email}", 
                          @application.email
                     raw ")"
 
-                div class: "left", @m.chosen_tasks_label
+                if #@a.tasks > 0
+                    div class: "left", @m.chosen_tasks_label
                 div class: "right", ->
                     ul ->
                         for t in *chosen_tasks
@@ -35,7 +40,7 @@ class ApplyResult extends html.Widget
                         p ->
                             a class: "upload", ->
                                 span .select_files
-                                input 
+                                input
                                     required: "required", type: "file", name: "tasks[#{task.task}]",
                                     accept: table.concat [".#{x}" for x in *t.filetypes], ','
                             span class: "filename"

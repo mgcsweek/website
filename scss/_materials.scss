@@ -1,9 +1,127 @@
 #materials {
+    .content-body {
+        text-align: left;
+        vertical-align: middle;
+
+        ul {
+            padding-left: 0;
+        }
+
+        li {
+            margin-top: 6px;
+        }
+
+        h1 {
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 10px;
+            margin-top: 45px;
+            font-weight: bold;
+        }
+
+        h2 {
+            margin-top: 40px;
+        }
+    }
+
     main {
         text-align: center;
 
         div.parallax-heading {
             background-image: url(/static/images/materials-back.jpg)
         }
+    }
+
+    .edition-info-container {
+        @include body-font;
+        font-size: 45%;
+        text-transform: none;
+        margin-bottom: -2px;
+        margin-top: 20px;
+    }
+
+    .edition-info {
+        display: inline-block;
+    }
+
+    .edition-yt-link {
+        background-image: url(/static/images/youtube-icon-brand-color.svg);
+        background-repeat: no-repeat;
+        background-position: left center;
+        background-size: 30px auto;
+        padding-left: 40px;
+    }
+
+    .edition-date {
+        margin-right: 10px;
+    }
+
+    .tag {
+        display: inline-block;
+        padding: 0px 8px;
+        border-radius: 5px;
+        font-size: 70%;
+        color: $brand-color;
+        border: 1px solid $brand-color;
+        /*background-color: $brand-color;*/
+        /*line-height: 25px;*/
+        line-height: auto;
+        margin-left: 5px;
+    }
+
+    .tags {
+        /*margin-left: -5px;*/
+        /*margin-right: 4px;*/
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    #resource-filters {
+        background-color: $resource-filter-background;
+    }
+
+    #resource-filters-content {
+        @include button-font;
+        text-align: left;
+        max-width: $content-width;
+        margin: 0 auto;
+        padding: 30px 0;
+        font-size: 110%;
+    }
+
+    .resource-filter-tags {
+        margin-top: 10px;
+        margin-left: -9px;
+    }
+
+    .resource-filter-tag {
+        @include body-font;
+        font-size: 80%;
+        margin-top: 9px;
+        margin-left: 9px;
+        border-color: #ccc;
+        color: #ccc;
+        padding: 8px 10px;
+        transition: color 0.1s, background-color 0.1s;
+
+        &.active {
+            background-color: $brand-color;
+            border-color: $brand-color;
+            color: #333;
+        }
+    }
+
+    .resource-filter-tag-slug {
+        background-color: #444;
+        color: #bbb;
+        display: inline-block;
+    }
+
+    #resource-filter-reset {
+        display: inline-block;
+        margin-top: 17px;
+        font-size: 84%;
     }
 }

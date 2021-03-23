@@ -22,18 +22,18 @@ class Dashboard extends html.Widget
                     td ->
                         p class: "name", ->
                             raw app.name
-                            if app.security_data
-                                span app.security_data.user_id
-
                         p class: "email", app.email
 
                     td "#{app.school} / #{app.class}"
 
-                    for i, t in ipairs app.tasks
-                        if t
-                            td class: "task-col task check", ""
-                        else
-                            td class: "task-col task", ""
+                    if #app.tasks > 0
+                        for i, t in ipairs app.tasks
+                            if t
+                                td class: "task-col task check", ""
+                            else
+                                td class: "task-col task", ""
+                    else
+                        td class: "task-col", "None"
 
                     td app.applied_timestamp
                     td app.uploaded_timestamp

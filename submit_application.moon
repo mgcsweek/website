@@ -1,7 +1,6 @@
 config = (require 'lapis.config').get!
 csrf = require 'lapis.csrf'
-smtp = require 'resty.smtp'
-mime = require 'resty.smtp.mime'
+mail = require 'resty.mail'
 validation = require 'validation'
 import to_json from require 'lapis.util'
 import decode_with_secret, encode_with_secret from require 'lapis.util.encoding'
@@ -27,15 +26,24 @@ class SubmitApplication
                 else
                     errors.bad_request = true
 
-        ret = validate params, {
+        validations = {
                 { 'firstname', exists: true, max_length: 255, 'invalid_name' },
                 { 'lastname', exists: true, max_length: 255, 'invalid_name' },
                 { 'email', exists: true, max_length: 255, is_email: true, 'invalid_email' },
                 { 'class', one_of: model.form.classes, 'bad_request' }
-                { 'school', one_of: model.form.schools, 'bad_request' }
             }
 
-        errors.task_number_mismatch = true if #tasks < 1
+        if model.form.all_schools
+            table.insert(validations, { 'school', exists: true, 'bad_request' })
+        else
+            table.insert(validations, { 'school', one_of: model.form.schools, 'bad_request' })
+
+        ret = validate params, validations
+        if #model.tasks == 0
+            errors.task_number_mismatch = true if #tasks > 0
+        else
+            errors.task_number_mismatch = true if #tasks < 2
+
         if ret
             errors[e] = true for e in *ret
 
@@ -44,8 +52,11 @@ class SubmitApplication
             class_id = i if v == params.class
 
         local school_id
-        for i, v in pairs model.form.schools
-            school_id = i if v == params.school
+        if model.form.all_schools
+            school_id = params.school
+        else
+            for i, v in pairs model.form.schools
+                school_id = i if v == params.school
 
         err_array = { }
         for k, _ in pairs errors
@@ -90,27 +101,24 @@ class SubmitApplication
             local msg
             with model.email
                 txt = .text\gsub '%%1', url
-                txt = mime.b64 txt
-                txt = mime.wrp 0, txt
                 msg =
-                    headers:
-                        to: params.email
-                        from: config.smtp_from
-                        ['message-id']: 'MID-application.' .. appid .. '@csnedelja.mg.edu.rs'
-                        subject: mime.ew .subject, nil, { charset: 'utf-8' }
-                        ['content-transfer-encoding']: 'BASE64'
-                        ['content-type']: 'text/plain; charset=utf-8'
+                    from: config.smtp_from
+                    to: { params.email }
+                    subject: .subject,
+                    text: txt
 
-                    body: txt
-
-            ret, err = smtp.send
-                from: config.smtp_username
-                rcpt: params.email
-                user: config.smtp_username
+            mailer, err = mail.new
+                host: config.smtp_server,
+                port: config.smtp_port,
+                starttls: true,
+                username: config.smtp_username,
                 password: config.smtp_password
-                server: config.smtp_server
-                port: config.smtp_port
-                source: smtp.message(msg)
+
+            if not mailer
+                print err
+                return nil, { 'internal_error' }
+
+            ret, err = mailer\send msg
 
             if not ret
                 print err

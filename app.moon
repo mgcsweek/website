@@ -7,7 +7,6 @@ csrf = require "lapis.csrf"
 submit = require "submit_application"
 dashboard = require "dashboard"
 submit_newsletter = require "submit_newsletter"
-bridge = require "zbt-bridge"
 lfs = require "lfs"
 
 import after_dispatch from require "lapis.nginx.context"
@@ -15,7 +14,6 @@ import from_json, to_json from require "lapis.util"
 import capture_errors, assert_error, yield_error, respond_to from require "lapis.application"
 import json_requested from require "utils"
 import encode_with_secret from require 'lapis.util.encoding'
-import SecurityCredentials from require 'models'
 import p from require 'moon'
 
 capture_form_errors = (fn) ->
@@ -92,6 +90,8 @@ class CSWeek extends lapis.Application
                 "409_no_email", 409
             else
                 409, 409
+        elseif err[1] == 'bad_captcha'
+            400, 400
         elseif err[1] == 'too_frequent'
             "403_too_frequent", 403
         elseif err[1] == 'bad_token'
@@ -206,31 +206,6 @@ class CSWeek extends lapis.Application
                 @app.respond_to_form self, err, model, model_name, 'apply-result', filter
     }
 
-
-    [security: "/security"]: safe_route =>
-        model = assert_error content\get "security"
-        @m = model
-        unless @session.application_id
-            @error = model.errors.no_app_id
-            return {
-                layout: false
-                render: "security"
-            }
-
-        cred = bridge\get_security_credentials @session.application_id
-        if cred
-            @employee_id = cred.employee_id
-            @password = cred.password
-            @user = @session.name
-        else
-            @error = model.errors.internal
-
-        {
-            layout: false
-            render: "security"
-        }
-
-
     [apply_upload: "/prijava/upload/*"]: respond_to {
         GET: safe_route =>
             if config.applications_enabled
@@ -269,7 +244,10 @@ class CSWeek extends lapis.Application
         model = assert_error content\get "apply"
         @page_id = "dashboard"
         @m = { title: "mgcsweek dashb0ard" }
-        @dashboard = dashboard\fetch_data model
+        @dashboard, err = dashboard\fetch_data model
+        if @dashboard == nil
+            print err
+            yield_error "Failed to render dashboard: #{err}"
 
         render: "dashboard"
 

@@ -1,5 +1,4 @@
 #dashboard {
-    background-color: white;
     font-family: "Raleway", "Helvetica Neue", "Helvetica", Arial, sans-serif;
     line-height: 1.4;
 
@@ -59,15 +58,6 @@
                 font-weight: normal;
             }
         }
-
-        td.security {
-            border-right: 0px solid;
-
-            &:nth-child(7) {
-                border-right: 1px solid $brand-color;
-            }
-        }
-
 
         tr:nth-child(3) {
             th {
