@@ -20,7 +20,8 @@ class ApplyResult extends html.Widget
                          @application.email
                     raw ")"
 
-                div class: "left", @m.chosen_tasks_label
+                if #@a.tasks > 0
+                    div class: "left", @m.chosen_tasks_label
                 div class: "right", ->
                     ul ->
                         for t in *chosen_tasks
