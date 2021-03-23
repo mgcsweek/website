@@ -22,9 +22,6 @@ class Dashboard extends html.Widget
                     td ->
                         p class: "name", ->
                             raw app.name
-                            if app.security_data
-                                span app.security_data.user_id
-
                         p class: "email", app.email
 
                     td "#{app.school} / #{app.class}"

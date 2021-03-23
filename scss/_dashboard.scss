@@ -59,15 +59,6 @@
             }
         }
 
-        td.security {
-            border-right: 0px solid;
-
-            &:nth-child(7) {
-                border-right: 1px solid $brand-color;
-            }
-        }
-
-
         tr:nth-child(3) {
             th {
                 background-color: #cc9999;
