@@ -7,7 +7,7 @@ class ApplyResult extends html.Widget
         apply_content = capture ->
             h1 @m.subheading
             raw @m.text
-            details ->
+            div class: "details", ->
                 div class: "left", @m.info_label
                 div class: "right", ->
                     strong "#{@application.first_name} #{@application.last_name}"
