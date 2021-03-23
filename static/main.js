@@ -39,7 +39,7 @@ $(document).ready(function() {
                 }
                 if (typeof resp == 'undefined') {
                     resp = {
-                        response: '<p>Неочекивана грешка. Молимо вас контактирајте нас на kontakt@csnedelja.mg.edu.rs</p>',
+                        response: '<p>Неочекивана грешка. Молимо вас контактирајте нас на ni@ni.mg.edu.rs</p>',
                     };
                 }
                 if (window['grecaptcha']) {
