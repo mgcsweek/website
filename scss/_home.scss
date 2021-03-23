@@ -11,7 +11,7 @@ section#banner {
 
     p, h1, h2, h3 { 
         margin: 0 auto;
-        max-width: 960px;
+        max-width: $content-width;
     }
 
     p.duration {
@@ -52,7 +52,7 @@ section#cta {
     padding-top: 45px;
 
     h1, p {
-        max-width: 960px;
+        max-width: $content-width;
         margin: 0 auto;
     }
 
@@ -93,7 +93,7 @@ section#lecturers {
         @include content-heading;
     }
 
-    max-width: 960px;
+    max-width: $content-width;
     margin: 0 auto;
     text-align: center;
 
@@ -117,7 +117,7 @@ section#lecturers {
             padding: 27px 25px;
             margin-right: $lecturers-spacing-x;
             margin-bottom: $lecturers-spacing-y;
-            width: (960px - ($lecturers-per-row - 1) * $lecturers-spacing-x) / $lecturers-per-row - 1px;
+            width: ($content-width - ($lecturers-per-row - 1) * $lecturers-spacing-x) / $lecturers-per-row - 1px;
             position: relative;
             overflow: hidden;
 

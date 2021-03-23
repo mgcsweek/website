@@ -113,7 +113,7 @@
             $tasks-spacing-y: $tasks-spacing-x;
             li {
                 float: left;
-                width: (960px - ($tasks-per-row - 1) * $tasks-spacing-x) / $tasks-per-row - 1px;
+                width: ($content-width - ($tasks-per-row - 1) * $tasks-spacing-x) / $tasks-per-row - 1px;
                 margin-right: $tasks-spacing-x;
                 margin-bottom: $tasks-spacing-y;
                 box-sizing: border-box;

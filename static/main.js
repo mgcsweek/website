@@ -74,6 +74,89 @@ $(document).ready(function() {
         });
     }
 
+    var resourceFilterState = 'all';
+    var allTags = undefined;
+
+    function loadAllTags() {
+        if (allTags === undefined) {
+            allTags = new Set();
+            allTags.add('none');
+            $('.resource-filter-tag').each(function() {
+                allTags.add($(this).data('tag'))
+            });
+        }
+    }
+
+    function manipulateFilter(tag, toggle, elem) {
+        if (resourceFilterState == 'all') {
+            $('.resource-filter-tag').removeClass('active');
+        }
+        resourceFilterState = 'some';
+
+        if (!elem) {
+            elem = $(`.resource-filter-tag[data-tag="${tag}"]`);
+        } else {
+            elem = $(elem);
+        }
+
+        if (toggle) {
+            elem.toggleClass('active');
+        } else {
+            elem.addClass('active');
+        }
+
+        applyResourceFilters();
+    }
+
+    function applyResourceFilters() {
+        if (resourceFilterState == 'all') {
+            $('.resources li, .resources h2, .resources h1').show();
+            return;
+        } else {
+            $('.resources h2').hide();
+        }
+
+        loadAllTags();
+
+        var selected = [];
+        var notSelected = new Set(allTags);
+        $('.resource-filter-tag.active').each(function() {
+            var tag = $(this).data('tag');
+            selected.push(tag);
+            notSelected.delete(tag);
+        });
+
+        var notSelectedArr = Array.from(notSelected);
+        var selector = selected.map(x => `.resources .tagged-${x}`).join(', ');
+        var antiSelector = notSelectedArr.map(x => `.resources .tagged-${x}`).join(', ');
+        $(antiSelector).hide();
+        $(selector).show();
+    }
+
+    function resetResourceFilters() {
+        if (resourceFilterState != 'all') {
+            resourceFilterState = 'all';
+            $('.resource-filter-tag').addClass('active');
+            applyResourceFilters();
+        }
+    }
+
+    $('.resource-filter-tag').click(function() {
+        manipulateFilter($(this).data('tag'), /* toggle */ true, /* elem */ this);
+        return false;
+    });
+
+    $('#resource-filter-reset').click(function() {
+        resetResourceFilters();
+        return false;
+    });
+
+    $('.resource-tag').click(function() {
+        $('html, body').animate({scrollTop: $("#resource-filters").offset().top}, 500);
+        manipulateFilter($(this).data('tag'), /* toggle */ false);
+        return false;
+    });
+
     $('#hamburger-icon').click(function() {
         if ($('header nav ul.active').length > 0) {
             $('header nav ul').removeClass('active')

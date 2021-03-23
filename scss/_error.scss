@@ -26,7 +26,7 @@ body#error {
     p, pre {
         width: 100%;
         text-align: center;
-        max-width: 960px;
+        max-width: $content-width;
         margin-left: auto;
         margin-right: auto;
     }
