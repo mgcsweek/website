@@ -40,7 +40,7 @@
 
     table#applications {
         tr:nth-child(2n) {
-            background-color: #dfdfdf;
+            background-color: #333;
         }
 
         tr:nth-child(1) {
@@ -85,7 +85,7 @@
             &.email {
                 margin-top: 2px;
                 font-size: 90%;
-                color: #666;
+                color: #999;
             }
         }
 
