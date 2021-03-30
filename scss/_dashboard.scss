@@ -40,7 +40,7 @@
 
     table#applications {
         tr:nth-child(2n) {
-            background-color: #dfdfdf;
+            background-color: #333;
         }
 
         tr:nth-child(1) {
@@ -58,15 +58,6 @@
                 font-weight: normal;
             }
         }
-
-        td.security {
-            border-right: 0px solid;
-
-            &:nth-child(7) {
-                border-right: 1px solid $brand-color;
-            }
-        }
-
 
         tr:nth-child(3) {
             th {
@@ -94,7 +85,7 @@
             &.email {
                 margin-top: 2px;
                 font-size: 90%;
-                color: #666;
+                color: #999;
             }
         }
 

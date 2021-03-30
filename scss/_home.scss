@@ -20,6 +20,8 @@ section#banner {
         text-transform: uppercase;
         font-size: 150%;
         letter-spacing: 4px;
+        margin-top: 25px;
+        font-variant-numeric: lining-nums;
     }
 
     h1 {
@@ -29,14 +31,20 @@ section#banner {
         margin-top: 5px;
     }
 
-    h2 {
-        margin-top: 4px;
+    h2, .strikethrough-subtitle {
+        margin-top: 6px;
         letter-spacing: 1px;
         font-size: 200%;
     }
 
+    .strikethrough-subtitle {
+        font-size: 180%;
+        margin: 10px 0;
+        text-decoration: line-through;
+    }
+
     h3 {
-        margin-top: 105px;
+        margin-top: 95px;
         max-width: 680px;
         font-size: 140%;
         line-height: 1.3;
@@ -85,6 +93,41 @@ section#cta {
         min-width: 250px;
     }
 
+}
+
+section#video {
+    > h1 {
+        @include content-heading;
+        margin-top: 70px;
+        margin-bottom: 30px;
+    }
+
+    .video-wrapper {
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0;
+
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .buttons {
+        margin-top: 30px;
+    }
+
+    .button {
+        font-size: 110%;
+        margin: 0 10px;
+    }
+
+    max-width: $content-width;
+    margin: 0 auto;
+    text-align: center;
 }
 
 section#lecturers {
@@ -200,7 +243,7 @@ section#lecturers {
     > .button {
         font-size: 120%;
         min-width: 250px;
-        margin: 45px - $lecturers-spacing-y 0 60px;
+        margin: 45px - $lecturers-spacing-y 0 0;
     }
 
 }

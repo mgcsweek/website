@@ -1,6 +1,5 @@
 import Applications, ChosenTasks, Uploads from require 'models'
 import insert from table
-bridge = require "zbt-bridge"
 
 class Dashboard
     fetch_data: (apply_model) =>

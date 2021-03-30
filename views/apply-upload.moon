@@ -7,7 +7,7 @@ class ApplyResult extends html.Widget
         apply_content = capture ->
             h1 @m.subheading
             raw @m.text
-            details ->
+            div class: "details", ->
                 div class: "left", @m.info_label
                 div class: "right", ->
                     strong "#{@application.first_name} #{@application.last_name}"
@@ -20,7 +20,8 @@ class ApplyResult extends html.Widget
                          @application.email
                     raw ")"
 
-                div class: "left", @m.chosen_tasks_label
+                if #@a.tasks > 0
+                    div class: "left", @m.chosen_tasks_label
                 div class: "right", ->
                     ul ->
                         for t in *chosen_tasks

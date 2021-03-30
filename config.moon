@@ -28,8 +28,6 @@ config {'development', 'development-perftest'}, ->
     single_file_limit 15 * 1024 * 1024
 
     disable_email_confirmation true
-    security_new_user_url 'http://127.0.0.1:19222/new_user'
-    security_map_app_id_url 'http://127.0.0.1:19222/map_app_id'
 
     email_cooldown 20
     uploads_dir 'uploads'
@@ -62,12 +60,9 @@ config {'production', 'production-perftest' }, ->
     single_file_limit 15 * 1024 * 1024
 
     disable_email_confirmation true
-    security_new_user_url 'http://10.131.29.36:19222/new_user'
-    security_map_app_id_url 'http://10.131.29.36:19222/map_app_id'
-
     email_cooldown 30 * 60
     uploads_dir 'uploads'
-    applications_enabled false
+    applications_enabled true
 
 config {'development-perftest', 'production-perftest'}, ->
     code_cache 'on'

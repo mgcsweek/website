@@ -4,6 +4,7 @@ footer {
     background-repeat: no-repeat;
     background-size: 90px 90px;
     min-height: 205px;
+    margin-top: 75px;
 
     @include svg-fallback-background("/static/images/logo-white.svg", "/static/images/logo-white.png");
     @include retina-background-fallback("/static/images/logo-white@2x.png");

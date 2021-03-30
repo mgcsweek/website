@@ -28,26 +28,29 @@ class Materials extends html.Widget
                         a href: "#", class: "tag resource-filter-tag active", ["data-tag"]: tag, c.title
                 a id: "resource-filter-reset", href: "#", @m.filtering['reset-button']
 
-        section id: "about-text", class: "content-body", ->
+        section class: "content-body", ->
             div class: "resources", ->
-                for section in *@m.content
+                for edition in *@m.content
                     edition_tags = {}
-                    for day in *section.days
-                        for lecture in *day.lectures
+                    for section in *edition.sections
+                        for lecture in *section.lectures
                             if not lecture.tags
                                 continue
                             for tag in *lecture.tags
                                 edition_tags[tag] = true
 
-                    section_class = tag_classes [t for t, _ in pairs edition_tags]
-                    h1 class: section_class, section.edition, ->
-                        if section.youtube ~= nil
-                            a class: "day-yt-link", href: section.youtube, @m['yt-link-text']
+                    edition_class = tag_classes [t for t, _ in pairs edition_tags]
+                    h1 class: edition_class, edition.edition, ->
+                        div class: "edition-info-container", ->
+                            if edition.date
+                                span class: "edition-info edition-date", edition.date
+                            if edition.youtube
+                                a class: "edition-info edition-yt-link", href: edition.youtube, @m['yt-link-text']
 
-                    for i, day in ipairs section.days
-                        h2 day.timestamp
+                    for i, section in ipairs edition.sections
+                        h2 section.name
                         ul ->
-                            for lecture in *day.lectures
+                            for lecture in *section.lectures
                                 cls = tag_classes lecture.tags
                                 li class: cls, ->
                                     if lecture.url
