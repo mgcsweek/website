@@ -5,11 +5,35 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.1"
    id="svg4226"
    viewBox="0 0 1659.2597 1175.9882"
    height="331.89001mm"
-   width="468.27997mm">
+   width="468.27997mm"
+   sodipodi:docname="youtube-icon-brand-color.svg"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1003"
+     id="namedview10"
+     showgrid="false"
+     inkscape:zoom="0.18813964"
+     inkscape:cx="-66.482472"
+     inkscape:cy="627.19373"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4226" />
   <defs
      id="defs4228" />
   <metadata
@@ -20,28 +44,28 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <g
      transform="translate(486.77345,72.775393)"
      id="layer1"
-     style="fill:#e37100;fill-opacity:1">
+     style="fill:#820f27;fill-opacity:1">
     <g
        transform="matrix(0.03543307,0,0,0.03543307,-495.63099,-81.632997)"
        id="g4268"
-       style="clip-rule:evenodd;fill-rule:evenodd;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision;fill:#e37100;fill-opacity:1">
+       style="clip-rule:evenodd;fill-rule:evenodd;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision;fill:#820f27;fill-opacity:1">
       <g
          id="Capa_x0020_1"
-         style="fill:#e37100;fill-opacity:1">
+         style="fill:#820f27;fill-opacity:1">
         <metadata
            id="CorelCorpID_0Corel-Layer" />
         <path
            id="rect4258"
            transform="matrix(28.222223,0,0,28.222223,13987.808,2303.8646)"
            d="m -258.44141,-72.775391 c -126.49521,0 -228.33203,101.836822 -228.33203,228.332031 l 0,719.32617 c 0,126.49519 101.83682,228.33009 228.33203,228.33009 l 1202.59766,0 c 126.49525,0 228.33005,-101.8349 228.33005,-228.33009 l 0,-719.32617 c 0,-126.495209 -101.8348,-228.332031 -228.33005,-228.332031 l -1202.59766,0 z m 420.0586,273.615231 502.33398,330.20118 -502.33398,290.01953 0,-620.22071 z"
-           style="fill:#e37100;fill-opacity:1" />
+           style="fill:#820f27;fill-opacity:1" />
       </g>
     </g>
   </g>

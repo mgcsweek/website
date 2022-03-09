@@ -11,10 +11,11 @@ class ApplyResult extends html.Widget
                 div class: "left", @m.info_label
                 div class: "right", ->
                     strong "#{@application.first_name} #{@application.last_name}"
-                    if type(@application.school) == 'number'
-                        raw ", #{@a.form.schools[@application.school]}, #{@a.form.classes[@application.class]} #{@a.form.class_suffix} ("
+                    school_num = tonumber(@application.school)
+                    if school_num != nil
+                        raw ", #{@a.form.schools[school_num]}, #{@a.form.classes[@application.class]} #{@a.form.class_suffix} ("
                     else
-                        raw ", #{html.escape @application.school}, #{@a.form.classes[@application.class]} #{@a.form.class_suffix} ("
+                        raw "NOTNUM, #{html.escape @application.school}, #{@a.form.classes[@application.class]} #{@a.form.class_suffix} ("
 
                     a href: "mailto:#{@application.email}", 
                          @application.email
@@ -22,17 +23,29 @@ class ApplyResult extends html.Widget
 
                 if #@a.tasks > 0
                     div class: "left", @m.chosen_tasks_label
-                div class: "right", ->
-                    ul ->
-                        for t in *chosen_tasks
-                            t = @a.tasks[t.task]
-                            li t.name
+                    div class: "right", ->
+                        ul ->
+                            for t in *chosen_tasks
+                                t = @a.tasks[t.task]
+                                li t.name
 
             form enctype: "multipart/form-data", method: "POST", ->
                 with @m.form
                     input type: "hidden", name: "csrf-token", value: @csrf_token
-                    label for: "pitch", id: "pitch-label", .pitch_label
-                    textarea required: "required", id: "pitch", name: "pitch", placeholder: .pitch_placeholder
+                    
+                    if not .multipitch
+                        label for: "pitch", id: "pitch-label", .pitch_label
+                        textarea required: "required", id: "pitch", name: "pitch", placeholder: .pitch_placeholder
+                    else
+                        i = 1
+                        for p_label in *.pitch_label
+                            p_name = "pitch#{i}"
+                            p_label_id = "pitch-label#{i}"
+                            label for: p_name, id: p_label_id, p_label
+                            textarea required: "required", id: p_name, name: p_name, placeholder: .pitch_placeholder
+                            i += 1
+                    
+                    
                     for task in *chosen_tasks
                         t = @a.tasks[task.task]
                         h2 t.name
