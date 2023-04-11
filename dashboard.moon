@@ -16,9 +16,10 @@ class Dashboard
             if apply_model.form.all_schools
                 school = a.school
             else
-                school = apply_model.form.schools[a.school]
+                school = apply_model.form.schools[tonumber(a.school)]
 
             model_app =
+                id: a.id
                 name: "#{a.last_name} #{a.first_name}"
                 email: a.email
                 class: apply_model.form.classes[a.class]

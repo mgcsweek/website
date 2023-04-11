@@ -40,11 +40,11 @@
 
     table#applications {
         tr:nth-child(2n) {
-            background-color: #333;
+            background-color: #ddd;
         }
 
         tr:nth-child(1) {
-            td:nth-child(1), th:nth-child(1) {
+            td:nth-child(2), th:nth-child(2) {
                 width: 25%;
             }
         }

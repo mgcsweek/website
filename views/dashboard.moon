@@ -7,6 +7,7 @@ class Dashboard extends html.Widget
 
         element "table", id: "applications", ->
             tr ->
+                th class: "id-col", rowspan: 2, "ID"
                 th rowspan: 2, "Info"
                 th rowspan: 2, "School/Class"
                 th colspan: #@dashboard.tasks, "Tasks"
@@ -19,6 +20,8 @@ class Dashboard extends html.Widget
 
             for app in *@dashboard.apps
                 tr ->
+                    td "#{app.id}"
+
                     td ->
                         p class: "name", ->
                             raw app.name

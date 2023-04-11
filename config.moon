@@ -52,7 +52,7 @@ config {'production', 'production-perftest' }, ->
     code_cache 'on'
     pid_file '/var/run/nginx/nginx.pid'
     log_file '/var/log/nginx/error.log'
-    log_level 'info'
+    log_level 'debug'
     listen_address '127.0.0.1'
     secret secrets.app_secret
     content_prefix 'content/'

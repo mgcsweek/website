@@ -23,7 +23,7 @@ class Apply extends html.Widget
                                 option value: c, c
                     else
                         input class: "text", required: "required", type: "text", placeholder: .school_placeholder, id: "applicant-school", name: "school"
-
+                        
                     label for: "applicant-class", .class_label
                     element "select", required: "required", name: "class", ->
                         for c in *.classes

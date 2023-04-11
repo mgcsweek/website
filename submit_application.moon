@@ -158,7 +158,7 @@ class SubmitApplication
         return nil, { 'no_such_application' } if not appl
 
         validation = {
-            { 'pitch', exists: true, 'missing_pitch' }
+            -- { 'pitch', exists: true, 'missing_pitch' }
         }
 
         import insert from table
@@ -188,7 +188,13 @@ class SubmitApplication
 
             f.content = nil
 
-        ret = SubmitApplication.store_file self, 'txt', post_params['pitch'], appl.id, "pitch"
+        -- hardcoded for multipitch with 5 pitch fields
+        -- TODO write properly
+        pitch = ""
+        for i = 1, 5
+            pitch = pitch .. ">>> Pitanje #{i}" .. "\n" .. post_params["pitch#{i}"] .. "\n\n"
+
+        ret = SubmitApplication.store_file self, 'txt', pitch, appl.id, "pitch"
         return nil, { 'internal_error' } if not ret
 
         true
