@@ -7,9 +7,9 @@
    width="602.20599pt"
    inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
    sodipodi:docname="logotype.svg"
-   inkscape:export-filename="logotype.png"
-   inkscape:export-xdpi="71.736252"
-   inkscape:export-ydpi="71.736252"
+   inkscape:export-filename="logotype@2x.png"
+   inkscape:export-xdpi="143.4725"
+   inkscape:export-ydpi="143.4725"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -36,7 +36,7 @@
      fit-margin-right="0"
      fit-margin-bottom="0"
      inkscape:zoom="0.70828725"
-     inkscape:cx="345.90486"
+     inkscape:cx="208.95477"
      inkscape:cy="9.8829959"
      inkscape:window-x="0"
      inkscape:window-y="27"
@@ -134,21 +134,21 @@
      id="path10-7"
      inkscape:connector-curvature="0"
      sodipodi:nodetypes="cccccccccccccccscccsccscscssscscccccccccccsccccccccscccsccccccsscccsccccccccscccscccscccscccsccccccccccsccccccccscccssccscscccsccsccccsscscccccccscccssscccsscccccccssccssccccccccccscccccccccsscccscssccccccscccccscccccccccccccccccccccccccccccccccccsscccccccccsscccscccsccssccccc"
-     style="fill:#ffd700;fill-opacity:1" />
+     style="fill:#e8b511;fill-opacity:1" />
   <path
      d="M 44.441406,88.718752 C 19.898438,88.718752 0,68.859376 0,44.359376 0,19.859376 19.898438,0 44.441406,0 c 13.785157,0 44.44141,0 44.44141,0 0,0 0,33.617189 0,44.359376 0,24.5 -19.894536,44.359376 -44.44141,44.359376 z M 64.425782,14.54297 H 53.234375 v 11.125 h 11.191407 z m 0.0039,15.214844 H 53.437494 v 19.90625 L 37.367181,29.757814 H 28.796868 V 68.910157 H 39.789056 V 49.664064 L 55.6914,68.910157 h 8.738282 z m 0,0"
      id="path7-6"
      inkscape:connector-curvature="0"
-     style="fill:#ffd700;fill-opacity:1" />
+     style="fill:#e8b511;fill-opacity:1" />
   <text
      xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;font-family:'Arial Unicode MS';-inkscape-font-specification:'Arial Unicode MS, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0.2025px;word-spacing:0px;fill:#ffd700;fill-opacity:1;stroke-width:1.092;stroke-dasharray:none"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;font-family:'Arial Unicode MS';-inkscape-font-specification:'Arial Unicode MS, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0.2025px;word-spacing:0px;fill:#e8b511;fill-opacity:1;stroke-width:1.092;stroke-dasharray:none"
      x="546.38849"
      y="28.590094"
      id="text3517"><tspan
        sodipodi:role="line"
        id="tspan3515"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;font-family:'Arial Unicode MS';-inkscape-font-specification:'Arial Unicode MS, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:1.092;stroke-dasharray:none"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;font-family:'Arial Unicode MS';-inkscape-font-specification:'Arial Unicode MS, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:1.092;stroke-dasharray:none;fill:#e8b511;fill-opacity:1"
        x="546.38849"
        y="28.590094">v8.0</tspan></text>
 </svg>
