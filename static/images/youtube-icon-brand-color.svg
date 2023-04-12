@@ -6,7 +6,7 @@
    height="331.89001mm"
    width="468.27997mm"
    sodipodi:docname="youtube-icon-brand-color.svg"
-   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -26,12 +26,12 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="0.64892231"
-     inkscape:cx="617.94763"
-     inkscape:cy="-247.33315"
+     inkscape:cx="468.46902"
+     inkscape:cy="610.24254"
      inkscape:window-width="1920"
-     inkscape:window-height="1001"
-     inkscape:window-x="-9"
-     inkscape:window-y="-9"
+     inkscape:window-height="1053"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg4226" />
   <defs
@@ -51,14 +51,14 @@
   <g
      transform="translate(486.77345,72.775393)"
      id="layer1"
-     style="fill:#ffd700;fill-opacity:1">
+     style="fill:#e8b511;fill-opacity:1">
     <g
        transform="matrix(0.03543307,0,0,0.03543307,-495.63099,-81.632997)"
        id="g4268"
-       style="clip-rule:evenodd;fill-rule:evenodd;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision;fill:#ffd700;fill-opacity:1">
+       style="clip-rule:evenodd;fill-rule:evenodd;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision;fill:#e8b511;fill-opacity:1">
       <g
          id="Capa_x0020_1"
-         style="fill:#ffd700;fill-opacity:1"
+         style="fill:#e8b511;fill-opacity:1"
          inkscape:label="Capa 1">
         <metadata
            id="CorelCorpID_0Corel-Layer" />
@@ -66,7 +66,7 @@
            id="rect4258"
            transform="matrix(28.222223,0,0,28.222223,13987.808,2303.8646)"
            d="m -258.44141,-72.775391 c -126.49521,0 -228.33203,101.836822 -228.33203,228.332031 l 0,719.32617 c 0,126.49519 101.83682,228.33009 228.33203,228.33009 l 1202.59766,0 c 126.49525,0 228.33005,-101.8349 228.33005,-228.33009 l 0,-719.32617 c 0,-126.495209 -101.8348,-228.332031 -228.33005,-228.332031 l -1202.59766,0 z m 420.0586,273.615231 502.33398,330.20118 -502.33398,290.01953 0,-620.22071 z"
-           style="fill:#ffd700;fill-opacity:1" />
+           style="fill:#e8b511;fill-opacity:1" />
       </g>
     </g>
   </g>
