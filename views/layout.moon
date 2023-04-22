@@ -19,7 +19,7 @@ class DefaultLayout extends html.Widget
                 link rel: "manifest", href: "/manifest.json?v=3"
                 link rel: "mask-icon", color: "820f27", href: "/safari-pinned-tab.svg?v=6"
                 link rel: "shortcut icon", href: "/favicon.ico?v=6"
-                meta name: "theme-color", content: "#820f27"
+                meta name: "theme-color", content: "#e8b511"
 
                 title (@m and @m.title) or "MG CS Week"
 
