@@ -17,9 +17,9 @@ class DefaultLayout extends html.Widget
                 link rel: "icon", type: "image/png", href: "/favicon-32x32.png?v=6", sizes: "32x32"
                 link rel: "icon", type: "image/png", href: "/favicon-16x16.png?v=6", sizes: "16x16"
                 link rel: "manifest", href: "/manifest.json?v=3"
-                link rel: "mask-icon", color: "820f27", href: "/safari-pinned-tab.svg?v=6"
+                link rel: "mask-icon", color: "8192be", href: "/safari-pinned-tab.svg?v=6"
                 link rel: "shortcut icon", href: "/favicon.ico?v=6"
-                meta name: "theme-color", content: "#e8b511"
+                meta name: "theme-color", content: "#8192be"
 
                 title (@m and @m.title) or "MG CS Week"
 
