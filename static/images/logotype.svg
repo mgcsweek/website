@@ -36,8 +36,8 @@
      fit-margin-right="0"
      fit-margin-bottom="0"
      inkscape:zoom="1.5139193"
-     inkscape:cx="344.47015"
-     inkscape:cy="107.00703"
+     inkscape:cx="345.13068"
+     inkscape:cy="107.00702"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -210,8 +210,5 @@
      y="28.590094"
      id="text3517"><tspan
        sodipodi:role="line"
-       id="tspan3515"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;font-family:'Arial Unicode MS';-inkscape-font-specification:'Arial Unicode MS, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:1.092;stroke-dasharray:none;fill:url(#linearGradient6238);fill-opacity:1"
-       x="546.38849"
-       y="28.590094">v8.0</tspan></text>
+       id="tspan343">v9.0</tspan></text>
 </svg>
