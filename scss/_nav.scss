@@ -1,8 +1,8 @@
 header {
     h1 {
         @include hide-text;
-        @include svg-fallback-background("/static/images/logotype.svg", "/static/images/logotype.png");
-        @include retina-background-fallback("/static/images/logotype@2x.png");
+        @include svg-fallback-background("/static/images/logotype.svg?v=9", "/static/images/logotype.png?v=9");
+        @include retina-background-fallback("/static/images/logotype@2x.png?v=9");
 
         background-color: transparent;
         background-repeat: no-repeat;

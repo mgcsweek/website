@@ -74,7 +74,7 @@ footer {
 
         li.facebook {
             .icon {
-                @include svg-fallback-background("/static/images/facebook-icon.svg", "/static/images/logo-white.png");
+                @include svg-fallback-background("/static/images/facebook-icon.svg?v=9", "/static/images/logo-white.png");
                 width: 8px;
                 height: 20px;
                 background-size: 8px auto;
@@ -83,7 +83,7 @@ footer {
 
         li.youtube {
             .icon {
-                @include svg-fallback-background("/static/images/youtube-icon.svg", "/static/images/logo-white.png");
+                @include svg-fallback-background("/static/images/youtube-icon.svg?v=9", "/static/images/logo-white.png");
                 width: 20px;
                 height: 15px;
                 background-size: 20px auto;
