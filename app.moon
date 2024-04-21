@@ -46,6 +46,7 @@ safe_route = (fn) ->
 class CSWeek extends lapis.Application
     layout: require "views.layout"
     error_page: require "views.error"
+	headers: {["Cache-Control"]: "no-cache"}
 
     handle_error: (err, trace, code = 500) =>
         @m, errpg = content\get "error"
