@@ -31,7 +31,7 @@ config {'development', 'development-perftest'}, ->
 
     email_cooldown 20
     uploads_dir 'uploads'
-    applications_enabled true
+    applications_enabled false
 
 config {'production', 'production-perftest' }, ->
     mysql ->
@@ -62,7 +62,7 @@ config {'production', 'production-perftest' }, ->
     disable_email_confirmation true
     email_cooldown 30 * 60
     uploads_dir 'uploads'
-    applications_enabled true
+    applications_enabled false
 
 config {'development-perftest', 'production-perftest'}, ->
     code_cache 'on'
